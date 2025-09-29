@@ -87,8 +87,8 @@ export default function ProgramCard({
           : isFutureProgram
           ? 'bg-gray-900 border-gray-600 opacity-75' // Future programs - no hover, dimmed
           : isUpcoming
-          ? 'bg-gray-800 border-gray-600 hover:bg-gray-700'
-          : 'bg-gray-800 border-gray-700 hover:bg-gray-750'
+          ? 'bg-gray-800 border-gray-600 hover:bg-purple-800/30'
+          : 'bg-gray-800 border-gray-700 hover:bg-purple-800/30'
       } ${
         onClick && !isFutureProgram
           ? 'cursor-pointer'
@@ -133,18 +133,6 @@ export default function ProgramCard({
           <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">
             SELECTED
           </span>
-        )}
-        {canPlayFromStart && (
-          <button
-            className="text-xs bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 rounded-full transition-colors flex items-center space-x-1"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick?.(program);
-            }}
-          >
-            <span>▶</span>
-            <span>PLAY</span>
-          </button>
         )}
       </div>
 

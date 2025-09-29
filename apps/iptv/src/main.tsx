@@ -1,10 +1,12 @@
-import { StrictMode, useState } from 'react';
+import { StrictMode, useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import {
   RouterProvider,
   createRouter,
   createRootRoute,
   createRoute,
+  useLocation,
+  useNavigate,
 } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet } from '@tanstack/react-router';
@@ -13,7 +15,9 @@ import PlaylistSelector from './components/PlaylistSelector';
 import ChannelList from './components/ChannelList';
 import VideoPlayer from './components/VideoPlayer';
 import Settings from './components/Settings';
+import ChannelEpg from './components/ChannelEpg';
 import { useEpg } from './hooks/useEpg';
+import { usePlaylist } from './hooks/usePlaylist';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,82 +35,214 @@ const queryClient = new QueryClient({
 });
 
 // App version
-const APP_VERSION = 'v0.1-alpha';
+const APP_VERSION = 'v1.0.0';
 
 // Define root component
 function RootComponent() {
   const [showSettings, setShowSettings] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState<any>(null);
+  const { hasData: hasEpgData } = useEpg();
+  const { playlist } = usePlaylist();
+  const location = useLocation();
+
+  // Get current channel if on player page
+  const channelId = location.pathname.startsWith('/player/')
+    ? location.pathname.split('/player/')[1]
+    : null;
+  const channel = channelId
+    ? playlist?.channels.find((c) => c.id === channelId)
+    : null;
+
+  // Handle EPG program play
+  const handleEpgProgramPlay = (program: any) => {
+    // Dispatch a custom event that the VideoPlayer can listen to
+    window.dispatchEvent(
+      new CustomEvent('epg-program-play', {
+        detail: { program, channel },
+      })
+    );
+  };
+
+  // Listen for program selection changes from VideoPlayer
+  useEffect(() => {
+    const handleProgramSelected = (event: CustomEvent) => {
+      setSelectedProgram(event.detail.program);
+    };
+
+    window.addEventListener(
+      'program-selected',
+      handleProgramSelected as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        'program-selected',
+        handleProgramSelected as EventListener
+      );
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <header className="bg-gray-800 border-b border-gray-700 p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <h1 className="text-2xl font-bold">IPTV Player</h1>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200 border border-blue-700">
-              {APP_VERSION}
-            </span>
+    <div className="h-screen bg-gray-900 text-white flex gap-4 p-4 overflow-hidden">
+      {/* Left side - Header + Main content */}
+      <div className="flex-1 flex flex-col gap-4 overflow-hidden">
+        <header className="bg-gray-800 border-b border-gray-700 p-4 flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <h1 className="text-2xl font-bold">IPTV Player</h1>
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200 border border-blue-700">
+                {APP_VERSION}
+              </span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <BackToChannelsButton />
+              <button
+                onClick={() => setShowSettings(true)}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                title="Settings"
+              >
+                ⚙️ Settings
+              </button>
+            </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <EpgStatusIndicator />
-            <button
-              onClick={() => setShowSettings(true)}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
-              title="Settings"
-            >
-              ⚙️ Settings
-            </button>
-          </div>
+        </header>
+        <main className="flex-1 overflow-hidden">
+          <Outlet />
+        </main>
+      </div>
+
+      {/* EPG Sidebar */}
+      {hasEpgData && channel && (
+        <div className="w-[500px] flex-shrink-0 h-full">
+          <ChannelEpg
+            channel={channel}
+            showCurrentOnly={false}
+            onProgramPlay={handleEpgProgramPlay}
+            selectedProgram={selectedProgram}
+            epgStatus={<EpgStatusIndicator />}
+          />
         </div>
-      </header>
-      <main className="container mx-auto p-4">
-        <Outlet />
-      </main>
+      )}
+
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}
     </div>
   );
 }
 
-function EpgStatusIndicator() {
-  const { isLoading, hasData, error, settings } = useEpg();
+function BackToChannelsButton() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  // Only show on player page
+  if (location.pathname.startsWith('/player/')) {
+    return (
+      <button
+        onClick={() => navigate({ to: '/channels' })}
+        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded transition-colors text-sm"
+        title="Back to Channels"
+      >
+        Back to Channels
+      </button>
+    );
+  }
+
+  return null;
+}
+
+function EpgStatusIndicator() {
+  const {
+    isLoading,
+    isFetching,
+    hasData,
+    error,
+    settings,
+    refreshEpg,
+    canReload,
+    epgLoadedAt,
+  } = useEpg();
+
+  const formatTimeAgo = (date: Date): string => {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return 'just now';
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays < 7) return `${diffDays}d ago`;
+
+    return date.toLocaleDateString('pl-PL', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  // Gray: EPG not configured
   if (!settings.epgUrl) {
     return (
       <div className="flex items-center space-x-2 text-sm">
-        <span className="text-yellow-400">⚠</span>
+        <span className="text-gray-500">●</span>
         <span className="text-gray-400">EPG not configured</span>
       </div>
     );
   }
 
-  if (isLoading) {
+  // Yellow: Loading/Processing
+  if (isLoading || isFetching) {
     return (
       <div className="flex items-center space-x-2 text-sm">
-        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-500"></div>
-        <span className="text-gray-400">Processing EPG...</span>
+        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-yellow-500"></div>
+        <span className="text-yellow-400">Processing EPG...</span>
       </div>
     );
   }
 
+  // Red: Error
   if (error) {
     return (
-      <div className="flex items-center space-x-2 text-sm">
-        <span className="text-red-400">⚠</span>
-        <span className="text-gray-400">EPG unavailable</span>
+      <div className="flex items-center space-x-3 text-sm">
+        <div className="flex items-center space-x-2">
+          <span className="text-red-500">●</span>
+          <span className="text-red-400">EPG failed</span>
+        </div>
       </div>
     );
   }
 
+  // Green: EPG loaded successfully
   if (hasData) {
     return (
-      <div className="flex items-center space-x-2 text-sm">
-        <span className="text-green-400">●</span>
-        <span className="text-gray-400">EPG loaded</span>
+      <div className="flex items-center space-x-3 text-sm">
+        <div className="flex items-center space-x-2">
+          <span className="text-green-500">●</span>
+          <span className="text-green-400">
+            EPG loaded {epgLoadedAt && `(${formatTimeAgo(epgLoadedAt)})`}
+          </span>
+        </div>
       </div>
     );
   }
 
-  return null;
+  // Gray: No cache - show Load button
+  return (
+    <div className="flex items-center space-x-3 text-sm">
+      <div className="flex items-center space-x-2">
+        <span className="text-gray-500">●</span>
+        <span className="text-gray-400">No EPG cache</span>
+      </div>
+      <button
+        onClick={refreshEpg}
+        disabled={!canReload}
+        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Load EPG
+      </button>
+    </div>
+  );
 }
 
 function HomeComponent() {

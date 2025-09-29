@@ -1,7 +1,23 @@
 import type { EpgData, EpgChannel, EpgProgram } from '../types/epg';
 import * as pako from 'pako';
+import localforage from 'localforage';
 
-export async function fetchAndParseEpg(url: string): Promise<EpgData> {
+// Configure localforage for EPG storage
+const epgStore = localforage.createInstance({
+  name: 'iptv-epg',
+  storeName: 'parsed-epg',
+  description: 'Parsed EPG data cache',
+});
+
+async function fetchWithCorsProxy(url: string): Promise<Response> {
+  // List of more reliable CORS proxy services for EPG
+  const corsProxies = [
+    'https://corsproxy.io/?',
+    'https://api.codetabs.com/v1/proxy?quest=',
+    'https://thingproxy.freeboard.io/fetch/',
+  ];
+
+  // Try direct fetch first
   try {
     const response = await fetch(url, {
       headers: {
@@ -10,8 +26,143 @@ export async function fetchAndParseEpg(url: string): Promise<EpgData> {
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    if (response.ok) {
+      return response;
+    }
+  } catch (directError) {
+    console.log('EPG direct fetch failed, trying CORS proxies...');
+  }
+
+  // Try CORS proxies
+  for (let i = 0; i < corsProxies.length; i++) {
+    const proxyUrl = corsProxies[i] + encodeURIComponent(url);
+
+    try {
+      const response = await fetch(proxyUrl, {
+        headers: {
+          Accept: 'application/gzip, application/octet-stream, */*',
+        },
+      });
+
+      if (response.ok) {
+        console.log(`EPG loaded via proxy ${i + 1}/${corsProxies.length}`);
+        return response;
+      }
+    } catch (proxyError) {
+      // Continue to next proxy
+    }
+  }
+
+  throw new Error('All EPG fetch attempts failed (direct and proxies)');
+}
+
+// Cache utilities for parsed EPG data (using IndexedDB via localforage)
+export async function saveParsedEpgCache(
+  url: string,
+  epgData: EpgData
+): Promise<void> {
+  try {
+    const cacheKey = `iptv-epg-parsed-${btoa(url)}`;
+
+    // Convert Maps and Dates to serializable format
+    const serializableData = {
+      channels: Array.from(epgData.channels.entries()),
+      programs: epgData.programs,
+      generatedAt: epgData.generatedAt.toISOString(),
+    };
+
+    const cacheData = {
+      data: serializableData,
+      timestamp: Date.now(),
+      url: url,
+    };
+
+    const jsonString = JSON.stringify(cacheData);
+    const sizeInMB = (jsonString.length / (1024 * 1024)).toFixed(2);
+
+    await epgStore.setItem(cacheKey, cacheData);
+    console.log(`✅ Saved EPG cache (${sizeInMB} MB) to IndexedDB`);
+  } catch (error) {
+    console.error('Failed to save parsed EPG cache:', error);
+  }
+}
+
+export async function loadParsedEpgCache(
+  url: string
+): Promise<{ data: EpgData; loadedAt: Date } | null> {
+  try {
+    const cacheKey = `iptv-epg-parsed-${btoa(url)}`;
+    const cachedData = await epgStore.getItem<any>(cacheKey);
+
+    if (!cachedData) return null;
+
+    // Reconstruct EpgData with proper Date objects and Map
+    const channels = new Map();
+    for (const [id, channelData] of cachedData.data.channels) {
+      channels.set(id, {
+        ...channelData,
+        programs: channelData.programs.map((p: any) => ({
+          ...p,
+          start: new Date(p.start),
+          stop: new Date(p.stop),
+        })),
+      });
+    }
+
+    return {
+      data: {
+        channels,
+        programs: cachedData.data.programs.map((p: any) => ({
+          ...p,
+          start: new Date(p.start),
+          stop: new Date(p.stop),
+        })),
+        generatedAt: new Date(cachedData.data.generatedAt),
+      },
+      loadedAt: new Date(cachedData.timestamp),
+    };
+  } catch (error) {
+    console.error('Failed to load parsed EPG cache:', error);
+    return null;
+  }
+}
+
+export async function clearParsedEpgCache(url: string): Promise<void> {
+  try {
+    const cacheKey = `iptv-epg-parsed-${btoa(url)}`;
+    await epgStore.removeItem(cacheKey);
+    console.log('Cleared parsed EPG cache from IndexedDB');
+  } catch (error) {
+    console.error('Failed to clear parsed EPG cache:', error);
+  }
+}
+
+export async function fetchAndParseEpg(
+  url: string,
+  originalUrl?: string
+): Promise<EpgData> {
+  try {
+    // Check if URL already contains a proxy to avoid double-proxying
+    let response: Response;
+    if (
+      url.includes('corsproxy.io') ||
+      url.includes('codetabs.com') ||
+      url.includes('thingproxy.freeboard.io') ||
+      url.includes('proxy')
+    ) {
+      // URL is already proxied, use direct fetch
+      response = await fetch(url, {
+        headers: {
+          Accept:
+            'application/xml, text/xml, application/gzip, application/octet-stream, */*',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+    } else {
+      // Use proxy fallback for CORS
+      response = await fetchWithCorsProxy(url);
     }
 
     const arrayBuffer = await response.arrayBuffer();
@@ -19,15 +170,23 @@ export async function fetchAndParseEpg(url: string): Promise<EpgData> {
     // Decompress gzip data
     const uint8Array = new Uint8Array(arrayBuffer);
 
+    let epgData: EpgData;
     try {
       const decompressed = pako.ungzip(uint8Array, { to: 'string' });
-      return await parseXmltvData(decompressed);
+      epgData = await parseXmltvData(decompressed);
     } catch (decompError) {
       // Try to parse as plain text in case it's not compressed
       const textDecoder = new TextDecoder('utf-8');
       const plainText = textDecoder.decode(uint8Array);
-      return await parseXmltvData(plainText);
+      epgData = await parseXmltvData(plainText);
     }
+
+    // Save parsed data to cache using the original URL as key (not the proxied URL)
+    const cacheKey = originalUrl || url;
+    saveParsedEpgCache(cacheKey, epgData);
+    console.log('💾 Saved EPG cache with key:', cacheKey);
+
+    return epgData;
   } catch (error) {
     console.error('Error fetching EPG:', error);
     throw error;
@@ -183,6 +342,20 @@ export async function parseXmltvData(xmlData: string): Promise<EpgData> {
   channels.forEach((channel) => {
     channel.programs.sort((a, b) => a.start.getTime() - b.start.getTime());
   });
+
+  // Find earliest and latest program dates
+  if (programs.length > 0) {
+    const sortedByDate = programs.sort((a, b) => a.start.getTime() - b.start.getTime());
+    const earliest = sortedByDate[0];
+    const latest = sortedByDate[sortedByDate.length - 1];
+
+    console.log('📅 EPG Date Range:');
+    console.log(`  Earliest program: ${earliest.title} at ${earliest.start.toISOString()} (${earliest.start.toLocaleString('pl-PL')})`);
+    console.log(`  Latest program: ${latest.title} at ${latest.start.toISOString()} (${latest.start.toLocaleString('pl-PL')})`);
+
+    const daysDiff = Math.ceil((latest.start.getTime() - earliest.start.getTime()) / (1000 * 60 * 60 * 24));
+    console.log(`  Total EPG span: ${daysDiff} days`);
+  }
 
   // Log some example programs for today
   const today = new Date();

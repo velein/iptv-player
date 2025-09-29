@@ -1,9 +1,9 @@
-import { useEpg } from '../hooks/useEpg'
-import { usePlaylist } from '../hooks/usePlaylist'
+import { useEpg } from '../hooks/useEpg';
+import { usePlaylist } from '../hooks/usePlaylist';
 
 export default function EpgDebug() {
-  const { epgData, isLoading, error, refreshEpg } = useEpg()
-  const { playlist } = usePlaylist()
+  const { epgData, isLoading, error, refreshEpg } = useEpg();
+  const { playlist } = usePlaylist();
 
   if (isLoading) {
     return (
@@ -11,10 +11,12 @@ export default function EpgDebug() {
         <h3 className="text-lg font-semibold mb-4">EPG Debug</h3>
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
-          <p className="text-gray-400">Loading EPG data...</p>
+          <p className="text-gray-400">
+            Loading EPG data (trying CORS proxies if needed)...
+          </p>
         </div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -26,8 +28,9 @@ export default function EpgDebug() {
             ❌ EPG Failed to Load: {error.message}
           </div>
           <div className="text-sm text-gray-400">
+            <p>• This may be due to CORS restrictions</p>
+            <p>• The app tries multiple CORS proxy services for EPG loading</p>
             <p>• Check browser console for detailed logs</p>
-            <p>• Ensure the EPG URL is accessible and returns valid XMLTV data</p>
           </div>
           <button
             onClick={refreshEpg}
@@ -37,18 +40,16 @@ export default function EpgDebug() {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   if (!epgData && !playlist) {
     return (
       <div className="bg-gray-800 rounded-lg p-4">
         <h3 className="text-lg font-semibold mb-4">EPG Debug</h3>
-        <p className="text-gray-400">
-          Waiting for EPG and playlist data...
-        </p>
+        <p className="text-gray-400">Waiting for EPG and playlist data...</p>
       </div>
-    )
+    );
   }
 
   if (!playlist) {
@@ -56,25 +57,24 @@ export default function EpgDebug() {
       <div className="bg-gray-800 rounded-lg p-4">
         <h3 className="text-lg font-semibold mb-4">EPG Debug</h3>
         <p className="text-gray-400">
-          EPG loaded successfully! Please load a playlist to see channel matching.
+          EPG loaded successfully! Please load a playlist to see channel
+          matching.
         </p>
       </div>
-    )
+    );
   }
 
   if (!epgData) {
     return (
       <div className="bg-gray-800 rounded-lg p-4">
         <h3 className="text-lg font-semibold mb-4">EPG Debug</h3>
-        <p className="text-gray-400">
-          EPG data still loading...
-        </p>
+        <p className="text-gray-400">EPG data still loading...</p>
       </div>
-    )
+    );
   }
 
-  const sampleEpgChannels = Array.from(epgData.channels.entries()).slice(0, 10)
-  const samplePlaylistChannels = playlist.channels.slice(0, 10)
+  const sampleEpgChannels = Array.from(epgData.channels.entries()).slice(0, 10);
+  const samplePlaylistChannels = playlist.channels.slice(0, 10);
 
   return (
     <div className="bg-gray-800 rounded-lg p-4 space-y-4">
@@ -82,23 +82,31 @@ export default function EpgDebug() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <h4 className="font-medium text-green-400 mb-2">EPG Channel IDs (sample)</h4>
+          <h4 className="font-medium text-green-400 mb-2">
+            EPG Channel IDs (sample)
+          </h4>
           <div className="text-xs space-y-1 max-h-40 overflow-y-auto">
             {sampleEpgChannels.map(([id, channel]) => (
               <div key={id} className="text-gray-300">
                 <code className="bg-gray-700 px-1 rounded">{id}</code>
-                <span className="ml-2 text-gray-400">→ {channel.displayName}</span>
+                <span className="ml-2 text-gray-400">
+                  → {channel.displayName}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         <div>
-          <h4 className="font-medium text-blue-400 mb-2">Playlist tvg-id values (sample)</h4>
+          <h4 className="font-medium text-blue-400 mb-2">
+            Playlist tvg-id values (sample)
+          </h4>
           <div className="text-xs space-y-1 max-h-40 overflow-y-auto">
-            {samplePlaylistChannels.map(channel => (
+            {samplePlaylistChannels.map((channel) => (
               <div key={channel.id} className="text-gray-300">
-                <code className="bg-gray-700 px-1 rounded">{channel.epgId || 'N/A'}</code>
+                <code className="bg-gray-700 px-1 rounded">
+                  {channel.epgId || 'N/A'}
+                </code>
                 <span className="ml-2 text-gray-400">→ {channel.name}</span>
               </div>
             ))}
@@ -112,5 +120,5 @@ export default function EpgDebug() {
         <p>Playlist Channels: {playlist.channels.length}</p>
       </div>
     </div>
-  )
+  );
 }

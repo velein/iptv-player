@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 import { useEpg } from '../hooks/useEpg';
 import ProgramCard from './ProgramCard';
 import type { Channel } from '../types/channel';
@@ -11,6 +10,7 @@ interface ChannelEpgProps {
   maxPrograms?: number;
   onProgramPlay?: (program: EpgProgram) => void;
   selectedProgram?: EpgProgram | null;
+  epgStatus?: React.ReactNode;
 }
 
 export default function ChannelEpg({
@@ -19,6 +19,7 @@ export default function ChannelEpg({
   maxPrograms = 10,
   onProgramPlay,
   selectedProgram,
+  epgStatus,
 }: ChannelEpgProps) {
   const {
     getCurrentProgram,
@@ -29,20 +30,22 @@ export default function ChannelEpg({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const selectedProgramRef = useRef<HTMLDivElement>(null);
 
+  // State for selected day
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const [selectedDate, setSelectedDate] = useState<Date>(today);
+
   const currentProgram = getCurrentProgram(channel.epgId || channel.name);
   const upcomingPrograms = getNextPrograms(
     channel.epgId || channel.name,
     maxPrograms - 1
   );
 
-  // Get programs for the entire range (-5 days to tomorrow)
-  const today = new Date();
-  const startDate = new Date(today);
-  startDate.setDate(today.getDate() - 5);
+  // Get programs for the selected day only
+  const startDate = new Date(selectedDate);
   startDate.setHours(0, 0, 0, 0);
 
-  const endDate = new Date(today);
-  endDate.setDate(today.getDate() + 1);
+  const endDate = new Date(selectedDate);
   endDate.setHours(23, 59, 59, 999);
 
   const allPrograms = getProgramsForTimeRange(
@@ -50,6 +53,33 @@ export default function ChannelEpg({
     startDate,
     endDate
   );
+
+  // Get all available days (from -5 days to tomorrow)
+  const allStartDate = new Date(today);
+  allStartDate.setDate(today.getDate() - 5);
+  allStartDate.setHours(0, 0, 0, 0);
+
+  const allEndDate = new Date(today);
+  allEndDate.setDate(today.getDate() + 1);
+  allEndDate.setHours(23, 59, 59, 999);
+
+  const allAvailablePrograms = getProgramsForTimeRange(
+    channel.epgId || channel.name,
+    allStartDate,
+    allEndDate
+  );
+
+  // Get unique days from available programs
+  const availableDays = new Set<string>();
+  allAvailablePrograms.forEach((program) => {
+    const dayKey = new Date(program.start);
+    dayKey.setHours(0, 0, 0, 0);
+    availableDays.add(dayKey.toISOString());
+  });
+
+  const sortedAvailableDays = Array.from(availableDays)
+    .map((dateStr) => new Date(dateStr))
+    .sort((a, b) => a.getTime() - b.getTime());
 
   // Auto-refresh current program every minute
   useEffect(() => {
@@ -132,52 +162,32 @@ export default function ChannelEpg({
     }
   }, [currentProgram?.id, showCurrentOnly, selectedProgram]);
 
-  const formatDateHeader = (date: Date) => {
-    const today = new Date();
-    const tomorrow = new Date(today);
+  // Helper to format day label
+  const formatDayLabel = (date: Date) => {
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(todayDate);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const yesterday = new Date(today);
+    const yesterday = new Date(todayDate);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    if (date.toDateString() === today.toDateString()) {
+    const checkDate = new Date(date);
+    checkDate.setHours(0, 0, 0, 0);
+
+    if (checkDate.getTime() === todayDate.getTime()) {
       return 'Today';
-    } else if (date.toDateString() === tomorrow.toDateString()) {
+    } else if (checkDate.getTime() === tomorrow.getTime()) {
       return 'Tomorrow';
-    } else if (date.toDateString() === yesterday.toDateString()) {
+    } else if (checkDate.getTime() === yesterday.getTime()) {
       return 'Yesterday';
     } else {
-      // Calculate days difference for relative dates
-      const diffTime = date.getTime() - today.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      if (diffDays < 0 && diffDays >= -7) {
-        return `${Math.abs(diffDays)} days ago`;
-      } else if (diffDays > 0 && diffDays <= 3) {
-        return `In ${diffDays} days`;
-      } else {
-        return date.toLocaleDateString('pl-PL', {
-          weekday: 'long',
-          month: 'short',
-          day: 'numeric',
-        });
-      }
+      return date.toLocaleDateString('pl-PL', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      });
     }
   };
-
-  // Group programs by day
-  const programsByDay = new Map<string, typeof allPrograms>();
-  allPrograms.forEach((program) => {
-    const dayKey = program.start.toDateString();
-    if (!programsByDay.has(dayKey)) {
-      programsByDay.set(dayKey, []);
-    }
-    programsByDay.get(dayKey)!.push(program);
-  });
-
-  // Sort days chronologically
-  const sortedDays = Array.from(programsByDay.keys()).sort(
-    (a, b) => new Date(a).getTime() - new Date(b).getTime()
-  );
 
   if (isLoading) {
     return (
@@ -220,92 +230,96 @@ export default function ChannelEpg({
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg h-full flex flex-col max-h-[calc(100vh-2rem)]">
-      {/* Header with channel info */}
-      <div className="p-4 border-b border-gray-700 flex-shrink-0">
-        <div className="flex items-center space-x-3">
-          {channel.logo ? (
-            <img
-              src={channel.logo}
-              alt={channel.name}
-              className="w-10 h-10 rounded object-cover"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          ) : (
-            <div className="w-10 h-10 bg-gray-600 rounded flex items-center justify-center">
-              <span className="text-sm font-bold">
-                {channel.name.substring(0, 2).toUpperCase()}
-              </span>
+    <div className="bg-gray-800 h-full flex flex-col">
+      {/* Header with channel info and day selector */}
+      <div className="p-4 border-b border-gray-700 flex-shrink-0 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            {channel.logo ? (
+              <img
+                src={channel.logo}
+                alt={channel.name}
+                className="w-10 h-10 rounded object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="w-10 h-10 bg-gray-600 rounded flex items-center justify-center">
+                <span className="text-sm font-bold">
+                  {channel.name.substring(0, 2).toUpperCase()}
+                </span>
+              </div>
+            )}
+            <div>
+              <h2 className="text-lg font-semibold text-white">
+                {channel.name}
+              </h2>
+              <p className="text-xs text-gray-400">EPG - Program Guide</p>
             </div>
-          )}
-          <div>
-            <h2 className="text-lg font-semibold text-white">{channel.name}</h2>
-            <p className="text-xs text-gray-400">EPG - Program Guide</p>
           </div>
+          {epgStatus && <div className="flex-shrink-0">{epgStatus}</div>}
+        </div>
+
+        {/* Day selector */}
+        <div>
+          <label className="text-xs text-gray-400 block mb-1">
+            Select Day:
+          </label>
+          <select
+            value={selectedDate.toISOString()}
+            onChange={(e) => setSelectedDate(new Date(e.target.value))}
+            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {sortedAvailableDays.map((date) => (
+              <option key={date.toISOString()} value={date.toISOString()}>
+                {formatDayLabel(date)} -{' '}
+                {date.toLocaleDateString('pl-PL', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* Programs list - grouped by day */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto min-h-0">
-        {sortedDays.length > 0 ? (
-          sortedDays.map((dayKey) => {
-            const dayDate = new Date(dayKey);
-            const dayPrograms = programsByDay.get(dayKey)!;
-            const now = new Date();
+      {/* Programs list for selected day */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
+        {allPrograms.length > 0 ? (
+          <div className="p-2 space-y-2">
+            {allPrograms.map((program) => {
+              const now = new Date();
+              const isCurrentlyPlaying =
+                program.start <= now && program.stop > now;
+              const isUpcoming = program.start > now;
+              const isSelected = selectedProgram?.id === program.id;
 
-            return (
-              <div
-                key={dayKey}
-                className="border-b border-gray-700 last:border-b-0"
-              >
-                {/* Day header */}
-                <div className="sticky top-0 bg-gray-700 px-4 py-2 text-sm font-semibold text-gray-200 border-b border-gray-600">
-                  {formatDateHeader(dayDate)} -{' '}
-                  {dayDate.toLocaleDateString('pl-PL', {
-                    weekday: 'short',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+              return (
+                <div
+                  key={program.id}
+                  ref={isSelected ? selectedProgramRef : undefined}
+                >
+                  <ProgramCard
+                    program={program}
+                    channel={channel}
+                    isCurrentlyPlaying={isCurrentlyPlaying}
+                    isUpcoming={
+                      isUpcoming &&
+                      program.start.getTime() - now.getTime() <
+                        2 * 60 * 60 * 1000
+                    }
+                    isSelected={isSelected}
+                    onClick={onProgramPlay}
+                  />
                 </div>
-
-                {/* Programs for this day */}
-                <div className="p-2 space-y-2">
-                  {dayPrograms.map((program) => {
-                    const isCurrentlyPlaying =
-                      program.start <= now && program.stop > now;
-                    const isUpcoming = program.start > now;
-                    const isSelected = selectedProgram?.id === program.id;
-
-                    return (
-                      <div
-                        key={program.id}
-                        ref={isSelected ? selectedProgramRef : undefined}
-                      >
-                        <ProgramCard
-                          program={program}
-                          channel={channel}
-                          isCurrentlyPlaying={isCurrentlyPlaying}
-                          isUpcoming={
-                            isUpcoming &&
-                            program.start.getTime() - now.getTime() <
-                              2 * 60 * 60 * 1000
-                          } // Next 2 hours
-                          isSelected={isSelected}
-                          onClick={onProgramPlay}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })
+              );
+            })}
+          </div>
         ) : (
           <div className="text-center py-8 text-gray-400">
-            <p>No program information available</p>
-            <p className="text-sm mt-2">EPG data may be loading...</p>
+            <p>No program information available for this day</p>
           </div>
         )}
       </div>

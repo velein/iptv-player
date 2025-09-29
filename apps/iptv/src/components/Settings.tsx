@@ -1,4 +1,13 @@
 import { useState, useEffect } from 'react';
+import localforage from 'localforage';
+import { useEpg } from '../hooks/useEpg';
+
+// Configure localforage for EPG storage
+const epgStore = localforage.createInstance({
+  name: 'iptv-epg',
+  storeName: 'parsed-epg',
+  description: 'Parsed EPG data cache',
+});
 
 function CacheStatus() {
   const [cacheInfo, setCacheInfo] = useState<{
@@ -8,7 +17,7 @@ function CacheStatus() {
   }>({ hasCachedData: false });
 
   useEffect(() => {
-    const checkCache = () => {
+    const checkCache = async () => {
       try {
         const settings = localStorage.getItem('iptv-settings');
         if (!settings) return;
@@ -16,16 +25,18 @@ function CacheStatus() {
         const parsed = JSON.parse(settings);
         if (!parsed.epgUrl) return;
 
-        const cacheKey = `iptv-epg-cache-${btoa(parsed.epgUrl)}`;
-        const cached = localStorage.getItem(cacheKey);
+        const cacheKey = `iptv-epg-parsed-${btoa(parsed.epgUrl)}`;
+        const cached = await epgStore.getItem<any>(cacheKey);
 
         if (cached) {
-          const cachedData = JSON.parse(cached);
-          const ageMs = Date.now() - cachedData.timestamp;
+          const ageMs = Date.now() - cached.timestamp;
           const ageHours = Math.floor(ageMs / (1000 * 60 * 60));
           const ageMinutes = Math.floor(
             (ageMs % (1000 * 60 * 60)) / (1000 * 60)
           );
+
+          const jsonString = JSON.stringify(cached);
+          const sizeInMB = (jsonString.length / (1024 * 1024)).toFixed(2);
 
           setCacheInfo({
             hasCachedData: true,
@@ -33,7 +44,7 @@ function CacheStatus() {
               ageHours > 0
                 ? `${ageHours}h ${ageMinutes}m ago`
                 : `${ageMinutes}m ago`,
-            cacheSize: `${Math.round(cached.length / 1024)} KB`,
+            cacheSize: `${sizeInMB} MB`,
           });
         } else {
           setCacheInfo({ hasCachedData: false });
@@ -50,7 +61,7 @@ function CacheStatus() {
 
     // Listen for storage changes (when cache is updated)
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key?.startsWith('iptv-epg-cache-')) {
+      if (e.key?.startsWith('iptv-epg-parsed-')) {
         checkCache();
       }
     };
@@ -103,6 +114,7 @@ const DEFAULT_SETTINGS: AppSettings = {
 export default function Settings({ onClose }: SettingsProps) {
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
   const [saving, setSaving] = useState(false);
+  const { refreshEpg, canReload } = useEpg();
 
   useEffect(() => {
     // Load settings from localStorage
@@ -124,10 +136,8 @@ export default function Settings({ onClose }: SettingsProps) {
 
       // Clear EPG cache if URL changed
       if (settings.epgUrl) {
-        const epgCacheKey = `iptv-epg-cache-${btoa(settings.epgUrl)}`;
-        localStorage.removeItem(epgCacheKey);
-        // Also clear the query cache
-        localStorage.removeItem('iptv-epg');
+        const epgCacheKey = `iptv-epg-parsed-${btoa(settings.epgUrl)}`;
+        await epgStore.removeItem(epgCacheKey);
       }
 
       // Dispatch custom event to notify other components
@@ -143,14 +153,13 @@ export default function Settings({ onClose }: SettingsProps) {
     }
   };
 
-  const handleClearCache = () => {
-    // Clear all EPG related cache
-    Object.keys(localStorage).forEach((key) => {
-      if (key.startsWith('iptv-epg')) {
-        localStorage.removeItem(key);
-      }
-    });
-    alert('EPG cache cleared!');
+  const handleReloadEpg = () => {
+    if (canReload) {
+      refreshEpg();
+      alert('EPG reload initiated!');
+    } else {
+      alert('EPG reload is not available at this time.');
+    }
   };
 
   return (
@@ -235,10 +244,10 @@ export default function Settings({ onClose }: SettingsProps) {
             </div>
           </div>
 
-          {/* Cache Management */}
+          {/* EPG Management */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">
-              Cache Management
+              EPG Management
             </h3>
 
             <div className="space-y-4">
@@ -248,13 +257,14 @@ export default function Settings({ onClose }: SettingsProps) {
               </div>
 
               <button
-                onClick={handleClearCache}
-                className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded transition-colors"
+                onClick={handleReloadEpg}
+                disabled={!canReload}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Clear EPG Cache
+                Reload EPG
               </button>
               <p className="text-xs text-gray-400 mt-1">
-                Clear all cached EPG data. Useful if you're experiencing issues.
+                Manually reload EPG data from the configured URL.
               </p>
             </div>
           </div>
