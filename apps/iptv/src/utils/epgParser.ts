@@ -117,7 +117,7 @@ export async function fetchAndParseEpg(url: string): Promise<EpgData> {
       console.log('🔄 EPG: Data sample:', decompressed.substring(0, 500));
 
       // Parse the XML
-      return parseXmltvData(decompressed);
+      return await parseXmltvData(decompressed);
     } catch (decompError) {
       console.log(
         '🔄 EPG: Failed to decompress, trying as plain XML:',
@@ -131,7 +131,7 @@ export async function fetchAndParseEpg(url: string): Promise<EpgData> {
         plainText.length
       );
       console.log('🔄 EPG: Plain text sample:', plainText.substring(0, 500));
-      return parseXmltvData(plainText);
+      return await parseXmltvData(plainText);
     }
   } catch (error) {
     console.error('Error fetching EPG:', error);
@@ -139,7 +139,42 @@ export async function fetchAndParseEpg(url: string): Promise<EpgData> {
   }
 }
 
-export function parseXmltvData(xmlData: string): EpgData {
+// Helper function for chunked processing to avoid blocking UI
+function processInChunks<T>(
+  items: T[],
+  chunkSize: number,
+  processItem: (item: T, index: number) => void,
+  onProgress?: (processed: number, total: number) => void
+): Promise<void> {
+  return new Promise((resolve) => {
+    let index = 0;
+
+    function processChunk() {
+      const endIndex = Math.min(index + chunkSize, items.length);
+
+      for (let i = index; i < endIndex; i++) {
+        processItem(items[i], i);
+      }
+
+      index = endIndex;
+
+      if (onProgress) {
+        onProgress(index, items.length);
+      }
+
+      if (index < items.length) {
+        // Use setTimeout to yield control back to the UI thread
+        setTimeout(processChunk, 0);
+      } else {
+        resolve();
+      }
+    }
+
+    processChunk();
+  });
+}
+
+export async function parseXmltvData(xmlData: string): Promise<EpgData> {
   const parser = new DOMParser();
   const doc = parser.parseFromString(xmlData, 'text/xml');
 
@@ -150,9 +185,9 @@ export function parseXmltvData(xmlData: string): EpgData {
   const channels = new Map<string, EpgChannel>();
   const programs: EpgProgram[] = [];
 
-  // Parse channels
-  const channelElements = doc.querySelectorAll('channel');
-  console.log(`Found ${channelElements.length} channels in EPG`);
+  // Parse channels (fast, usually < 1000 items)
+  const channelElements = Array.from(doc.querySelectorAll('channel'));
+  console.log(`🔄 EPG: Found ${channelElements.length} channels in EPG`);
 
   channelElements.forEach((channelEl) => {
     const id = channelEl.getAttribute('id');
@@ -172,70 +207,82 @@ export function parseXmltvData(xmlData: string): EpgData {
   });
 
   // Log some example channel IDs for debugging
-  const channelIds = Array.from(channels.keys()).slice(0, 20);
+  const channelIds = Array.from(channels.keys()).slice(0, 10);
   console.log('📺 EPG CHANNELS: Sample channel IDs from EPG:', channelIds);
 
-  // Also log channel display names to help with matching
-  const channelNames = Array.from(channels.values())
-    .slice(0, 20)
-    .map((c) => c.displayName);
-  console.log('📺 EPG CHANNELS: Sample channel names from EPG:', channelNames);
-
-  // Parse programmes
-  const programmeElements = doc.querySelectorAll('programme');
-  console.log(`Found ${programmeElements.length} programmes in EPG`);
+  // Parse programmes in chunks to avoid blocking UI
+  const programmeElements = Array.from(doc.querySelectorAll('programme'));
+  console.log(
+    `🔄 EPG: Found ${programmeElements.length} programmes in EPG - processing in chunks...`
+  );
 
   let validPrograms = 0;
   let programIndex = 0;
-  programmeElements.forEach((progEl) => {
-    const channelId = progEl.getAttribute('channel');
-    const startStr = progEl.getAttribute('start');
-    const stopStr = progEl.getAttribute('stop');
 
-    if (!channelId || !startStr || !stopStr) return;
+  // Process programmes in chunks to avoid blocking UI
+  await processInChunks(
+    programmeElements,
+    500, // Process 500 programs at a time
+    (progEl, index) => {
+      const channelId = progEl.getAttribute('channel');
+      const startStr = progEl.getAttribute('start');
+      const stopStr = progEl.getAttribute('stop');
 
-    const titleEl = progEl.querySelector('title');
-    const descEl = progEl.querySelector('desc');
-    const categoryEl = progEl.querySelector('category');
-    const iconEl = progEl.querySelector('icon');
-    const ratingEl = progEl.querySelector('rating > value');
-    const episodeEl = progEl.querySelector('episode-num[system="xmltv_ns"]');
+      if (!channelId || !startStr || !stopStr) return;
 
-    const program: EpgProgram = {
-      id: `${channelId}-${startStr}-${programIndex}`,
-      channelId,
-      title: titleEl?.textContent || 'Unknown Program',
-      description: descEl?.textContent || undefined,
-      category: categoryEl?.textContent || undefined,
-      start: parseXmltvTime(startStr),
-      stop: parseXmltvTime(stopStr),
-      icon: iconEl?.getAttribute('src') || undefined,
-      rating: ratingEl?.textContent || undefined,
-    };
+      const titleEl = progEl.querySelector('title');
+      const descEl = progEl.querySelector('desc');
+      const categoryEl = progEl.querySelector('category');
+      const iconEl = progEl.querySelector('icon');
+      const ratingEl = progEl.querySelector('rating > value');
+      const episodeEl = progEl.querySelector('episode-num[system="xmltv_ns"]');
 
-    // Parse episode information
-    if (episodeEl) {
-      const episodeStr = episodeEl.textContent;
-      if (episodeStr) {
-        const parts = episodeStr.split('.');
-        if (parts.length >= 2) {
-          const season = parseInt(parts[0]) + 1; // XMLTV uses 0-based
-          const episode = parseInt(parts[1]) + 1;
-          program.episode = { season, episode };
+      const program: EpgProgram = {
+        id: `${channelId}-${startStr}-${programIndex}`,
+        channelId,
+        title: titleEl?.textContent || 'Unknown Program',
+        description: descEl?.textContent || undefined,
+        category: categoryEl?.textContent || undefined,
+        start: parseXmltvTime(startStr),
+        stop: parseXmltvTime(stopStr),
+        icon: iconEl?.getAttribute('src') || undefined,
+        rating: ratingEl?.textContent || undefined,
+      };
+
+      // Parse episode information
+      if (episodeEl) {
+        const episodeStr = episodeEl.textContent;
+        if (episodeStr) {
+          const parts = episodeStr.split('.');
+          if (parts.length >= 2) {
+            const season = parseInt(parts[0]) + 1; // XMLTV uses 0-based
+            const episode = parseInt(parts[1]) + 1;
+            program.episode = { season, episode };
+          }
         }
       }
-    }
 
-    programs.push(program);
-    validPrograms++;
-    programIndex++;
+      programs.push(program);
+      validPrograms++;
+      programIndex++;
 
-    // Add to channel
-    const channel = channels.get(channelId);
-    if (channel) {
-      channel.programs.push(program);
+      // Add to channel
+      const channel = channels.get(channelId);
+      if (channel) {
+        channel.programs.push(program);
+      }
+    },
+    (processed, total) => {
+      // Log progress every 2000 items
+      if (processed % 2000 === 0 || processed === total) {
+        console.log(
+          `🔄 EPG: Processed ${processed}/${total} programmes (${Math.round(
+            (processed / total) * 100
+          )}%)`
+        );
+      }
     }
-  });
+  );
 
   console.log(`Successfully parsed ${validPrograms} valid programs`);
 

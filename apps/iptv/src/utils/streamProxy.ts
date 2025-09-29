@@ -18,16 +18,17 @@ function isHttpUrl(url: string): boolean {
 
 /**
  * Available HTTPS proxy services for streaming
+ * Note: Some proxies don't work well with HLS segments due to URL rewriting
  */
 const STREAM_PROXIES = [
-  // Simple proxy that just prepends the URL
-  (url: string) => `https://proxy.cors.sh/${url}`,
-  
-  // Alternative proxies for streaming
-  (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  
-  // CORS proxy
+  // CORS Anywhere style proxy (works better with HLS)
   (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+
+  // Simple proxy that just prepends the URL (good for HLS)
+  (url: string) => `https://proxy.cors.sh/${url}`,
+
+  // This one tends to rewrite URLs which breaks HLS segments - disabled
+  // (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
 ];
 
 /**
@@ -36,7 +37,10 @@ const STREAM_PROXIES = [
  * @param proxyIndex - Which proxy to use (0-based, for retry logic)
  * @returns The proxied HTTPS URL or original URL if no proxy needed
  */
-export function getSecureStreamUrl(streamUrl: string, proxyIndex: number = 0): string {
+export function getSecureStreamUrl(
+  streamUrl: string,
+  proxyIndex: number = 0
+): string {
   // If we're not in HTTPS environment, return original URL
   if (!isHttpsEnvironment()) {
     return streamUrl;
@@ -47,15 +51,29 @@ export function getSecureStreamUrl(streamUrl: string, proxyIndex: number = 0): s
     return streamUrl;
   }
 
-  // If URL is HTTP and we're in HTTPS environment, use proxy
+  // For HLS streams (.m3u8), proxying often breaks segment loading
+  // Return original URL and let error handling deal with it
+  if (streamUrl.includes('.m3u8')) {
+    console.warn(
+      '🔒 HTTPS: HLS stream detected. HTTP HLS streams may not work in HTTPS deployment.'
+    );
+    return streamUrl;
+  }
+
+  // For non-HLS streams, try proxying
   if (proxyIndex < STREAM_PROXIES.length) {
     const proxiedUrl = STREAM_PROXIES[proxyIndex](streamUrl);
-    console.log(`🔒 HTTPS: Proxying HTTP stream via proxy ${proxyIndex + 1}:`, proxiedUrl);
+    console.log(
+      `🔒 HTTPS: Proxying HTTP stream via proxy ${proxyIndex + 1}:`,
+      proxiedUrl
+    );
     return proxiedUrl;
   }
 
   // Fallback: return original URL (will likely fail but user will see error)
-  console.warn('🔒 HTTPS: No more proxies available, returning original HTTP URL');
+  console.warn(
+    '🔒 HTTPS: No more proxies available, returning original HTTP URL'
+  );
   return streamUrl;
 }
 

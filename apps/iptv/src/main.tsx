@@ -70,7 +70,7 @@ function EpgStatusIndicator() {
     return (
       <div className="flex items-center space-x-2 text-sm">
         <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-500"></div>
-        <span className="text-gray-400">Loading EPG...</span>
+        <span className="text-gray-400">Processing EPG...</span>
       </div>
     );
   }

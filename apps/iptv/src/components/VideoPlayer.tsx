@@ -2,17 +2,21 @@ import { useRef, useEffect, useState } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import { usePlaylist } from '../hooks/usePlaylist';
 import { useEpg } from '../hooks/useEpg';
-import type { Channel } from '../types/channel';
 import type { EpgProgram } from '../types/epg';
 import ChannelEpg from './ChannelEpg';
 import CatchupSeekbar from './CatchupSeekbar';
+import HttpsWarning from './HttpsWarning';
 import Hls from 'hls.js';
 import {
   getCatchupInfo,
   generateCatchupUrl,
   isTimeWithinCatchup,
 } from '../utils/catchupUtils';
-import { getSecureStreamUrl, getStreamProxyCount, needsStreamProxy } from '../utils/streamProxy';
+import {
+  getSecureStreamUrl,
+  getStreamProxyCount,
+  needsStreamProxy,
+} from '../utils/streamProxy';
 
 export default function VideoPlayer() {
   const { channelId } = useParams({ strict: false });
@@ -37,18 +41,30 @@ export default function VideoPlayer() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
-  
+
   // Retry with next proxy when current stream fails
   const retryWithNextProxy = () => {
     if (!originalStreamUrl) return false;
-    
+
+    // Don't retry HLS streams - proxying breaks them
+    if (originalStreamUrl.includes('.m3u8')) {
+      console.log(
+        '🔒 HTTPS: Not retrying HLS stream - proxying breaks segment loading'
+      );
+      return false;
+    }
+
     const nextAttempt = proxyAttempt + 1;
     if (nextAttempt >= getStreamProxyCount()) {
       console.log('🔒 HTTPS: All proxies exhausted');
       return false;
     }
-    
-    console.log(`🔒 HTTPS: Retrying with proxy ${nextAttempt + 1}/${getStreamProxyCount()}`);
+
+    console.log(
+      `🔒 HTTPS: Retrying with proxy ${
+        nextAttempt + 1
+      }/${getStreamProxyCount()}`
+    );
     setProxyAttempt(nextAttempt);
     const secureUrl = getSecureStreamUrl(originalStreamUrl, nextAttempt);
     setCurrentStreamUrl(secureUrl);
@@ -138,9 +154,11 @@ export default function VideoPlayer() {
     const secureUrl = getSecureStreamUrl(streamUrl, 0);
     setCurrentStreamUrl(secureUrl);
     setError(null);
-    
+
     if (needsStreamProxy(streamUrl)) {
-      console.log('🔒 HTTPS: Converting HTTP stream to secure proxy for deployment');
+      console.log(
+        '🔒 HTTPS: Converting HTTP stream to secure proxy for deployment'
+      );
     }
   };
 
@@ -220,7 +238,7 @@ export default function VideoPlayer() {
       setCurrentStreamUrl(secureUrl);
       setCurrentTime(new Date());
       setIsLive(true);
-      
+
       if (needsStreamProxy(channel.url)) {
         console.log('🔒 HTTPS: Converting initial HTTP stream to secure proxy');
       }
@@ -272,16 +290,16 @@ export default function VideoPlayer() {
     };
     const handleError = (e: Event) => {
       console.log('🔒 HTTPS: Video error event:', e);
-      
+
       // Try next proxy if this is a proxied stream that failed
       if (needsStreamProxy(originalStreamUrl) && retryWithNextProxy()) {
         console.log('🔒 HTTPS: Video error, trying next proxy');
         return;
       }
-      
+
       // Show error if no more proxies available
-      const errorMsg = needsStreamProxy(originalStreamUrl) 
-        ? 'Failed to load video stream. HTTP streams may not work in HTTPS deployment. Please contact the stream provider for HTTPS streams.'
+      const errorMsg = needsStreamProxy(originalStreamUrl)
+        ? 'HTTP video streams cannot be loaded on HTTPS sites due to Mixed Content security policy. Please use HTTPS video streams instead, or access this site via HTTP.'
         : 'Failed to load video stream';
       setError(errorMsg);
     };
@@ -428,7 +446,7 @@ export default function VideoPlayer() {
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         console.log('🔒 HTTPS: HLS Error:', data.type, data.details);
-        
+
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
@@ -448,7 +466,7 @@ export default function VideoPlayer() {
                 console.log('🔒 HTTPS: Fatal error, trying next proxy');
                 return;
               }
-              
+
               // Try native video as fallback
               hls.destroy();
               hlsRef.current = null;
@@ -561,6 +579,9 @@ export default function VideoPlayer() {
           />
         )}
       </div>
+
+      {/* HTTPS Warning */}
+      {originalStreamUrl && <HttpsWarning streamUrl={originalStreamUrl} />}
 
       {/* Program Info Display */}
       {displayProgram && (
