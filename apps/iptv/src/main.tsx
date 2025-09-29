@@ -17,6 +17,9 @@ import { useEpg } from './hooks/useEpg';
 
 const queryClient = new QueryClient();
 
+// App version
+const APP_VERSION = 'v0.1-alpha';
+
 // Define root component
 function RootComponent() {
   const [showSettings, setShowSettings] = useState(false);
@@ -25,7 +28,12 @@ function RootComponent() {
     <div className="min-h-screen bg-gray-900 text-white">
       <header className="bg-gray-800 border-b border-gray-700 p-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">IPTV Player</h1>
+          <div className="flex items-center space-x-3">
+            <h1 className="text-2xl font-bold">IPTV Player</h1>
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200 border border-blue-700">
+              {APP_VERSION}
+            </span>
+          </div>
           <div className="flex items-center space-x-4">
             <EpgStatusIndicator />
             <button

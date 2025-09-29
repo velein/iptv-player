@@ -169,31 +169,41 @@ export default function Settings({ onClose }: SettingsProps) {
             </p>
           </div>
 
-          {/* Example URLs */}
+          {/* EPG Information */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">
-              Example EPG URLs
+              EPG Configuration Guide
             </h3>
             <div className="bg-gray-700 rounded p-4 text-sm">
-              <p className="text-gray-300 mb-2">Common EPG sources:</p>
-              <ul className="space-y-1 text-gray-400">
-                <li>
-                  • <code>http://list.plusx.tv/pl10.gz</code> (Polish channels)
-                </li>
-                <li>
-                  • <code>https://epg.ovh/plar.xml</code> (Alternative Polish)
-                </li>
-                <li>
-                  •{' '}
-                  <code>
-                    https://iptv-org.github.io/epg/guides/pl/tv.wp.pl.epg.xml
-                  </code>{' '}
-                  (GitHub hosted)
-                </li>
-              </ul>
-              <p className="text-gray-400 mt-2 text-xs">
-                Note: Some URLs may require CORS proxies when running locally.
-              </p>
+              <p className="text-gray-300 mb-3">Configure your own EPG source:</p>
+              
+              <div className="space-y-3">
+                <div className="p-3 bg-gray-800 rounded">
+                  <p className="text-yellow-200 text-xs font-medium mb-2">📋 EPG URL Requirements:</p>
+                  <ul className="space-y-1 text-gray-400 text-xs">
+                    <li>• Must be a valid XMLTV format EPG file</li>
+                    <li>• Supports .xml, .xml.gz, and compressed formats</li>
+                    <li>• Channel IDs should match your M3U playlist</li>
+                  </ul>
+                </div>
+
+                <div className="p-3 bg-blue-900 rounded">
+                  <p className="text-blue-200 text-xs font-medium mb-2">💡 Deployment Tips:</p>
+                  <ul className="space-y-1 text-blue-300 text-xs">
+                    <li>• HTTPS URLs work directly without proxies</li>
+                    <li>• HTTP URLs may need CORS proxies (less reliable)</li>
+                    <li>• Test your EPG URL in browser first</li>
+                  </ul>
+                </div>
+
+                <div className="p-3 bg-orange-900 rounded">
+                  <p className="text-orange-200 text-xs font-medium mb-2">⚠️ Important:</p>
+                  <p className="text-orange-300 text-xs">
+                    No EPG sources are included by default. You must provide your own EPG URL 
+                    that matches your M3U playlist's channel names or IDs.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -27,22 +27,25 @@ function getSettings(): AppSettings {
 function generateEpgUrls(baseUrl: string): string[] {
   if (!baseUrl) return [];
 
-  // If URL contains localhost or looks like direct access, don't use proxies
-  if (
-    baseUrl.includes('localhost') ||
-    baseUrl.includes('127.0.0.1') ||
-    baseUrl.startsWith('file:')
-  ) {
+  // If URL starts with https:// or is localhost, try direct first (no proxy needed)
+  const isHttps = baseUrl.startsWith('https://');
+  const isLocalhost =
+    baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1');
+  const isFile = baseUrl.startsWith('file:');
+
+  if (isHttps || isLocalhost || isFile) {
+    console.log('🔄 EPG: Using direct access (HTTPS/localhost/file detected)');
     return [baseUrl];
   }
 
-  // For remote URLs, try multiple CORS proxy options
+  // For HTTP URLs, try direct first, then proxies only if needed
+  console.log(
+    '🔄 EPG: HTTP URL detected, will try direct first then proxies if needed'
+  );
   return [
-    baseUrl, // Try direct first
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(baseUrl),
+    baseUrl, // Try direct first - many deployment environments allow CORS
     'https://corsproxy.io/?' + encodeURIComponent(baseUrl),
-    'https://cors-proxy.htmldriven.com/?url=' + encodeURIComponent(baseUrl),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(baseUrl),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(baseUrl),
   ];
 }
 
@@ -146,9 +149,17 @@ export function useEpg() {
 
           return epgData;
         } catch (error) {
-          console.log(`🔄 EPG: URL ${i + 1} failed:`, (error as Error).message);
+          const errorMsg = (error as Error).message;
+          console.log(`❌ EPG: URL ${i + 1} failed:`, errorMsg);
+
           if (i === epgUrls.length - 1) {
-            throw error; // Last attempt failed
+            // Last attempt failed - provide helpful error message
+            const isHttpUrl = settings.epgUrl.startsWith('http://');
+            const errorDetails = isHttpUrl
+              ? 'HTTP URLs may require CORS proxies which can be unreliable in deployment. Consider using an HTTPS EPG source instead.'
+              : 'All EPG loading attempts failed.';
+
+            throw new Error(`EPG loading failed: ${errorMsg}. ${errorDetails}`);
           }
         }
       }
