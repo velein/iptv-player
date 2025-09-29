@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/iptv-e2e"
+    },
+    {
+      "path": "./apps/iptv"
+    }
+  ]
+}
