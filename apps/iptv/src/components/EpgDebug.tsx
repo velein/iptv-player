@@ -11,7 +11,7 @@ export default function EpgDebug() {
         <h3 className="text-lg font-semibold mb-4">EPG Debug</h3>
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
-          <p className="text-gray-400">Loading EPG data (trying CORS proxies)...</p>
+          <p className="text-gray-400">Loading EPG data...</p>
         </div>
       </div>
     )
@@ -26,9 +26,8 @@ export default function EpgDebug() {
             ❌ EPG Failed to Load: {error.message}
           </div>
           <div className="text-sm text-gray-400">
-            <p>• This is likely due to CORS restrictions</p>
-            <p>• The app is trying multiple CORS proxy services</p>
             <p>• Check browser console for detailed logs</p>
+            <p>• Ensure the EPG URL is accessible and returns valid XMLTV data</p>
           </div>
           <button
             onClick={refreshEpg}

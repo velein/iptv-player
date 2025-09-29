@@ -1,136 +1,31 @@
 import type { EpgData, EpgChannel, EpgProgram } from '../types/epg';
 import * as pako from 'pako';
 
-async function fetchWithCorsProxy(url: string): Promise<Response> {
-  // List of public CORS proxy services
-  const corsProxies = [
-    'https://api.allorigins.win/raw?url=',
-    'https://api.codetabs.com/v1/proxy?quest=',
-    'https://corsproxy.io/?',
-    'https://cors-proxy.htmldriven.com/?url=',
-    'https://thingproxy.freeboard.io/fetch/',
-  ];
-
-  console.log('Attempting direct fetch first...');
+export async function fetchAndParseEpg(url: string): Promise<EpgData> {
   try {
     const response = await fetch(url, {
-      mode: 'cors',
       headers: {
         Accept:
           'application/xml, text/xml, application/gzip, application/octet-stream, */*',
       },
     });
 
-    if (response.ok) {
-      console.log('Direct fetch successful');
-      return response;
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-  } catch (directError) {
-    console.log(
-      'Direct fetch failed, trying CORS proxies...',
-      directError.message
-    );
-  }
-
-  // Try CORS proxies
-  for (let i = 0; i < corsProxies.length; i++) {
-    const proxyUrl = corsProxies[i] + encodeURIComponent(url);
-    console.log(`Trying proxy ${i + 1}/${corsProxies.length}:`, proxyUrl);
-
-    try {
-      const response = await fetch(proxyUrl, {
-        mode: 'cors',
-        headers: {
-          Accept: 'application/gzip, application/octet-stream, */*',
-        },
-      });
-
-      if (response.ok) {
-        console.log(`Proxy ${i + 1} successful`);
-        return response;
-      } else {
-        console.log(
-          `Proxy ${i + 1} failed:`,
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (proxyError) {
-      console.log(`Proxy ${i + 1} error:`, proxyError.message);
-    }
-  }
-
-  throw new Error('All fetch attempts failed (direct and proxy)');
-}
-
-export async function fetchAndParseEpg(url: string): Promise<EpgData> {
-  try {
-    console.log('🔄 EPG: Fetching EPG data from:', url);
-
-    // If URL already contains a proxy, use direct fetch
-    let response: Response;
-    if (
-      url.includes('allorigins.win') ||
-      url.includes('corsproxy.io') ||
-      url.includes('codetabs.com') ||
-      url.includes('htmldriven.com') ||
-      url.includes('proxy')
-    ) {
-      console.log('🔄 EPG: URL contains proxy, using direct fetch');
-      response = await fetch(url, {
-        mode: 'cors',
-        headers: {
-          Accept:
-            'application/xml, text/xml, application/gzip, application/octet-stream, */*',
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-    } else {
-      response = await fetchWithCorsProxy(url);
-    }
-
-    console.log(
-      '🔄 EPG: Response received, content-type:',
-      response.headers.get('content-type')
-    );
-    console.log(
-      '🔄 EPG: Response size:',
-      response.headers.get('content-length')
-    );
 
     const arrayBuffer = await response.arrayBuffer();
-    console.log('🔄 EPG: Array buffer size:', arrayBuffer.byteLength);
 
     // Decompress gzip data
     const uint8Array = new Uint8Array(arrayBuffer);
 
     try {
       const decompressed = pako.ungzip(uint8Array, { to: 'string' });
-      console.log(
-        '🔄 EPG: Data decompressed successfully, size:',
-        decompressed.length
-      );
-
-      // Show first 500 characters for debugging
-      console.log('🔄 EPG: Data sample:', decompressed.substring(0, 500));
-
-      // Parse the XML
       return await parseXmltvData(decompressed);
     } catch (decompError) {
-      console.log(
-        '🔄 EPG: Failed to decompress, trying as plain XML:',
-        decompError.message
-      );
       // Try to parse as plain text in case it's not compressed
       const textDecoder = new TextDecoder('utf-8');
       const plainText = textDecoder.decode(uint8Array);
-      console.log(
-        '🔄 EPG: Trying to parse as plain text, size:',
-        plainText.length
-      );
-      console.log('🔄 EPG: Plain text sample:', plainText.substring(0, 500));
       return await parseXmltvData(plainText);
     }
   } catch (error) {
@@ -187,7 +82,6 @@ export async function parseXmltvData(xmlData: string): Promise<EpgData> {
 
   // Parse channels (fast, usually < 1000 items)
   const channelElements = Array.from(doc.querySelectorAll('channel'));
-  console.log(`🔄 EPG: Found ${channelElements.length} channels in EPG`);
 
   channelElements.forEach((channelEl) => {
     const id = channelEl.getAttribute('id');
@@ -208,7 +102,6 @@ export async function parseXmltvData(xmlData: string): Promise<EpgData> {
 
   // Log some example channel IDs for debugging
   const channelIds = Array.from(channels.keys()).slice(0, 10);
-  console.log('📺 EPG CHANNELS: Sample channel IDs from EPG:', channelIds);
 
   // Parse programmes in chunks to avoid blocking UI
   const programmeElements = Array.from(doc.querySelectorAll('programme'));
@@ -358,13 +251,6 @@ function parseXmltvTime(timeStr: string): Date {
     const polishOffset = isWinter ? 1 : 2; // CET=+1, CEST=+2
     date.setTime(date.getTime() - polishOffset * 60 * 60 * 1000);
   }
-
-  console.log('🕐 TIME DEBUG:', {
-    originalTime: timeStr,
-    parsedUTC: date.toISOString(),
-    parsedLocal: date.toString(),
-    localTime: date.toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }),
-  });
 
   return date;
 }

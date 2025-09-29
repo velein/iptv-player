@@ -34,27 +34,7 @@ function getSettings(): AppSettings {
 
 function generateEpgUrls(baseUrl: string): string[] {
   if (!baseUrl) return [];
-
-  // If URL starts with https:// or is localhost, try direct first (no proxy needed)
-  const isHttps = baseUrl.startsWith('https://');
-  const isLocalhost =
-    baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1');
-  const isFile = baseUrl.startsWith('file:');
-
-  if (isHttps || isLocalhost || isFile) {
-    console.log('🔄 EPG: Using direct access (HTTPS/localhost/file detected)');
-    return [baseUrl];
-  }
-
-  // For HTTP URLs, try direct first, then proxies only if needed
-  console.log(
-    '🔄 EPG: HTTP URL detected, will try direct first then proxies if needed'
-  );
-  return [
-    baseUrl, // Try direct first - many deployment environments allow CORS
-    'https://corsproxy.io/?' + encodeURIComponent(baseUrl),
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(baseUrl),
-  ];
+  return [baseUrl];
 }
 
 export function useEpg() {
@@ -95,16 +75,16 @@ export function useEpg() {
     data: epgData,
     isLoading,
     error,
-  } = useQuery({
+    isFetching,
+    isStale,
+  } = useQuery<EpgData | null>({
     queryKey: [EPG_KEY, settings.epgUrl],
     queryFn: async () => {
       if (!settings.epgUrl) {
-        console.log('📺 EPG: No EPG URL configured, skipping EPG load');
         return null;
       }
 
       const epgUrls = generateEpgUrls(settings.epgUrl);
-      console.log('🔄 EPG: Attempting to load from:', settings.epgUrl);
 
       // Try cache first if enabled
       if (settings.epgCacheEnabled) {
@@ -117,15 +97,9 @@ export function useEpg() {
             const maxAge = settings.epgRefreshInterval * 60 * 60 * 1000;
 
             if (cacheAge < maxAge) {
-              console.log(
-                '🔄 EPG: Using cached data, age:',
-                Math.round(cacheAge / (1000 * 60)),
-                'minutes'
-              );
               return cachedData.data;
             }
           } catch (error) {
-            console.log('🔄 EPG: Cache corrupted, removing');
             localStorage.removeItem(cacheKey);
           }
         }
@@ -134,10 +108,6 @@ export function useEpg() {
       // Try multiple EPG URLs in sequence
       for (let i = 0; i < epgUrls.length; i++) {
         try {
-          console.log(
-            `🔄 EPG: Trying URL ${i + 1}/${epgUrls.length}:`,
-            epgUrls[i]
-          );
           const epgData = await fetchAndParseEpg(epgUrls[i]);
 
           // Cache the result if enabled
@@ -149,25 +119,17 @@ export function useEpg() {
             };
             try {
               localStorage.setItem(cacheKey, JSON.stringify(cacheData));
-              console.log('🔄 EPG: Data cached successfully');
             } catch (cacheError) {
-              console.log('🔄 EPG: Failed to cache data:', cacheError);
+              // Cache failed, but continue with EPG data
             }
           }
 
           return epgData;
         } catch (error) {
           const errorMsg = (error as Error).message;
-          console.log(`❌ EPG: URL ${i + 1} failed:`, errorMsg);
 
           if (i === epgUrls.length - 1) {
-            // Last attempt failed - provide helpful error message
-            const isHttpUrl = settings.epgUrl.startsWith('http://');
-            const errorDetails = isHttpUrl
-              ? 'HTTP URLs may require CORS proxies which can be unreliable in deployment. Consider using an HTTPS EPG source instead.'
-              : 'All EPG loading attempts failed.';
-
-            throw new Error(`EPG loading failed: ${errorMsg}. ${errorDetails}`);
+            throw new Error(`EPG loading failed: ${errorMsg}`);
           }
         }
       }
@@ -176,18 +138,13 @@ export function useEpg() {
     enabled: !!settings.epgUrl, // Only run query if EPG URL is configured
     staleTime: settings.epgRefreshInterval * 60 * 60 * 1000, // Use user-configured interval
     gcTime: 1000 * 60 * 60 * 24, // 24 hours
-    refetchInterval: false, // Disable auto-refetch to avoid CORS spam
+    refetchInterval: false, // Disable auto-refetch
+    refetchOnWindowFocus: false, // Don't refetch on window focus
     retry: (failureCount, error) => {
-      console.log(
-        `EPG fetch attempt ${failureCount + 1} failed:`,
-        error.message
-      );
       return failureCount < 2; // Retry up to 2 times
     },
     retryDelay: (attemptIndex) => {
-      const delay = Math.min(1000 * 2 ** attemptIndex, 10000);
-      console.log(`Retrying EPG fetch in ${delay}ms...`);
-      return delay;
+      return Math.min(1000 * 2 ** attemptIndex, 10000);
     },
   });
 
@@ -219,7 +176,6 @@ export function useEpg() {
         id.toLowerCase().includes(channelIdLower) ||
         channelIdLower.includes(id.toLowerCase())
       ) {
-        console.log(`Found partial match for "${channelId}" -> "${id}"`);
         return channelData.programs;
       }
     }
@@ -227,14 +183,10 @@ export function useEpg() {
     // Try display name match
     for (const [id, channelData] of epgData.channels) {
       if (channelData.displayName.toLowerCase() === channelIdLower) {
-        console.log(
-          `Found display name match for "${channelId}" -> "${channelData.displayName}" (${id})`
-        );
         return channelData.programs;
       }
     }
 
-    console.log(`No EPG match found for channel: "${channelId}"`);
     return [];
   };
 

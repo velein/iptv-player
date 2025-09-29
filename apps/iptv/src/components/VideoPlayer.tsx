@@ -48,16 +48,6 @@ export default function VideoPlayer() {
     if (!program)
       return { percent: 0, elapsed: '0:00', total: '0:00', remaining: '0:00' };
 
-    console.log('🎯 PROGRESS DEBUG:', {
-      programTitle: program.title,
-      programStart: program.start.toISOString(),
-      programStartLocal: program.start.toString(),
-      programStop: program.stop.toISOString(),
-      programStopLocal: program.stop.toString(),
-      playbackTime: playbackTime.toISOString(),
-      playbackTimeLocal: playbackTime.toString(),
-    });
-
     const total = program.stop.getTime() - program.start.getTime();
     const elapsed = Math.max(
       0,
@@ -79,14 +69,6 @@ export default function VideoPlayer() {
       return `${minutes}:${seconds.toString().padStart(2, '0')}`;
     };
 
-    console.log('🎯 DURATION DEBUG:', {
-      totalMs: total,
-      elapsedMs: elapsed,
-      totalFormatted: formatDuration(total),
-      elapsedFormatted: formatDuration(elapsed),
-      percent: percent.toFixed(1),
-    });
-
     return {
       percent,
       elapsed: formatDuration(elapsed),
@@ -105,10 +87,6 @@ export default function VideoPlayer() {
     const streamUrl = generateCatchupUrl(channel, targetTime);
     const isTargetLive =
       Math.abs(targetTime.getTime() - new Date().getTime()) < 30000; // Within 30 seconds
-
-    console.log('🎯 PLAYER: Loading stream at time:', targetTime.toISOString());
-    console.log('🎯 PLAYER: Generated URL:', streamUrl);
-    console.log('🎯 PLAYER: Is live:', isTargetLive);
 
     setCurrentTime(targetTime);
     setIsLive(isTargetLive);

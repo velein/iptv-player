@@ -1,5 +1,87 @@
 import { useState, useEffect } from 'react';
 
+function CacheStatus() {
+  const [cacheInfo, setCacheInfo] = useState<{
+    hasCachedData: boolean;
+    cacheAge?: string;
+    cacheSize?: string;
+  }>({ hasCachedData: false });
+
+  useEffect(() => {
+    const checkCache = () => {
+      try {
+        const settings = localStorage.getItem('iptv-settings');
+        if (!settings) return;
+
+        const parsed = JSON.parse(settings);
+        if (!parsed.epgUrl) return;
+
+        const cacheKey = `iptv-epg-cache-${btoa(parsed.epgUrl)}`;
+        const cached = localStorage.getItem(cacheKey);
+
+        if (cached) {
+          const cachedData = JSON.parse(cached);
+          const ageMs = Date.now() - cachedData.timestamp;
+          const ageHours = Math.floor(ageMs / (1000 * 60 * 60));
+          const ageMinutes = Math.floor(
+            (ageMs % (1000 * 60 * 60)) / (1000 * 60)
+          );
+
+          setCacheInfo({
+            hasCachedData: true,
+            cacheAge:
+              ageHours > 0
+                ? `${ageHours}h ${ageMinutes}m ago`
+                : `${ageMinutes}m ago`,
+            cacheSize: `${Math.round(cached.length / 1024)} KB`,
+          });
+        } else {
+          setCacheInfo({ hasCachedData: false });
+        }
+      } catch (error) {
+        setCacheInfo({ hasCachedData: false });
+      }
+    };
+
+    checkCache();
+
+    // Update every 30 seconds
+    const interval = setInterval(checkCache, 30000);
+
+    // Listen for storage changes (when cache is updated)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key?.startsWith('iptv-epg-cache-')) {
+        checkCache();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  if (!cacheInfo.hasCachedData) {
+    return (
+      <div className="text-gray-400 text-xs">
+        <span className="text-red-400">●</span> No cached EPG data
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-1 text-xs">
+      <div className="text-green-400">
+        <span className="text-green-400">●</span> EPG data cached
+      </div>
+      <div className="text-gray-400">Age: {cacheInfo.cacheAge}</div>
+      <div className="text-gray-400">Size: {cacheInfo.cacheSize}</div>
+    </div>
+  );
+}
+
 interface SettingsProps {
   onClose: () => void;
 }
@@ -158,15 +240,23 @@ export default function Settings({ onClose }: SettingsProps) {
             <h3 className="text-lg font-semibold text-white mb-4">
               Cache Management
             </h3>
-            <button
-              onClick={handleClearCache}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded transition-colors"
-            >
-              Clear EPG Cache
-            </button>
-            <p className="text-xs text-gray-400 mt-1">
-              Clear all cached EPG data. Useful if you're experiencing issues.
-            </p>
+
+            <div className="space-y-4">
+              <div className="bg-gray-700 rounded p-3 text-sm">
+                <p className="text-gray-300 font-medium mb-2">Cache Status</p>
+                <CacheStatus />
+              </div>
+
+              <button
+                onClick={handleClearCache}
+                className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded transition-colors"
+              >
+                Clear EPG Cache
+              </button>
+              <p className="text-xs text-gray-400 mt-1">
+                Clear all cached EPG data. Useful if you're experiencing issues.
+              </p>
+            </div>
           </div>
         </div>
 

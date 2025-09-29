@@ -228,7 +228,6 @@ export function isTimeWithinCatchup(channel: Channel, time: Date): boolean {
   const now = new Date();
   const timeDiffHours = (now.getTime() - time.getTime()) / (1000 * 60 * 60);
 
-  console.log('🔍 CATCHUP DEBUG - Channel:', channel.name);
   console.log(
     '🔍 CATCHUP DEBUG - Current time:',
     now.toISOString(),
@@ -239,13 +238,6 @@ export function isTimeWithinCatchup(channel: Channel, time: Date): boolean {
     time.toISOString(),
     '(' + time.toString() + ')'
   );
-  console.log('🔍 CATCHUP DEBUG - Time diff hours:', timeDiffHours.toFixed(2));
-  console.log('🔍 CATCHUP DEBUG - Catchup info:', {
-    available: catchupInfo.available,
-    timeshiftHours: catchupInfo.timeshiftHours,
-    startTime: catchupInfo.startTime.toISOString(),
-    endTime: catchupInfo.endTime.toISOString(),
-  });
 
   // Check if catchup is configured for this channel
   if (!catchupInfo.available) {

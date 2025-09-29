@@ -89,14 +89,6 @@ export default function ChannelEpg({
         const targetScrollTop =
           elementRelativeTop - containerHeight / 2 + elementHeight / 2;
 
-        console.log('📍 SCROLL DEBUG:', {
-          elementRelativeTop,
-          elementHeight,
-          containerHeight,
-          targetScrollTop,
-          currentScrollTop: container.scrollTop,
-        });
-
         container.scrollTo({
           top: Math.max(0, targetScrollTop),
           behavior: 'smooth',

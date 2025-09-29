@@ -15,7 +15,20 @@ import VideoPlayer from './components/VideoPlayer';
 import Settings from './components/Settings';
 import { useEpg } from './hooks/useEpg';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Keep data fresh for 1 hour by default
+      staleTime: 60 * 60 * 1000,
+      // Keep inactive queries in cache for 24 hours
+      gcTime: 24 * 60 * 60 * 1000,
+      // Retry failed requests 2 times
+      retry: 2,
+      // Don't refetch on window focus (annoying for IPTV)
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // App version
 const APP_VERSION = 'v0.1-alpha';
