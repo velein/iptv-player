@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
-import { usePlaylist } from '../hooks/usePlaylist'
-import { useEpg } from '../hooks/useEpg'
-import type { Channel, ChannelGroup } from '../types/channel'
-import EpgDebug from './EpgDebug'
-import CatchupDebug from './CatchupDebug'
+import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { usePlaylist } from '../hooks/usePlaylist';
+import { useEpg } from '../hooks/useEpg';
+import type { Channel, ChannelGroup } from '../types/channel';
+import EpgDebug from './EpgDebug';
 
 export default function ChannelList() {
-  const navigate = useNavigate()
-  const { playlist } = usePlaylist()
-  const { getCurrentProgram } = useEpg()
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
-  const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate();
+  const { playlist } = usePlaylist();
+  const { getCurrentProgram } = useEpg();
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   if (!playlist) {
     return (
@@ -24,33 +23,30 @@ export default function ChannelList() {
           Load Playlist
         </button>
       </div>
-    )
+    );
   }
 
-  const filteredGroups = playlist.groups.filter(group => {
-    if (selectedGroup && group.name !== selectedGroup) return false
-    if (!searchTerm) return true
-    return group.channels.some(channel =>
+  const filteredGroups = playlist.groups.filter((group) => {
+    if (selectedGroup && group.name !== selectedGroup) return false;
+    if (!searchTerm) return true;
+    return group.channels.some((channel) =>
       channel.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  })
+    );
+  });
 
   const getFilteredChannels = (group: ChannelGroup): Channel[] => {
-    if (!searchTerm) return group.channels
-    return group.channels.filter(channel =>
+    if (!searchTerm) return group.channels;
+    return group.channels.filter((channel) =>
       channel.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  }
+    );
+  };
 
   const handleChannelClick = (channel: Channel) => {
-    navigate({ to: '/player/$channelId', params: { channelId: channel.id } })
-  }
+    navigate({ to: '/player/$channelId', params: { channelId: channel.id } });
+  };
 
   return (
     <div className="space-y-6">
-      {/* Debug Info */}
-      <CatchupDebug />
-
       {/* Search and Filter Controls */}
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
@@ -69,7 +65,7 @@ export default function ChannelList() {
             className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">All Groups</option>
-            {playlist.groups.map(group => (
+            {playlist.groups.map((group) => (
               <option key={group.name} value={group.name}>
                 {group.name} ({group.channels.length})
               </option>
@@ -80,12 +76,15 @@ export default function ChannelList() {
 
       {/* Channel Groups */}
       <div className="space-y-6">
-        {filteredGroups.map(group => {
-          const channels = getFilteredChannels(group)
-          if (channels.length === 0) return null
+        {filteredGroups.map((group) => {
+          const channels = getFilteredChannels(group);
+          if (channels.length === 0) return null;
 
           return (
-            <div key={group.name} className="bg-gray-800 rounded-lg overflow-hidden">
+            <div
+              key={group.name}
+              className="bg-gray-800 rounded-lg overflow-hidden"
+            >
               <div className="bg-gray-700 px-4 py-3 border-b border-gray-600">
                 <h3 className="text-lg font-semibold text-white">
                   {group.name}
@@ -96,8 +95,10 @@ export default function ChannelList() {
               </div>
               <div className="p-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {channels.map(channel => {
-                    const currentProgram = getCurrentProgram(channel.epgId || channel.name)
+                  {channels.map((channel) => {
+                    const currentProgram = getCurrentProgram(
+                      channel.epgId || channel.name
+                    );
 
                     return (
                       <button
@@ -111,7 +112,7 @@ export default function ChannelList() {
                             alt={channel.name}
                             className="w-10 h-10 rounded object-cover"
                             onError={(e) => {
-                              e.currentTarget.style.display = 'none'
+                              e.currentTarget.style.display = 'none';
                             }}
                           />
                         ) : (
@@ -143,20 +144,22 @@ export default function ChannelList() {
                           )}
                         </div>
                       </button>
-                    )
+                    );
                   })}
                 </div>
               </div>
             </div>
-          )
+          );
         })}
       </div>
 
       {filteredGroups.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-400">No channels found matching your criteria</p>
+          <p className="text-gray-400">
+            No channels found matching your criteria
+          </p>
         </div>
       )}
     </div>
-  )
+  );
 }

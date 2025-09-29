@@ -39,7 +39,7 @@ export default function Settings({ onClose }: SettingsProps) {
     setSaving(true);
     try {
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-      
+
       // Clear EPG cache if URL changed
       if (settings.epgUrl) {
         const epgCacheKey = `iptv-epg-cache-${btoa(settings.epgUrl)}`;
@@ -47,8 +47,11 @@ export default function Settings({ onClose }: SettingsProps) {
         // Also clear the query cache
         localStorage.removeItem('iptv-epg');
       }
-      
-      alert('Settings saved! Please reload the page for EPG changes to take effect.');
+
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('settings-updated'));
+
+      alert('Settings saved! EPG will reload automatically.');
       onClose();
     } catch (error) {
       console.error('Error saving settings:', error);
@@ -60,7 +63,7 @@ export default function Settings({ onClose }: SettingsProps) {
 
   const handleClearCache = () => {
     // Clear all EPG related cache
-    Object.keys(localStorage).forEach(key => {
+    Object.keys(localStorage).forEach((key) => {
       if (key.startsWith('iptv-epg')) {
         localStorage.removeItem(key);
       }
@@ -84,8 +87,10 @@ export default function Settings({ onClose }: SettingsProps) {
         <div className="space-y-6">
           {/* EPG Configuration */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">EPG Configuration</h3>
-            
+            <h3 className="text-lg font-semibold text-white mb-4">
+              EPG Configuration
+            </h3>
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -94,12 +99,15 @@ export default function Settings({ onClose }: SettingsProps) {
                 <input
                   type="url"
                   value={settings.epgUrl}
-                  onChange={(e) => setSettings({...settings, epgUrl: e.target.value})}
+                  onChange={(e) =>
+                    setSettings({ ...settings, epgUrl: e.target.value })
+                  }
                   placeholder="Enter your EPG URL (e.g., http://example.com/epg.xml.gz)"
                   className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <p className="text-xs text-gray-400 mt-1">
-                  Leave empty to disable EPG. Supports XML, XMLTV, and compressed (.gz) formats.
+                  Leave empty to disable EPG. Supports XML, XMLTV, and
+                  compressed (.gz) formats.
                 </p>
               </div>
 
@@ -109,7 +117,12 @@ export default function Settings({ onClose }: SettingsProps) {
                 </label>
                 <select
                   value={settings.epgRefreshInterval}
-                  onChange={(e) => setSettings({...settings, epgRefreshInterval: parseInt(e.target.value)})}
+                  onChange={(e) =>
+                    setSettings({
+                      ...settings,
+                      epgRefreshInterval: parseInt(e.target.value),
+                    })
+                  }
                   className="bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value={1}>1 hour</option>
@@ -125,7 +138,12 @@ export default function Settings({ onClose }: SettingsProps) {
                   type="checkbox"
                   id="epgCache"
                   checked={settings.epgCacheEnabled}
-                  onChange={(e) => setSettings({...settings, epgCacheEnabled: e.target.checked})}
+                  onChange={(e) =>
+                    setSettings({
+                      ...settings,
+                      epgCacheEnabled: e.target.checked,
+                    })
+                  }
                   className="mr-2"
                 />
                 <label htmlFor="epgCache" className="text-sm text-gray-300">
@@ -137,7 +155,9 @@ export default function Settings({ onClose }: SettingsProps) {
 
           {/* Cache Management */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Cache Management</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Cache Management
+            </h3>
             <button
               onClick={handleClearCache}
               className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded transition-colors"
@@ -151,13 +171,25 @@ export default function Settings({ onClose }: SettingsProps) {
 
           {/* Example URLs */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Example EPG URLs</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Example EPG URLs
+            </h3>
             <div className="bg-gray-700 rounded p-4 text-sm">
               <p className="text-gray-300 mb-2">Common EPG sources:</p>
               <ul className="space-y-1 text-gray-400">
-                <li>• <code>http://list.plusx.tv/pl10.gz</code> (Polish channels)</li>
-                <li>• <code>https://epg.ovh/plar.xml</code> (Alternative Polish)</li>
-                <li>• <code>https://iptv-org.github.io/epg/guides/pl/tv.wp.pl.epg.xml</code> (GitHub hosted)</li>
+                <li>
+                  • <code>http://list.plusx.tv/pl10.gz</code> (Polish channels)
+                </li>
+                <li>
+                  • <code>https://epg.ovh/plar.xml</code> (Alternative Polish)
+                </li>
+                <li>
+                  •{' '}
+                  <code>
+                    https://iptv-org.github.io/epg/guides/pl/tv.wp.pl.epg.xml
+                  </code>{' '}
+                  (GitHub hosted)
+                </li>
               </ul>
               <p className="text-gray-400 mt-2 text-xs">
                 Note: Some URLs may require CORS proxies when running locally.

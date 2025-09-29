@@ -1,64 +1,72 @@
-import { useRef, useState } from 'react'
-import { useNavigate } from '@tanstack/react-router'
-import { usePlaylist } from '../hooks/usePlaylist'
+import { useRef, useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { usePlaylist } from '../hooks/usePlaylist';
 
 export default function PlaylistSelector() {
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const navigate = useNavigate()
-  const { hasPlaylist, loadPlaylistFromFile, loadPlaylistFromUrl, clearPlaylist } = usePlaylist()
-  const [urlInput, setUrlInput] = useState('')
-  const [loading, setLoading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const {
+    hasPlaylist,
+    loadPlaylistFromFile,
+    loadPlaylistFromUrl,
+    clearPlaylist,
+  } = usePlaylist();
+  const [urlInput, setUrlInput] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
+  const handleFileSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-    const fileName = file.name.toLowerCase()
-    if (!fileName.endsWith('.m3u') && !fileName.endsWith('.m3u8')) {
-      alert('Please select a valid M3U or M3U8 file')
-      return
-    }
+    // More permissive validation - allow the file and let the parser handle validation
+    const fileName = file.name.toLowerCase();
+    console.log('🔍 File selected:', {
+      name: file.name,
+      type: file.type,
+      size: file.size,
+    });
 
     try {
-      await loadPlaylistFromFile(file)
-      navigate({ to: '/channels' })
+      await loadPlaylistFromFile(file);
+      navigate({ to: '/channels' });
     } catch (error) {
-      console.error('Error loading playlist:', error)
-      alert('Error loading playlist file')
+      console.error('Error loading playlist:', error);
+      alert('Error loading playlist file');
     }
 
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''
+      fileInputRef.current.value = '';
     }
-  }
+  };
 
   const handleSelectFile = () => {
-    fileInputRef.current?.click()
-  }
+    fileInputRef.current?.click();
+  };
 
   const handleClearPlaylist = () => {
-    clearPlaylist()
-    alert('Playlist cleared')
-  }
+    clearPlaylist();
+    alert('Playlist cleared');
+  };
 
   const handleUrlLoad = async () => {
     if (!urlInput.trim()) {
-      alert('Please enter a playlist URL')
-      return
+      alert('Please enter a playlist URL');
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     try {
-      await loadPlaylistFromUrl(urlInput.trim())
-      navigate({ to: '/channels' })
+      await loadPlaylistFromUrl(urlInput.trim());
+      navigate({ to: '/channels' });
     } catch (error) {
-      console.error('Error loading playlist from URL:', error)
-      alert('Error loading playlist from URL')
+      console.error('Error loading playlist from URL:', error);
+      alert('Error loading playlist from URL');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
+  };
 
   return (
     <div className="max-w-md mx-auto">
@@ -67,7 +75,9 @@ export default function PlaylistSelector() {
 
         {hasPlaylist ? (
           <div className="space-y-4">
-            <div className="text-green-400 text-sm">✓ Playlist loaded successfully</div>
+            <div className="text-green-400 text-sm">
+              ✓ Playlist loaded successfully
+            </div>
             <div className="flex gap-2">
               <button
                 onClick={() => navigate({ to: '/channels' })}
@@ -93,6 +103,13 @@ export default function PlaylistSelector() {
           <div className="space-y-4">
             <p className="text-gray-300 text-sm">
               Select an M3U playlist file from your computer or load from URL.
+            </p>
+            <p className="text-gray-400 text-xs">
+              Supports .m3u, .m3u8 files and plain text files containing
+              playlist data.
+              <br />
+              Having trouble in Firefox? Try selecting "All Files" in the file
+              picker.
             </p>
 
             <button
@@ -123,18 +140,16 @@ export default function PlaylistSelector() {
                 </button>
               </div>
             </div>
-
           </div>
         )}
 
         <input
           ref={fileInputRef}
           type="file"
-          accept=".m3u,.m3u8"
           onChange={handleFileSelect}
           className="hidden"
         />
       </div>
     </div>
-  )
+  );
 }
