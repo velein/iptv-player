@@ -1,0 +1,925 @@
+#EXTM3U
+#EXTINF:0 tvg-id="13 Ulica" tvg-name="13 Ulica" tvg-logo="https://logo.itvn.io/13+Ulica.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,13 Ulica HD
+http://cdnx1.plusx.tv:4000/325/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Euronews Polska" tvg-name="Euronews Polska" tvg-logo="https://logo.itvn.io/Euronews+Polska.png" timeshift="10" catchup="fs" group-title="Informacje" ,Euronews Polska
+http://cdnx1.plusx.tv:4000/6016/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="4FUN DANCE" tvg-name="4FUN DANCE" tvg-logo="https://logo.itvn.io/4+Fun+Dance.png" timeshift="10" catchup="fs" group-title="Muzyka" ,4FUN DANCE
+http://cdnx1.plusx.tv:4000/324/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="4FUN KIDS" tvg-name="4FUN KIDS" tvg-logo="https://logo.itvn.io/4FUN+KIDS.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,4FUN KIDS
+http://cdnx1.plusx.tv:4000/323/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="2x2" tvg-name="2x2" audio-track="pol" tvg-logo="https://logo.itvn.io/2x2.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,2x2 HD
+http://cdnx1.plusx.tv:4000/2x2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="4FUN TV" tvg-name="4FUN TV" tvg-logo="https://logo.itvn.io/4FUN.TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,4FUN TV
+http://cdnx1.plusx.tv:4000/322/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Antena" tvg-name="Antena" tvg-logo="https://logo.itvn.io/Antena.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Antena
+http://cdnx1.plusx.tv:4000/1316/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="AMC" tvg-name="AMC HD" tvg-logo="https://logo.itvn.io/AMC.png" timeshift="10" catchup="fs" group-title="Film" ,AMC HD
+http://cdnx1.plusx.tv:4000/318/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="AXN Black" tvg-name="AXN Black" tvg-logo="https://logo.itvn.io/AXN+Black.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,AXN Black
+http://cdnx1.plusx.tv:4000/314/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="AXN" tvg-name="AXN" tvg-logo="https://logo.itvn.io/AXN.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,AXN HD
+http://cdnx1.plusx.tv:4000/313/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="AXN Spin" tvg-name="AXNSpinHD" tvg-logo="https://logo.itvn.io/AXN+Spin.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,AXN Spin HD
+http://cdnx1.plusx.tv:4000/312/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="AXN White" tvg-name="AXN White" tvg-logo="https://logo.itvn.io/AXN+White.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,AXN White
+http://cdnx1.plusx.tv:4000/311/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Adventure" tvg-name="Adventure" tvg-logo="https://logo.itvn.io/Adventure.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Adventure HD
+http://cdnx1.plusx.tv:4000/320/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ActiveFamily.pl" tvg-name="ActiveFamily.pl" tvg-logo="https://logo.itvn.io/Active+Family.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Active Family
+http://cdnx1.plusx.tv:4000/321/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Ale Kino+" tvg-name="Ale Kino!" tvg-logo="https://logo.itvn.io/Ale+Kino+.png" timeshift="10" catchup="fs" group-title="Film" ,Ale Kino+ HD
+http://cdnx1.plusx.tv:4000/319/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Animal Planet" tvg-name="Animal Planet HD" tvg-logo="https://logo.itvn.io/Animal+Planet.png" timeshift="10" catchup="fs" group-title="Dokument" ,Animal Planet HD
+http://cdnx1.plusx.tv:4000/317/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HOME TV" tvg-name="HOME TV" tvg-logo="https://logo.itvn.io/Home+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Home TV
+http://cdnx1.plusx.tv:4000/8080/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC Brit" tvg-name="BBC-Brit" tvg-logo="https://logo.itvn.io/BBC+Brit.png" timeshift="10" catchup="fs" group-title="Dokument" ,BBC Brit HD
+http://cdnx1.plusx.tv:4000/309/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC Earth" tvg-name="BBC Earth" tvg-logo="https://logo.itvn.io/BBC+Earth.png" timeshift="10" catchup="fs" group-title="Dokument" ,BBC Earth HD
+http://cdnx1.plusx.tv:4000/307/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC First" tvg-name="BBC Fisrt" tvg-logo="https://logo.itvn.io/BBC+First.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,BBC First HD
+http://cdnx1.plusx.tv:4000/306/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC Lifestyle" tvg-name="BBC Lifestyle" tvg-logo="https://logo.itvn.io/BBC+Lifestyle.png" timeshift="10" catchup="fs" group-title="Dokument" ,BBC Lifestyle HD
+http://cdnx1.plusx.tv:4000/305/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC CBeebies" tvg-name="BBC CBeebies" tvg-logo="https://logo.itvn.io/BBC+CBeebies.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,BBC CBeebies
+http://cdnx1.plusx.tv:4000/308/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Baby TV" tvg-name="BabyTV" tvg-logo="https://logo.itvn.io/Baby+TV.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Baby TV
+http://cdnx1.plusx.tv:4000/310/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CARTOONITO" tvg-name="CARTOONITO" tvg-logo="https://logo.itvn.io/CARTOONITO.png" timeshift="5" catchup="default group-title="Dla Dzieci" ,Cartoonito HD
+http://cdnx1.plusx.tv:4000/303/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Biznes 24" tvg-name="Biznes 24" tvg-logo="https://logo.itvn.io/Biznes+24.png" timeshift="10" catchup="fs" group-title="Informacje" ,Biznes 24 HD
+http://cdnx1.plusx.tv:4000/2020/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Dokument" tvg-name="Canal+ Dokument" tvg-logo="https://logo.itvn.io/Canal++Dokument.png" timeshift="10" catchup="fs" group-title="Dokument" ,Canal+ Dokument HD
+http://cdnx1.plusx.tv:4000/301/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Film" tvg-name="CANAL+ Film" tvg-logo="https://logo.itvn.io/Canal++Film.png" timeshift="10" catchup="fs" group-title="Film" ,Canal+ Film HD
+http://cdnx1.plusx.tv:4000/296/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Premium" tvg-name="Canal+ Premium" tvg-logo="https://logo.itvn.io/Canal++Premium.png" timeshift="10" catchup="fs" group-title="Film" ,CANAL+ Premium HD
+http://cdnx1.plusx.tv:4000/295/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Now" tvg-name="Canal+ Now" tvg-logo="https://logo.itvn.io/Canal++Now.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Now HD
+http://cdnx1.plusx.tv:4000/299/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Seriale" tvg-name="Canal+ Seriale" tvg-logo="https://logo.itvn.io/Canal++Seriale.png" timeshift="10" catchup="fs" group-title="Film" ,Canal+ Seriale HD
+http://cdnx1.plusx.tv:4000/294/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Sport" tvg-name="Canalplus Sport" tvg-logo="https://logo.itvn.io/Canal++Sport.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Sport HD
+http://cdnx1.plusx.tv:4000/297/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Sport 2" tvg-name="Canal+ Sport 2 HD" tvg-logo="https://logo.itvn.io/Canal++Sport+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Sport 2 HD
+http://cdnx1.plusx.tv:4000/298/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Sport 3" tvg-name="Canal+ Sport 3" tvg-logo="https://logo.itvn.io/Canal++Sport+3+HD.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Sport 3 HD
+http://cdnx1.plusx.tv:4000/340/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Sport 4" tvg-name="Canal+ Sport 4" tvg-logo="https://logo.itvn.io/Canal++Sport+4.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Sport 4 HD
+http://cdnx1.plusx.tv:4000/341/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Sport 5" tvg-name="Canal+ Sport 5" tvg-logo="https://logo.itvn.io/nsport+.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ Sport 5 HD
+http://cdnx1.plusx.tv:4000/215/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ 1" tvg-name="CANAL+ 1" tvg-logo="https://logo.itvn.io/Canal+1.png" timeshift="10" catchup="fs" group-title="Film" ,Canal+ 1 HD
+http://cdnx1.plusx.tv:4000/302/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Film Cafe" tvg-name="Film Cafe" tvg-logo="https://logo.itvn.io/Film+Cafe.png" timeshift="10" catchup="fs" group-title="Film" ,Film Cafe
+http://cdnx1.plusx.tv:4000/291/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CBS REALITY" tvg-name="CBS Reality" tvg-logo="https://logo.itvn.io/CBS+REALITY.png" timeshift="10" catchup="fs" group-title="Dokument" ,CBS Reality
+http://cdnx1.plusx.tv:4000/290/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Comedy Central Extra" tvg-name="Polsat Comedy Central Extra" tvg-logo="https://logo.itvn.io/POLSAT+COMEDY+CENTRAL+EXTRA.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Comedy Central Extra HD
+http://cdnx1.plusx.tv:4000/289/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Cartoon Network" tvg-name="Cartoon-Network" tvg-logo="https://logo.itvn.io/Cartoon+Network.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Cartoon Network HD
+http://cdnx1.plusx.tv:4000/293/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Bollywood HD" tvg-name="Bollywood HD" tvg-logo="https://logo.itvn.io/Bollywood+HD.png" timeshift="10" catchup="fs" group-title="Film" ,Bollywood HD
+http://cdnx1.plusx.tv:4000/Bollywood/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FILMAX" tvg-name="FILMAX" tvg-logo="https://logo.itvn.io/FILMAX.png" timeshift="10" catchup="fs" group-title="Film" ,FilMax HD
+http://cdnx1.plusx.tv:4000/filmaxhd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ViDoc TV" tvg-name="ViDoc TV" tvg-logo="https://logo.itvn.io/ViDoc+TV.png" timeshift="10" catchup="fs" group-title="Film" ,ViDoc TV
+http://cdnx1.plusx.tv:4000/redtop/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Cinemax" tvg-name="Cinemax" tvg-logo="https://logo.itvn.io/Cinemax.png" timeshift="10" catchup="fs" group-title="Film" ,Cinemax HD
+http://cdnx1.plusx.tv:4000/287/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Cinemax 2" tvg-name="Cinemax 2" tvg-logo="https://logo.itvn.io/Cinemax+2.png" timeshift="10" catchup="fs" group-title="Film" ,Cinemax 2 HD
+http://cdnx1.plusx.tv:4000/288/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Comedy Central" tvg-name="Comedy Central Polska" tvg-logo="https://logo.itvn.io/Comedy+Central.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Comedy Central HD
+http://cdnx1.plusx.tv:4000/286/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CI Polsat HD" tvg-name="CI Polsat HD" tvg-logo="https://logo.itvn.io/CI+Polsat.png" timeshift="10" catchup="fs" group-title="Dokument" ,CI Polsat HD
+http://cdnx1.plusx.tv:4000/285/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="DTX" tvg-name="Discovery Turbo Xtra" tvg-logo="https://logo.itvn.io/DTX.png" timeshift="10" catchup="fs" group-title="Dokument" ,DTX HD
+http://cdnx1.plusx.tv:4000/274/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="DOCUBOX" tvg-name="DOCUBOX" tvg-logo="https://logo.itvn.io/DOCUBOX.png" timeshift="10" catchup="fs" group-title="Dokument" ,DocuBox HD
+http://cdnx1.plusx.tv:4000/DocuBox.pl/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Da Vinci Learning" tvg-name="Da Vinci Learning" tvg-logo="https://logo.itvn.io/Da+Vinci+Learning.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Da Vinci
+http://cdnx1.plusx.tv:4000/284/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Disco Polo Music" tvg-name="disco-polo-music" tvg-logo="https://logo.itvn.io/Disco+Polo+Music.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Disco Polo Music
+http://cdnx1.plusx.tv:4000/283/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Discovery Channel" tvg-name="Discovery" tvg-logo="https://logo.itvn.io/Discovery+Channel.png" timeshift="10" catchup="fs" group-title="Dokument" ,Discovery Channel HD
+http://cdnx1.plusx.tv:4000/282/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Discovery Historia" tvg-name="Discovery Historia" tvg-logo="https://logo.itvn.io/Discovery+Historia.png" timeshift="10" catchup="fs" group-title="Dokument" ,Discovery Historia
+http://cdnx1.plusx.tv:4000/281/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Discovery Life" tvg-name="Discovery Life" tvg-logo="https://logo.itvn.io/Discovery+Life.png" timeshift="10" catchup="fs" group-title="Dokument" ,Discovery Life HD
+http://cdnx1.plusx.tv:4000/280/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Discovery Science" tvg-name="Discovery Science" tvg-logo="https://logo.itvn.io/Discovery+Science.png" timeshift="10" catchup="fs" group-title="Dokument" ,Discovery Science HD
+http://cdnx1.plusx.tv:4000/279/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Disney Channel" tvg-name="Disney Channel" tvg-logo="https://logo.itvn.io/Disney+Channel.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Disney Channel HD
+http://cdnx1.plusx.tv:4000/278/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Disney Junior" tvg-name="Disney Jr" tvg-logo="https://logo.itvn.io/Disney+Junior.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Disney Junior
+http://cdnx1.plusx.tv:4000/277/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Disney XD" tvg-name="Disney XD" tvg-logo="https://logo.itvn.io/Disney+XD.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Disney XD
+http://cdnx1.plusx.tv:4000/276/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Duck TV" tvg-name="Duck TV" tvg-logo="https://logo.itvn.io/Duck+TV.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Duck TV
+http://cdnx1.plusx.tv:4000/duck/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="DuckTV Plus" tvg-name="DuckTV Plus" tvg-logo="https://logo.itvn.io/DuckTV+Plus.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,DuckTV Plus HD
+http://cdnx1.plusx.tv:4000/ducktv-plus/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TeenNick" tvg-name="TeenNick" tvg-logo="https://logo.itvn.io/TeenNick.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,TeenNick
+http://cdnx1.plusx.tv:4000/325jun/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CANAL+ DOMO HD" tvg-name="CANAL+ DOMO HD" tvg-logo="https://logo.itvn.io/Canal++Domo.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Canal+ Domo HD
+http://cdnx1.plusx.tv:4000/275/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dla Ciebie TV" tvg-name="Dla Ciebie TV" tvg-logo="https://logo.itvn.io/Dla+Ciebie+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Dla Ciebie TV
+http://cdnx1.plusx.tv:4000/liga51/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="E! Entertainment" tvg-name="E! Entertainment" tvg-logo="https://logo.itvn.io/E!+Entertainment.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,E! Entertainment HD
+http://cdnx1.plusx.tv:4000/273/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports 1" tvg-name="Eleven Sports 1 HD" tvg-logo="https://logo.itvn.io/Eleven+Sports+4K.png" timeshift="10" catchup="fs" group-title="4k" ,Eleven Sports 1 4K
+http://cdnx1.plusx.tv:4000/325es4k/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports 1" tvg-name="Eleven Sports 1 HD" tvg-logo="https://logo.itvn.io/Eleven+Sports+1.png" timeshift="10" catchup="fs" group-title="Sport" ,Eleven Sports 1 HD
+http://cdnx1.plusx.tv:4000/271/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports 2" tvg-name="Eleven Sports 2 HD" tvg-logo="https://logo.itvn.io/Eleven+Sports+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Eleven Sports 2 HD
+http://cdnx1.plusx.tv:4000/270/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports 3" tvg-name="Eleven Sports 3 HD" tvg-logo="https://logo.itvn.io/Eleven+Sports+3.png" timeshift="10" catchup="fs" group-title="Sport" ,Eleven Sports 3 HD
+http://cdnx1.plusx.tv:4000/269/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports 4" tvg-name="Eleven Sports 4 HD" tvg-logo="https://logo.itvn.io/Eleven+Sports+4.png" timeshift="10" catchup="fs" group-title="Sport" ,Eleven Sports 4 HD
+http://cdnx1.plusx.tv:4000/272/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 1" tvg-name="Eleven Sports Online 1" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+1.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 1
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 2" tvg-name="Eleven Sports Online 2" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+2.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 2
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 3" tvg-name="Eleven Sports Online 3" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+3.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 3
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 4" tvg-name="Eleven Sports Online 4" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+4.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 4
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 5" tvg-name="Eleven Sports Online 5" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+5.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 5
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 6" tvg-name="Eleven Sports Online 6" tvg-logo="https://logo.itvn.io/Eleven+Sports+Online+6.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 6
+http://cdnx1.plusx.tv:4000/Eleven-Sports-Online-6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 7" tvg-name="Eleven Sports Online 7" tvg-logo="https://logo.itvn.io/elevenonline7.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 7
+http://live12.itvn.io:4000/VSport-1-HD/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 8" tvg-name="Eleven Sports Online 8" tvg-logo="https://logo.itvn.io/elevenonline8.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 8
+http://live12.itvn.io:4000/VSport-Vinter-HD/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 9" tvg-name="Eleven Sports Online 9" tvg-logo="https://logo.itvn.io/elevenonline9.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 9
+http://live12.itvn.io:4000/VSport-Extra-HD/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eleven Sports Online 10" tvg-name="Eleven Sports Online 10" tvg-logo="https://logo.itvn.io/elevenonline10.png" timeshift="10" catchup="fs" group-title="Eleven Online" ,Eleven Sports Online 10
+http://cdnx1.plusx.tv:4000/302fps/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Pogoda24 TV" tvg-name="Pogoda24 TV" tvg-logo="https://logo.itvn.io/Pogoda24+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Pogoda24 TV
+http://cdnx1.plusx.tv:4000/xtreamtv/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Epic Drama" tvg-name="Be1 Alt" tvg-logo="https://logo.itvn.io/Epic+Drama.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Epic Drama HD
+http://cdnx1.plusx.tv:4000/268/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eska TV" tvg-name="EPIC Drama HD" tvg-logo="https://logo.itvn.io/Eska+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Eska TV
+http://cdnx1.plusx.tv:4000/267/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eska TV Extra" tvg-name="Eska TV Extra" tvg-logo="https://logo.itvn.io/Eska+TV+Extra.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Eska TV Extra
+http://cdnx1.plusx.tv:4000/265/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eska Rock TV" tvg-name="EskaROCK TV" tvg-logo="https://logo.itvn.io/Eska+Rock+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Eska Rock TV
+http://cdnx1.plusx.tv:4000/266/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport" tvg-name="Eurosport" tvg-logo="https://logo.itvn.io/Eurosport.png" timeshift="10" catchup="fs" group-title="Sport" ,Eurosport 1 HD
+http://cdnx1.plusx.tv:4000/264/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport 2" tvg-name="Eurosport 2" tvg-logo="https://logo.itvn.io/Eurosport+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Eurosport 2 HD
+http://cdnx1.plusx.tv:4000/263/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Extreme Sports Channel" tvg-name="Extreme Sports" tvg-logo="https://logo.itvn.io/Extreme+Sports+Channel.png" timeshift="10" catchup="fs" group-title="Sport" ,Extreme Sports HD
+http://cdnx1.plusx.tv:4000/262/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sportklub" tvg-name="Sport Klub" tvg-logo="https://logo.itvn.io/Sportklub.png" timeshift="10" catchup="fs" group-title="Sport" ,SportKlub HD
+http://cdnx1.plusx.tv:4000/175/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FIGHTKLUB" tvg-name="FightKlub" tvg-logo="https://logo.itvn.io/FIGHTKLUB.png" timeshift="10" catchup="fs" group-title="Sport" ,FightKlub HD
+http://cdnx1.plusx.tv:4000/260/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FightBox" tvg-name="FightBox" tvg-logo="https://logo.itvn.io/FightBox.png" timeshift="10" catchup="fs" group-title="Sport" ,FightBox HD
+http://cdnx1.plusx.tv:4000/261/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Novelas+1" tvg-name="Novelas+1" tvg-logo="https://logo.itvn.io/Novelas+1.png" timeshift="10" catchup="fs" group-title="Film" ,Novelas+1
+http://cdnx1.plusx.tv:4000/Dizi/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Filmbox Family" tvg-name="FilmBox Family" tvg-logo="https://logo.itvn.io/Filmbox+Family.png" timeshift="10" catchup="fs" group-title="Film" ,Filmbox Family
+http://cdnx1.plusx.tv:4000/256/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FilmBox Action" tvg-name="FilmBox Action" tvg-logo="https://logo.itvn.io/FilmBox+Action.png" timeshift="10" catchup="fs" group-title="Film" ,Filmbox Action
+http://cdnx1.plusx.tv:4000/259/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Filmbox Arthouse" tvg-name="Filmbox Arthouse" tvg-logo="https://logo.itvn.io/Filmbox+Arthouse.png" timeshift="10" catchup="fs" group-title="Film" ,Filmbox Arthouse
+http://cdnx1.plusx.tv:4000/258/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Filmbox Extra HD" tvg-name="FilmBox Extra" tvg-logo="https://logo.itvn.io/Filmbox+Extra+HD.png" timeshift="10" catchup="fs" group-title="Film" ,Filmbox Extra
+http://cdnx1.plusx.tv:4000/257/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Filmbox Premium HD" tvg-name="FilmBox Premium" tvg-logo="https://logo.itvn.io/Filmbox+Premium+HD.png" timeshift="10" catchup="fs" group-title="Film" ,Filmbox Premium HD
+http://cdnx1.plusx.tv:4000/255/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Fokus TV" tvg-name="Fokus TV" tvg-logo="https://logo.itvn.io/Fokus+TV.png" timeshift="10" catchup="fs" group-title="Dokument" ,Fokus TV
+http://cdnx1.plusx.tv:4000/254/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Food Network" tvg-name="Food Network" tvg-logo="https://logo.itvn.io/Food+Network.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Food Network HD
+http://cdnx1.plusx.tv:4000/253/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FOX Comedy" tvg-name="Fox Comedy" tvg-logo="https://logo.itvn.io/FOX+Comedy.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,FX Comedy HD
+http://cdnx1.plusx.tv:4000/250/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FOX" tvg-name="FOX (HD)" tvg-logo="https://logo.itvn.io/FOX+HD.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,FX HD
+http://cdnx1.plusx.tv:4000/249/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Golf Channel" tvg-name="Golf Channel" tvg-logo="https://logo.itvn.io/Golf+Channel.png" timeshift="10" catchup="fs" group-title="Sport" ,Golf Channel HD
+http://cdnx1.plusx.tv:4000/248/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="History 2" tvg-name="H2" tvg-logo="https://logo.itvn.io/H2.png" timeshift="10" catchup="fs" group-title="Dokument" ,H2 HD
+http://cdnx1.plusx.tv:4000/247/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HBO" tvg-name="HBO" tvg-logo="https://logo.itvn.io/HBO.png" timeshift="10" catchup="fs" group-title="Film" ,HBO HD
+http://cdnx1.plusx.tv:4000/243/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HBO 2" tvg-name="HBO 2" tvg-logo="https://logo.itvn.io/HBO+2.png" timeshift="10" catchup="fs" group-title="Film" ,HBO 2 HD
+http://cdnx1.plusx.tv:4000/246/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HBO 3" tvg-name="HBO 3" tvg-logo="https://logo.itvn.io/HBO+3.png" timeshift="10" catchup="fs" group-title="Film" ,HBO 3 HD
+http://cdnx1.plusx.tv:4000/245/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HGTV" tvg-name="HGTV" tvg-logo="https://logo.itvn.io/HGTV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,HGTV HD
+http://cdnx1.plusx.tv:4000/241/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="HISTORY" tvg-name="HISTORY" tvg-logo="https://logo.itvn.io/History.png" timeshift="10" catchup="fs" group-title="Dokument" ,History HD
+http://cdnx1.plusx.tv:4000/240/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ID" tvg-name="Investigation Discovery" tvg-logo="https://logo.itvn.io/ID.png" timeshift="10" catchup="fs" group-title="Dokument" ,ID HD
+http://cdnx1.plusx.tv:4000/239/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="EU Music HD" tvg-name="EU Music HD" tvg-logo="https://logo.itvn.io/EU+Music+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,EU Music HD
+http://cdnx1.plusx.tv:4000/mc10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Music Box Classic" tvg-name="Music Box Classic" tvg-logo="https://logo.itvn.io/Music+Box+Classic.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Music Box Classic
+http://cdnx1.plusx.tv:4000/MusicBoxClassic/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Kino Polska Muzyka" tvg-name="Kino Polska Muzyka" tvg-logo="https://logo.itvn.io/Kino+Polska+Muzyka.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Kino Polska Muzyka
+http://cdnx1.plusx.tv:4000/237/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Kino Polska" tvg-name="Kino Polska" tvg-logo="https://logo.itvn.io/Kino+Polska.png" timeshift="10" catchup="fs" group-title="Film" ,Kino Polska HD
+http://cdnx1.plusx.tv:4000/238/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Kino TV" tvg-name="Kino TV" tvg-logo="https://logo.itvn.io/Kino+TV.png" timeshift="10" catchup="fs" group-title="Film" ,Kino TV
+http://cdnx1.plusx.tv:4000/236/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Kuchnia" tvg-name="Canal+ Kuchnia" tvg-logo="https://logo.itvn.io/Canal++Kuchnia.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Canal+ Kuchnia HD
+http://cdnx1.plusx.tv:4000/235/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sportowa.TV" tvg-name="Sportowa.TV" tvg-logo="https://logo.itvn.io/Sportowa.TV.png" timeshift="10" catchup="fs" group-title="Sport" ,Sportowa.TV
+http://cdnx1.plusx.tv:4000/Sportowa.TV/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Motowizja" tvg-name="Motowizja TV" tvg-logo="https://logo.itvn.io/Motowizja.png" timeshift="10" catchup="fs" group-title="Sport" ,Motowizja HD
+http://cdnx1.plusx.tv:4000/230/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MixTape HD" tvg-name="MixTape HD" tvg-logo="https://logo.itvn.io/MixTape+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MixTape HD
+http://cdnx1.plusx.tv:4000/MixTapeHD/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Deluxe Music" tvg-name="Deluxe Music" tvg-logo="https://logo.itvn.io/Deluxe+Music+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Deluxe Music HD
+http://cdnx1.plusx.tv:4000/170/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="deejay" tvg-name="deejay" tvg-logo="https://logo.itvn.io/DeeJay+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,DeeJay HD
+http://cdnx1.plusx.tv:4000/325jun1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV Live HD" tvg-name="MTV Live HD" tvg-logo="https://logo.itvn.io/MTV+Live+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV Live HD
+http://cdnx1.plusx.tv:4000/229/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV 00S" tvg-name="MTV 00S" tvg-logo="https://logo.itvn.io/MTV+00S.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV 00s
+http://cdnx1.plusx.tv:4000/228/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV 90S" tvg-name="MTV 90s" tvg-logo="https://logo.itvn.io/MTV+90S.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV 90s
+http://cdnx1.plusx.tv:4000/325mtv/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV 80S" tvg-name="MTV 80S" tvg-logo="https://logo.itvn.io/MTV+80S.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV 80s
+http://cdnx1.plusx.tv:4000/123/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV Hits" tvg-name="MTV Hits" tvg-logo="https://logo.itvn.io/MTV+Hits.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV Hits
+http://cdnx1.plusx.tv:4000/mtvhits/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CLUB MTV" tvg-name="CLUB MTV" tvg-logo="https://logo.itvn.io/CLUB+MTV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV Club
+http://cdnx1.plusx.tv:4000/MTVcub/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="360 TUNEBOX" tvg-name="360 TUNEBOX" tvg-logo="https://logo.itvn.io/360+TUNEBOX.png" timeshift="10" catchup="fs" group-title="Muzyka" ,360 TUNEBOX HD
+http://cdnx1.plusx.tv:4000/MTVEurope/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MTV Polska" tvg-name="MTV" tvg-logo="https://logo.itvn.io/MTV+Polska.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MTV Polska HD
+http://cdnx1.plusx.tv:4000/227/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="fast-n-funbox-hd" tvg-name="fast-n-funbox-hd" tvg-logo="https://logo.itvn.io/fast-n-funbox-hd.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Fast&Fun Box HD
+http://cdnx1.plusx.tv:4000/funbox4k/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Vox Music TV" tvg-name="vox-music-tv" tvg-logo="https://logo.itvn.io/Vox+Music+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,VOX Music TV
+http://cdnx1.plusx.tv:4000/123v/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Jazz HD" tvg-name="Jazz HD" tvg-logo="https://logo.itvn.io/Jazz+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Jazz HD
+http://cdnx1.plusx.tv:4000/jazz7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="METRO" tvg-name="Metro" tvg-logo="https://logo.itvn.io/METRO.png" timeshift="10" catchup="fs" group-title="Popularny" ,Metro
+http://cdnx1.plusx.tv:4000/232/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Minimini+" tvg-name="Mini Mini" tvg-logo="https://logo.itvn.io/Minimini+.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,MiniMini+ HD
+http://cdnx1.plusx.tv:4000/231/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVC" tvg-name="TVC" tvg-logo="https://logo.itvn.io/TVC.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVC
+http://cdnx1.plusx.tv:4000/214/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nat Geo People" tvg-name="Nat Geo People" tvg-logo="https://logo.itvn.io/Nat+Geo+People.png" timeshift="10" catchup="fs" group-title="Dokument" ,Nat Geo People HD
+http://cdnx1.plusx.tv:4000/225/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="National Geographic Wild" tvg-name="Nat Geo Wild HD" tvg-logo="https://logo.itvn.io/Nat+Geo+Wild+HD.png" timeshift="10" catchup="fs" group-title="Dokument" ,Nat Geo Wild HD
+http://cdnx1.plusx.tv:4000/223/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="National Geographic Channel" tvg-name="National Geographic" tvg-logo="https://logo.itvn.io/National+Geographic+Channel.png" timeshift="10" catchup="fs" group-title="Dokument" ,National Geographic HD
+http://cdnx1.plusx.tv:4000/221/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TOP KIDS JR" tvg-name="TOP KIDS JR" tvg-logo="https://logo.itvn.io/TOP+KIDS+JR.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Junior Music HD
+http://cdnx1.plusx.tv:4000/juniormusic/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Junior Channel" tvg-name="Junior Channel" tvg-logo="https://logo.itvn.io/Junior+Channel.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Junior Channel
+http://cdnx1.plusx.tv:4000/juniorch1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nick Jr." tvg-name="Nick Jr" tvg-logo="https://logo.itvn.io/Nick+Jr.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Nick Jr
+http://cdnx1.plusx.tv:4000/220/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nicktoons" tvg-name="Nicktoons" tvg-logo="https://logo.itvn.io/Nicktoons.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Nicktoons HD
+http://cdnx1.plusx.tv:4000/218/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nickelodeon" tvg-name="Nickelodeon Polska" tvg-logo="https://logo.itvn.io/Nickelodeon.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Nickelodeon
+http://cdnx1.plusx.tv:4000/219/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="NICKMUSIC" tvg-name="NICKMUSIC" tvg-logo="https://logo.itvn.io/Nick+Music.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,NickMusic
+http://cdnx1.plusx.tv:4000/6046/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nuta TV" tvg-name="Nuta TV" tvg-logo="https://logo.itvn.io/Nuta+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Nuta TV
+http://cdnx1.plusx.tv:4000/213/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Nuta Gold" tvg-name="Nuta Gold" tvg-logo="https://logo.itvn.io/Nuta+Gold.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Nuta Gold HD
+http://cdnx1.plusx.tv:4000/nutagoldhd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="NOWA TV" tvg-name="Nowa TV" tvg-logo="https://logo.itvn.io/NOWA+TV.png" timeshift="10" catchup="fs" group-title="Popularny" ,Nowa TV
+http://cdnx1.plusx.tv:4000/216/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Novelas+" tvg-name="Novelas TV" tvg-logo="https://logo.itvn.io/Novelas+.png" timeshift="10" catchup="fs" group-title="Popularny" ,Novelas+
+http://cdnx1.plusx.tv:4000/2022/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Paramount Channel" tvg-name="Paramount Channel HD" tvg-logo="https://logo.itvn.io/Paramount+Channel.png" timeshift="10" catchup="fs" group-title="Film" ,Paramount Channel HD
+http://cdnx1.plusx.tv:4000/212/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="NOVELA TV" tvg-name="Novela TV" tvg-logo="https://logo.itvn.io/NOVELA+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Novela TV
+http://cdnx1.plusx.tv:4000/217/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Planete+" tvg-name="Planete" tvg-logo="https://logo.itvn.io/Planete+.png" timeshift="10" catchup="fs" group-title="Dokument" ,Planete+ HD
+http://cdnx1.plusx.tv:4000/211/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polo TV" tvg-name="PoloTV" tvg-logo="https://logo.itvn.io/Polo+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Polo TV
+http://cdnx1.plusx.tv:4000/210/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Rodzina" tvg-name="Polsat Rodzina" tvg-logo="https://logo.itvn.io/Polsat+Rodzina.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Rodzina HD
+http://cdnx1.plusx.tv:4000/197/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Games" tvg-name="Polsat Games" tvg-logo="https://logo.itvn.io/Polsat+Games.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Games HD
+http://cdnx1.plusx.tv:4000/204/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Gametoon" tvg-name="Gametoon" tvg-logo="https://logo.itvn.io/Gametoon.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Gametoon HD
+http://cdnx1.plusx.tv:4000/gametoon/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Ginx TV" tvg-name="Ginx TV" tvg-logo="https://logo.itvn.io/GINX+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Ginx Esports TV HD
+http://cdnx1.plusx.tv:4000/esport1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat 1" tvg-name="Polsat 1" tvg-logo="https://logo.itvn.io/Polsat+1.png" timeshift="10" catchup="fs" group-title="Popularny" ,Polsat 1
+http://cdnx1.plusx.tv:4000/13tv1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat 2" tvg-name="Polsat 2" tvg-logo="https://logo.itvn.io/Polsat+2.png" timeshift="10" catchup="fs" group-title="Popularny" ,Polsat 2 HD
+http://cdnx1.plusx.tv:4000/208/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Café" tvg-name="Polsat Cafe" tvg-logo="https://logo.itvn.io/Polsat+Café.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Cafe HD
+http://cdnx1.plusx.tv:4000/207/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Doku" tvg-name="Polsat Doku" tvg-logo="https://logo.itvn.io/Polsat+Doku.png" timeshift="10" catchup="fs" group-title="Dokument" ,Polsat Doku HD
+http://cdnx1.plusx.tv:4000/206/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Film" tvg-name="Polsat Film" tvg-logo="https://logo.itvn.io/Polsat+Film.png" timeshift="10" catchup="fs" group-title="Film" ,Polsat Film HD
+http://cdnx1.plusx.tv:4000/205/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Film 2" tvg-name="Polsat Film 2" tvg-logo="https://logo.itvn.io/Polsat+Film+2.png" timeshift="10" catchup="fs" group-title="Film" ,Polsat Film 2 HD
+http://cdnx1.plusx.tv:4000/euro5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat X" tvg-name="Polsat X" tvg-logo="https://logo.itvn.io/Polsat+X.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat X HD
+http://cdnx1.plusx.tv:4000/euro6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Reality" tvg-name="Polsat Reality" tvg-logo="https://logo.itvn.io/Polsat+Reality.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Reality HD
+http://cdnx1.plusx.tv:4000/euro7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat" tvg-name="Polsat" tvg-logo="https://logo.itvn.io/Polsat.png" timeshift="10" catchup="fs" group-title="Popularny" ,Polsat HD
+http://cdnx1.plusx.tv:4000/203/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat JimJam" tvg-name="Polsat JimJam" tvg-logo="https://logo.itvn.io/Polsat+JimJam.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,JimJam Polsat
+http://cdnx1.plusx.tv:4000/202/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Music" tvg-name="Polsat Music" tvg-logo="https://logo.itvn.io/Polsat+Music.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Polsat Music HD
+http://cdnx1.plusx.tv:4000/201/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="News24" tvg-name="News24" audio-track="pol" tvg-logo="https://logo.itvn.io/News24.png" timeshift="10" catchup="fs" group-title="Informacje" ,News24 HD
+http://cdnx1.plusx.tv:4000/news24hd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV echo 24" tvg-name="TV echo 24" tvg-logo="https://logo.itvn.io/TV+echo+24.png" timeshift="10" catchup="fs" group-title="Informacje" ,Echo24 HD
+http://cdnx1.plusx.tv:4000/etho24/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="POLSAT NEWS 2" tvg-name="Polsat News 2" tvg-logo="https://logo.itvn.io/Polsat+News+2.png" timeshift="10" catchup="fs" group-title="Informacje" ,Polsat News 2
+http://cdnx1.plusx.tv:4000/200/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat News" tvg-name="Polsat News" tvg-logo="https://logo.itvn.io/Polsat+News.png" timeshift="10" catchup="fs" group-title="Informacje" ,Polsat News HD
+http://cdnx1.plusx.tv:4000/199/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Play" tvg-name="Polsat Play" tvg-logo="https://logo.itvn.io/Polsat+Play.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Play HD
+http://cdnx1.plusx.tv:4000/198/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="POLSAT ROMANS" tvg-name="Polsat Romans" tvg-logo="https://logo.itvn.io/POLSAT+ROMANS.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Polsat Seriale HD
+http://cdnx1.plusx.tv:4000/196/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Fight" tvg-name="Polsat Sport Fight" tvg-logo="https://logo.itvn.io/Polsat+Sport+Fight.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Fight HD
+http://cdnx1.plusx.tv:4000/194/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport 1" tvg-name="Polsat Sport 1" tvg-logo="https://logo.itvn.io/Polsat+Sport+1.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport 1 HD
+http://cdnx1.plusx.tv:4000/193/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport 2" tvg-name="Polsat Sport 2" tvg-logo="https://logo.itvn.io/Polsat+Sport+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport 2 HD
+http://cdnx1.plusx.tv:4000/195/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport 3" tvg-name="Polsat Sport 3" tvg-logo="https://logo.itvn.io/Polsat+Sport+3.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport 3 HD
+http://cdnx1.plusx.tv:4000/192/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Premium 1" tvg-name="Polsat Sport Premium 1" tvg-logo="https://logo.itvn.io/Polsat+Sport+Premium+1.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Premium 1 HD
+http://cdnx1.plusx.tv:4000/191/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Premium 2" tvg-name="Polsat Sport Premium 2" tvg-logo="https://logo.itvn.io/Polsat+Sport+Premium+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Premium 2 HD
+http://cdnx1.plusx.tv:4000/190/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Extra 1" tvg-name="Polsat Sport Extra 1" tvg-logo="https://logo.itvn.io/Polsat+Sport+Extra+1.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Extra 1 HD
+http://cdnx1.plusx.tv:4000/189/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Extra 2" tvg-name="Polsat Sport Extra 2" tvg-logo="https://logo.itvn.io/Polsat+Sport+Extra+2.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Extra 2 HD
+http://cdnx1.plusx.tv:4000/188/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Extra 3" tvg-name="Polsat Sport Extra 3" tvg-logo="https://logo.itvn.io/Polsat+Sport+Extra+3.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Extra 3 HD
+http://cdnx1.plusx.tv:4000/187/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Sport Extra 4" tvg-name="Polsat Sport Extra 4" tvg-logo="https://logo.itvn.io/Polsat+Sport+Extra+4.png" timeshift="10" catchup="fs" group-title="Sport" ,Polsat Sport Extra 4 HD
+http://cdnx1.plusx.tv:4000/186/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Viasat History" tvg-name="Viasat History" tvg-logo="https://logo.itvn.io/Polsat+Viasat+History.png" timeshift="10" catchup="fs" group-title="Dokument" ,Polsat Viasat History HD
+http://cdnx1.plusx.tv:4000/184/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="POLSAT Viasat Explore" tvg-name="Viasat Explorer" tvg-logo="https://logo.itvn.io/POLSAT+Viasat+Explore.png" timeshift="10" catchup="fs" group-title="Dokument" ,Polsat Viasat Explore HD
+http://cdnx1.plusx.tv:4000/185/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat Viasat Nature" tvg-name="Viasat Nature" tvg-logo="https://logo.itvn.io/Polsat+Viasat+Nature.png" timeshift="10" catchup="fs" group-title="Dokument" ,Polsat Viasat Nature HD
+http://cdnx1.plusx.tv:4000/183/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Viasat Explore Classic" tvg-name="Viasat Explore Classic" tvg-logo="https://logo.itvn.io/Viasat+Explore+Classic.png" timeshift="10" catchup="fs" group-title="Dokument" ,Viasat Explore Classic HD
+http://cdnx1.plusx.tv:4000/viasatclas/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="POWER TV" tvg-name="Power TV" tvg-logo="https://logo.itvn.io/POWER+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Power TV
+http://cdnx1.plusx.tv:4000/182/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polonia 1" tvg-name="Polonia 1" tvg-logo="https://logo.itvn.io/Polonia+1.png" timeshift="10" catchup="fs" group-title="Popularny" ,Polonia 1
+http://cdnx1.plusx.tv:4000/209/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Puls 2" tvg-name="TV Puls 2" tvg-logo="https://logo.itvn.io/Puls+2.png" timeshift="10" catchup="fs" group-title="Popularny" ,Puls 2
+http://cdnx1.plusx.tv:4000/180/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Show TV" tvg-name="Show TV" tvg-logo="https://logo.itvn.io/Show+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Show TV
+http://cdnx1.plusx.tv:4000/179/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ROMANCE TV" tvg-name="Romance TV" tvg-logo="https://logo.itvn.io/ROMANCE+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Romance TV HD
+http://cdnx1.plusx.tv:4000/178/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SCI FI" tvg-name="SciFi" tvg-logo="https://logo.itvn.io/SCI+FI.png" timeshift="10" catchup="fs" group-title="Film" ,SciFi HD
+http://cdnx1.plusx.tv:4000/177/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Stars TV" tvg-name="Stars TV" tvg-logo="https://logo.itvn.io/Stars+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Stars TV
+http://cdnx1.plusx.tv:4000/174/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Stopklatka TV" tvg-name="Stopklatka TV" tvg-logo="https://logo.itvn.io/Stopklatka+TV.png" timeshift="10" catchup="fs" group-title="Film" ,Stopklatka TV
+http://cdnx1.plusx.tv:4000/173/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkyShowtime 1" tvg-name="SkyShowtime 1" tvg-logo="https://logo.itvn.io/Skyshowtime+1.png" timeshift="10" catchup="fs" group-title="Film" ,SkyShowtime 1
+http://cdnx1.plusx.tv:4000/show1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkyShowtime 2" tvg-name="SkyShowtime 2" tvg-logo="https://logo.itvn.io/Skyshowtime+2.png" timeshift="10" catchup="fs" group-title="Film" ,SkyShowtime 2
+http://cdnx1.plusx.tv:4000/show2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sundance TV" tvg-name="Sundance Channel HD" tvg-logo="https://logo.itvn.io/Sundance+TV.png" timeshift="10" catchup="fs" group-title="Film" ,Sundance TV HD
+http://cdnx1.plusx.tv:4000/172/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Super Polsat" tvg-name="Super Polsat" tvg-logo="https://logo.itvn.io/Super+Polsat.png" timeshift="10" catchup="fs" group-title="Popularny" ,Super Polsat HD
+http://cdnx1.plusx.tv:4000/171/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="StudioMed TV" tvg-name="StudioMed TV" tvg-logo="https://logo.itvn.io/StudioMed+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,StudioMed TV
+http://cdnx1.plusx.tv:4000/342/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Teletoon" tvg-name="Teletoon+" tvg-logo="https://logo.itvn.io/Teletoon.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Teletoon+ HD
+http://cdnx1.plusx.tv:4000/168/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TLC" tvg-name="TLC" tvg-logo="https://logo.itvn.io/TLC.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TLC HD
+http://cdnx1.plusx.tv:4000/167/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Tele 5" tvg-name="Tele 5" tvg-logo="https://logo.itvn.io/Tele+5.png" timeshift="10" catchup="fs" group-title="Popularny" ,Tele 5
+http://cdnx1.plusx.tv:4000/169/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Warner TV" tvg-name="Warner TV" tvg-logo="https://logo.itvn.io/Warner+TV.png" timeshift="10" catchup="fs" group-title="Film" ,WB HD
+http://cdnx1.plusx.tv:4000/166/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Fabuła" tvg-name="TVN Fabuła" tvg-logo="https://logo.itvn.io/TVN+Fabuła.png" timeshift="10" catchup="fs" group-title="Film" ,TVN Fabula HD
+http://cdnx1.plusx.tv:4000/150/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FighTime" tvg-name="FighTime" tvg-logo="https://logo.itvn.io/FighTime.png" timeshift="10" catchup="fs" group-title="Sport" ,FighTime.pl
+http://cdnx1.plusx.tv:4000/TRTInternational/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Stingray iConcerts" tvg-name="Stingray iConcerts" tvg-logo="https://logo.itvn.io/Stingray+iConcerts.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Stingray iConcerts
+http://cdnx1.plusx.tv:4000/127/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="4ever music HD" tvg-name="4ever music HD" tvg-logo="https://logo.itvn.io/4ever+music+HD.png" timeshift="10" catchup="fs" group-title="Muzyka" ,4ever music
+http://cdnx1.plusx.tv:4000/126/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="M6 Music" tvg-name="M6 Music" tvg-logo="https://logo.itvn.io/M6_Music_color.png" timeshift="10" catchup="fs" group-title="Muzyka" ,M6 Music
+http://cdnx1.plusx.tv:4000/Vevo-80s/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="NRJ Hits" tvg-name="NRJ Hits" tvg-logo="https://logo.itvn.io/NRJ_Hits_color.png" timeshift="10" catchup="fs" group-title="Muzyka" ,NRJ Hits
+http://cdnx1.plusx.tv:4000/Vevo-90s/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MCM" tvg-name="MCM" tvg-logo="https://logo.itvn.io/MCM_color.png" timeshift="10" catchup="fs" group-title="Muzyka" ,MCM
+http://cdnx1.plusx.tv:4000/Vevo-Country/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Proart" tvg-name="Proart" tvg-logo="https://logo.itvn.io/logo/Proart.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Proart HD
+http://cdnx1.plusx.tv:4000/Vevo-Features/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="RakutenTV" tvg-name="RakutenTV" tvg-logo="https://logo.itvn.io/Rakuten+TV.png" timeshift="10" catchup="fs" group-title="Film" ,RakutenTV
+http://cdnx1.plusx.tv:4000/Vevo-Hip-Hop/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Mezzo" tvg-name="Mezzo" tvg-logo="https://logo.itvn.io/logo/Mezzo.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Mezzo
+http://cdnx1.plusx.tv:4000/Vevo-Pop/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Trace Urban" tvg-name="Trace Urban" tvg-logo="https://logo.itvn.io/Trace+Urban.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Trace Urban
+http://cdnx1.plusx.tv:4000/tra10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Clubbing TV 1" tvg-name="Clubbing TV 1" tvg-logo="https://logo.itvn.io/Clubbing+TV+1.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Clubbing TV
+http://cdnx1.plusx.tv:4000/301fps/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MUSIC BOX" tvg-name="MUSIC BOX" tvg-logo="https://logo.itvn.io/MUSIC+BOX.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Music Box Polska
+http://cdnx1.plusx.tv:4000/165/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TTV" tvg-name="TTV" tvg-logo="https://logo.itvn.io/TTV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TTV HD
+http://cdnx1.plusx.tv:4000/162/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Outdoor TV" tvg-name="Outdoor TV" tvg-logo="https://logo.itvn.io/Outdoor+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Outdoor TV
+http://cdnx1.plusx.tv:4000/159/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV Puls" tvg-name="TV Puls" tvg-logo="https://logo.itvn.io/TV+Puls.png" timeshift="10" catchup="fs" group-title="Popularny" ,TV Puls HD
+http://cdnx1.plusx.tv:4000/158/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV Republika" tvg-name="TV Republika" tvg-logo="https://logo.itvn.io/Republika.png" timeshift="10" catchup="fs" group-title="Informacje" ,TV Republika
+http://cdnx1.plusx.tv:4000/157/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Polsat News Polityka" tvg-name="Polsat News Polityka" tvg-logo="https://logo.itvn.io/Polsat+News+Polityka.png" timeshift="10" catchup="fs" group-title="Informacje" ,Polsat News Polityka
+http://cdnx1.plusx.tv:4000/tvpworldhd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV 4" tvg-name="TV4" tvg-logo="https://logo.itvn.io/TV+4.png" timeshift="10" catchup="fs" group-title="Popularny" ,TV 4 HD
+http://cdnx1.plusx.tv:4000/161/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV 6" tvg-name="TV 6" tvg-logo="https://logo.itvn.io/TV+6.png" timeshift="10" catchup="fs" group-title="Popularny" ,TV 6 HD
+http://cdnx1.plusx.tv:4000/160/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN 24" tvg-name="TVN 24" tvg-logo="https://logo.itvn.io/TVN+24.png" timeshift="10" catchup="fs" group-title="Informacje" ,TVN 24 HD
+http://cdnx1.plusx.tv:4000/153/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN 24 BiS" tvg-name="TVN CNBC Biznes" tvg-logo="https://logo.itvn.io/TVN+24+BiS.png" timeshift="10" catchup="fs" group-title="Informacje" ,TVN 24 BiS HD
+http://cdnx1.plusx.tv:4000/154/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN 7" tvg-name="TVN 7" tvg-logo="https://logo.itvn.io/TVN+7.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVN 7 HD
+http://cdnx1.plusx.tv:4000/152/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN" tvg-name="TVN" tvg-logo="https://logo.itvn.io/TVN.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVN HD
+http://cdnx1.plusx.tv:4000/149/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="iTVN" tvg-name="iTVN" tvg-logo="https://logo.itvn.io/iTVN.png" timeshift="10" catchup="fs" group-title="Popularny" ,iTVN HD
+http://cdnx1.plusx.tv:4000/abc2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Kobieta" tvg-name="TVP Kobieta" tvg-logo="https://logo.itvn.io/TVP+Kobieta.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Kobieta HD
+http://cdnx1.plusx.tv:4000/TVPKobieta/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="iTVN extra" tvg-name="iTVN extra" tvg-logo="https://logo.itvn.io/iTVN+extra.png" timeshift="10" catchup="fs" group-title="Popularny" ,iTVN Extra HD
+http://cdnx1.plusx.tv:4000/tvnextra/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Style" tvg-name="TVN Style" tvg-logo="https://logo.itvn.io/TVN+Style.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TVN Style HD
+http://cdnx1.plusx.tv:4000/147/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Kabaret TV" tvg-name="Kabaret TV" tvg-logo="https://logo.itvn.io/Kabaret+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Kabaret TV
+http://cdnx1.plusx.tv:4000/kab10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV ASTA" tvg-name="TV ASTA" tvg-logo="https://logo.itvn.io/TV+ASTA.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TV ASTA
+http://cdnx1.plusx.tv:4000/dom10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Viasat True Crime" tvg-name="Viasat True Crime" tvg-logo="https://logo.itvn.io/Viasat+True+Crime.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Viasat True Crime
+http://cdnx1.plusx.tv:4000/6034/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Turbo" tvg-name="TVN Turbo" tvg-logo="https://logo.itvn.io/TVN+Turbo.png" timeshift="10" catchup="fs" group-title="Sport" ,TVN Turbo HD
+http://cdnx1.plusx.tv:4000/145/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP HD" tvg-name="TVP HD" tvg-logo="https://logo.itvn.io/TVP+HD.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP HD
+http://cdnx1.plusx.tv:4000/141/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 1" tvg-name="TVP 1" tvg-logo="https://logo.itvn.io/TVP+1.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP 1 HD
+http://cdnx1.plusx.tv:4000/144/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 2" tvg-name="TVP 2" tvg-logo="https://logo.itvn.io/TVP+2.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP 2 HD
+http://cdnx1.plusx.tv:4000/143/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Warszawa.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP 3 HD Warszawa
+http://cdnx1.plusx.tv:4000/142/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP World" tvg-name="TVP World" tvg-logo="https://logo.itvn.io/TVP+World.png" timeshift="10" catchup="fs" group-title="Informacje" ,TVP World
+http://cdnx1.plusx.tv:4000/125/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="DLACIEBIE TV" tvg-name="DLACIEBIE TV" tvg-logo="https://logo.itvn.io/playnowfull-dlaciebietv.png" timeshift="10" catchup="fs" group-title="Regionalny" ,DLACIEBIE TV
+http://live12.itvn.io:4000/6015/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV Boleslawiec" tvg-name="TV Boleslawiec" tvg-logo="https://logo.itvn.io/playnowfull-tvbolesawiec.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TV Boleslawiec
+http://live12.itvn.io:4000/6017/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Lubuska TV Horyzont" tvg-name="Lubuska TV Horyzont" tvg-logo="https://logo.itvn.io/playnowfull-lubuskatvhoryzont.png" timeshift="10" catchup="fs" group-title="Regionalny" ,Lubuska TV Horyzont
+http://live12.itvn.io:4000/6018/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Białystok.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Białystok
+http://cdnx1.plusx.tv:4000/tvpbialystok/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Bydgoszcz.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Bydgoszcz
+http://cdnx1.plusx.tv:4000/tvpbydgoszcz/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Gdańsk.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Gdańsk
+http://cdnx1.plusx.tv:4000/tvpgdansk/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Gorzów+Wielkopolski.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Gorzów Wielkopolski
+http://cdnx1.plusx.tv:4000/tvpgorzow/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Katowice.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Katowice
+http://cdnx1.plusx.tv:4000/tvpkatowice/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Kielce.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Kielce
+http://cdnx1.plusx.tv:4000/tvpkielce/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Kraków.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Kraków
+http://cdnx1.plusx.tv:4000/tvpkrakow/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Lublin.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Lublin
+http://cdnx1.plusx.tv:4000/tvplublin/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Łódź.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Łódź
+http://cdnx1.plusx.tv:4000/tvplodz/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Olsztyn.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Olsztyn
+http://cdnx1.plusx.tv:4000/tvpolsztyn/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Opole.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Opole
+http://cdnx1.plusx.tv:4000/tvpopole/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Poznań.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Poznań
+http://cdnx1.plusx.tv:4000/tvppoznan/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Rzeszów.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Rzeszów
+http://cdnx1.plusx.tv:4000/tvprzeszow/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Szczecin.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Szczecin
+http://cdnx1.plusx.tv:4000/tvpszczecin/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP 3" tvg-name="TVP 3" tvg-logo="https://logo.itvn.io/TVP+3+Wrocław.png" timeshift="10" catchup="fs" group-title="Regionalny" ,TVP 3 Wrocław
+http://cdnx1.plusx.tv:4000/tvpwroclaw/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="tvn24+ live 1" tvg-name="tvn24+ live 1" tvg-logo="https://logo.itvn.io/tvn24-live1.png" timeshift="10" catchup="fs" group-title="TVN24+" ,TVN 24+ live 1
+http://cdnx1.plusx.tv:4000/tvn24plus1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="tvn24+ live 2" tvg-name="tvn24+ live 2" tvg-logo="https://logo.itvn.io/tvn24-live2.png" timeshift="10" catchup="fs" group-title="TVN24+" ,TVN 24+ live 2
+http://cdnx1.plusx.tv:4000/tvn24plus2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="tvn24+ live 3" tvg-name="tvn24+ live 3" tvg-logo="https://logo.itvn.io/tvn24-live3.png" timeshift="10" catchup="fs" group-title="TVN24+" ,TVN 24+ live 3
+http://cdnx1.plusx.tv:4000/tvn24plus3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="tvn24+ live 4" tvg-name="tvn24+ live 4" tvg-logo="https://logo.itvn.io/tvn24-live4.png" timeshift="10" catchup="fs" group-title="TVN24+" ,TVN 24+ live 4
+http://cdnx1.plusx.tv:4000/tvn24plus4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN W Domu Online" tvg-name="TVN W Domu Online" tvg-logo="https://logo.itvn.io/TVN+W+Domu+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN w Domu
+http://cdnx1.plusx.tv:4000/tvn10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Moto Online" tvg-name="TVN Moto Online" tvg-logo="https://logo.itvn.io/TVN+Moto+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Moto
+http://cdnx1.plusx.tv:4000/tvnm10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Kultowe Seriale Online" tvg-name="TVN Kultowe Seriale Online" tvg-logo="https://logo.itvn.io/TVN+Kultowe+Seriale+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Kultowe Seriale
+http://cdnx1.plusx.tv:4000/tvns10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Życie Jak w Bajce Online" tvg-name="TVN Życie Jak w Bajce Online" tvg-logo="https://logo.itvn.io/TVN+Życie+Jak+w+Bajce+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Życie Jak w Bajce
+http://cdnx1.plusx.tv:4000/tvnb10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Kryminalnie Online" tvg-name="TVN Kryminalnie Online" tvg-logo="https://logo.itvn.io/TVN+Kryminalnie+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Kryminalnie
+http://cdnx1.plusx.tv:4000/fastkryminalnie/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Momenty Prawdy Online" tvg-name="TVN Momenty Prawdy Online" tvg-logo="https://logo.itvn.io/TVN+Momenty+Prawdy+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Momenty Prawdy
+http://cdnx1.plusx.tv:4000/fastmomentyprawdy/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Prawo i Życie Online" tvg-name="TVN Prawo i Życie Online" tvg-logo="https://logo.itvn.io/TVN+Prawo+i+Życie+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Prawo i Życie
+http://cdnx1.plusx.tv:4000/fastprawoizycie/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Rajska Miłość Online" tvg-name="TVN Rajska Miłość Online" tvg-logo="https://logo.itvn.io/TVN+Rajska+Miłość+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Rajska Miłość
+http://cdnx1.plusx.tv:4000/fastrajskamilosc/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Rewolucje w Kuchni Online" tvg-name="TVN Rewolucje w Kuchni Online" tvg-logo="https://logo.itvn.io/TVN+Rewolucje+w+Kuchni+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Rewolucje w Kuchni
+http://cdnx1.plusx.tv:4000/fastrewolucjewkuchni/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Seriale o Kobietach Online" tvg-name="TVN Seriale o Kobietach Online" tvg-logo="https://logo.itvn.io/TVN+Seriale+o+Kobietach+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Seriale o Kobietach
+http://cdnx1.plusx.tv:4000/fastserialeokobietach/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Szkoła Życia Online" tvg-name="TVN Szkoła Życia Online" tvg-logo="https://logo.itvn.io/TVN+Szkoła+Życia+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Szkoła Życia
+http://cdnx1.plusx.tv:4000/fastszkolazycia/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Szpitalne Historie Online" tvg-name="TVN Szpitalne Historie Online" tvg-logo="https://logo.itvn.io/TVN+Szpitalne+Historie+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Szpitalne Historie
+http://cdnx1.plusx.tv:4000/fastszpitalnehistorie/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Talk Show Online" tvg-name="TVN Talk Show Online" tvg-logo="https://logo.itvn.io/TVN+Talk+Show+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Talk Show
+http://cdnx1.plusx.tv:4000/fasttalkshow/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Telenowele Online" tvg-name="TVN Telenowele Online" tvg-logo="https://logo.itvn.io/TVN+Telenowele+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Telenowele
+http://cdnx1.plusx.tv:4000/fasttelenowele/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Usterka Online" tvg-name="TVN Usterka Online" tvg-logo="https://logo.itvn.io/TVN+Usterka+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Usterka
+http://cdnx1.plusx.tv:4000/fastusterka/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Czas na Ślub Online" tvg-name="TVN Czas na Ślub Online" tvg-logo="https://logo.itvn.io/TVN+Czas+na+Ślub+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Czas na Ślub
+http://cdnx1.plusx.tv:4000/tvnnew1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Kulinarne Podróże Online" tvg-name="TVN Kulinarne Podróże Online" tvg-logo="https://logo.itvn.io/TVN+Kulinarne+Podróże+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Kulinarne Podróże
+http://cdnx1.plusx.tv:4000/tvnnew2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Patrol Online" tvg-name="TVN Patrol Online" tvg-logo="https://logo.itvn.io/TVN+Patrol+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Patrol
+http://cdnx1.plusx.tv:4000/tvnnew3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Brzydula Online" tvg-name="TVN Brzydula Online" tvg-logo="https://logo.itvn.io/TVN+Brzydula+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Brzydula
+http://cdnx1.plusx.tv:4000/fastbrzydula/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Mam Talent Online" tvg-name="TVN Mam Talent Online" tvg-logo="https://logo.itvn.io/TVN+Mam+Talent+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Mam Talent
+http://cdnx1.plusx.tv:4000/fastmamtalent/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Milionerzy Online" tvg-name="TVN Milionerzy Online" tvg-logo="https://logo.itvn.io/TVN+Milionerzy+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Milionerzy
+http://cdnx1.plusx.tv:4000/tntsport5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Dokument" tvg-name="TVPDokument.pl" tvg-logo="https://logo.itvn.io/TVP+Dokument.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Dokument HD
+http://cdnx1.plusx.tv:4000/1901/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP ABC" tvg-name="TVP-ABC" tvg-logo="https://logo.itvn.io/TVP+ABC.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,TVP ABC
+http://cdnx1.plusx.tv:4000/151/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP ABC 2" tvg-name="TVP ABC 2" tvg-logo="https://logo.itvn.io/TVP+ABC+2.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,TVP ABC 2
+http://cdnx1.plusx.tv:4000/tvpabc25/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Alfa" tvg-name="TVP Alfa" tvg-logo="https://logo.itvn.io/Alfa+TVP.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,TVP Alfa
+http://cdnx1.plusx.tv:4000/tvpalfa25/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TOP KIDS" tvg-name="TOP KIDS" tvg-logo="https://logo.itvn.io/TOP+KIDS.png" timeshift="10" catchup="fs" group-title="Dla Dzieci" ,Top Kids HD
+http://cdnx1.plusx.tv:4000/TopKidsJr/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Historia" tvg-name="TVP Historia" tvg-logo="https://logo.itvn.io/TVP+Historia.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Historia
+http://cdnx1.plusx.tv:4000/140/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Historia 2" tvg-name="TVP Historia 2" tvg-logo="https://logo.itvn.io/TVP+Historia+2.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Historia2
+http://cdnx1.plusx.tv:4000/history2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Info" tvg-name="TVP-Info" tvg-logo="https://logo.itvn.io/TVP+Info.png" timeshift="10" catchup="fs" group-title="Informacje" ,TVP Info HD
+http://cdnx1.plusx.tv:4000/139/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Kultura" tvg-name="TVP-Kultura" tvg-logo="https://logo.itvn.io/TVP+Kultura.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Kultura
+http://cdnx1.plusx.tv:4000/138/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Kultura 2" tvg-name="TVP Kultura 2" tvg-logo="https://logo.itvn.io/TVP+Kultura+2.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Kultura 2
+http://cdnx1.plusx.tv:4000/tvpkul25/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Polonia" tvg-name="TVP Regionalna" tvg-logo="https://logo.itvn.io/TVP+Polonia.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Polonia
+http://cdnx1.plusx.tv:4000/137/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Rozrywka" tvg-name="TVP Rozrywka" tvg-logo="https://logo.itvn.io/TVP+Rozrywka.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Rozrywka
+http://cdnx1.plusx.tv:4000/136/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Nauka" tvg-name="TVP Nauka" tvg-logo="https://logo.itvn.io/TVP+Nauka.png" timeshift="10" catchup="fs" group-title="Dokument" ,TVP Nauka
+http://cdnx1.plusx.tv:4000/tvpnauka25/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Seriale" tvg-name="TVP Seriale" tvg-logo="https://logo.itvn.io/TVP+Seriale.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Seriale
+http://cdnx1.plusx.tv:4000/135/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV TORUŃ" tvg-name="TV TORUŃ" tvg-logo="https://logo.itvn.io/TV+TORUŃ.png" timeshift="10" catchup="fs" group-title="Popularny" ,Toruń TV HD
+http://cdnx1.plusx.tv:4000/tvporld/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TBN Polska" tvg-name="TBN Polska" tvg-logo="https://logo.itvn.io/TBN+Polska.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TBN Polska HD
+http://cdnx1.plusx.tv:4000/100g/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TWOJA TV" tvg-name="TWOJA TV" tvg-logo="https://logo.itvn.io/TWOJA+TV.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Twoja.TV HD
+http://cdnx1.plusx.tv:4000/101g/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV Regio" tvg-name="TV Regio" tvg-logo="https://logo.itvn.io/TV+Regio.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TV Regio HD
+http://cdnx1.plusx.tv:4000/102g/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVT" tvg-name="TVT" tvg-logo="https://logo.itvn.io/TVT.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVT HD
+http://cdnx1.plusx.tv:4000/tvt/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Wilno" tvg-name="TVP Wilno" tvg-logo="https://logo.itvn.io/TVP+Wilno.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVP Wilno HD
+http://cdnx1.plusx.tv:4000/2021/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport" tvg-name="TVP Sport" tvg-logo="https://logo.itvn.io/TVP+Sport.png" timeshift="10" catchup="fs" group-title="Sport" ,TVP Sport HD
+http://cdnx1.plusx.tv:4000/134/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Toya" tvg-name="Toya" tvg-logo="https://logo.itvn.io/Toya.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Toya TV
+http://cdnx1.plusx.tv:4000/Heritage/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ 360" tvg-name="Canal+ 360" tvg-logo="https://logo.itvn.io/Canal++360.png" timeshift="10" catchup="fs" group-title="Sport" ,Canal+ 360
+http://cdnx1.plusx.tv:4000/300/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 1" tvg-name="Canal+ Extra 1" tvg-logo="https://logo.itvn.io/Canal++Extra+1.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 1 HD
+http://cdnx1.plusx.tv:4000/6027/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 2" tvg-name="Canal+ Extra 2" tvg-logo="https://logo.itvn.io/Canal++Extra+2.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 2 HD
+http://cdnx1.plusx.tv:4000/6028/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 3" tvg-name="Canal+ Extra 3" tvg-logo="https://logo.itvn.io/Canal++Extra+3.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 3 HD
+http://cdnx1.plusx.tv:4000/6029/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 4" tvg-name="Canal+ Extra 4" tvg-logo="https://logo.itvn.io/Canal++Extra+4.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 4 HD
+http://cdnx1.plusx.tv:4000/6030/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 5" tvg-name="Canal+ Extra 5" tvg-logo="https://logo.itvn.io/Canal++Extra+5.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 5 HD
+http://cdnx1.plusx.tv:4000/extra5plus/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 6" tvg-name="Canal+ Extra 6" tvg-logo="https://logo.itvn.io/Canal++Extra+6.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 6 HD
+http://cdnx1.plusx.tv:4000/extra6plus/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 7" tvg-name="Canal+ Extra 7" tvg-logo="https://logo.itvn.io/Canal++Extra+7.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 7 HD
+http://cdnx1.plusx.tv:4000/extra7plus/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 8" tvg-name="Canal+ Extra 8" tvg-logo="https://logo.itvn.io/Canal++Extra+8.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 8 HD
+http://cdnx1.plusx.tv:4000/16023/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Extra 9" tvg-name="Canal+ Extra 9" tvg-logo="https://logo.itvn.io/Canal++Extra+9.png" timeshift="10" catchup="fs" group-title="Canal+ Extra" ,Canal+ Extra 9 HD
+http://cdnx1.plusx.tv:4000/16022/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Live 1" tvg-name="Canal+ Live 1" tvg-logo="https://logo.itvn.io/Canal++Live+1.png" timeshift="10" catchup="fs" group-title="Canal+ Live" ,Canal+ Live 1 HD
+http://cdnx1.plusx.tv:4000/6036/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Live 2" tvg-name="Canal+ Live 2" tvg-logo="https://logo.itvn.io/Canal++Live+2.png" timeshift="10" catchup="fs" group-title="Canal+ Live" ,Canal+ Live 2 HD
+http://cdnx1.plusx.tv:4000/6037/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Live 3" tvg-name="Canal+ Live 3" tvg-logo="https://logo.itvn.io/Canal++Live+3.png" timeshift="10" catchup="fs" group-title="Canal+ Live" ,Canal+ Live 3 HD
+http://cdnx1.plusx.tv:4000/6038/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Live 4" tvg-name="Canal+ Live 4" tvg-logo="https://logo.itvn.io/Canal++Live+4.png" timeshift="10" catchup="fs" group-title="Canal+ Live" ,Canal+ Live 4 HD
+http://cdnx1.plusx.tv:4000/6039/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Live 5" tvg-name="Canal+ Live 5" tvg-logo="https://logo.itvn.io/Canal++Live+5.png" timeshift="10" catchup="fs" group-title="Canal+ Live" ,Canal+ Live 5 HD
+http://cdnx1.plusx.tv:4000/16024/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TV TRWAM" tvg-name="TV TRWAM" tvg-logo="https://logo.itvn.io/TV+TRWAM.png" timeshift="10" catchup="fs" group-title="Popularny" ,TV Trwam
+http://cdnx1.plusx.tv:4000/338/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MEZOO LIVE" tvg-name="MEZOO LIVE" tvg-logo="https://logo.itvn.io/MEZZO+LIVE.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Mezzo Live HD
+http://cdnx1.plusx.tv:4000/337/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVS" tvg-name="TVS (HD)" tvg-logo="https://logo.itvn.io/TVS.png" timeshift="10" catchup="fs" group-title="Popularny" ,TVS
+http://cdnx1.plusx.tv:4000/132/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Travel Channel" tvg-name="Travel Channel" tvg-logo="https://logo.itvn.io/Travel+Channel.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Travel Channel HD
+http://cdnx1.plusx.tv:4000/163/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="WP" tvg-name="WP" tvg-logo="https://logo.itvn.io/WP.png" timeshift="10" catchup="fs" group-title="Popularny" ,WP
+http://cdnx1.plusx.tv:4000/121/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="wPolsce.pl" tvg-name="wPolsce.pl" tvg-logo="https://logo.itvn.io/WPolsce.pl.png" timeshift="10" catchup="fs" group-title="Informacje" ,wPolsce.pl
+http://cdnx1.plusx.tv:4000/120/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Wydarzenia 24" tvg-name="Wydarzenia 24" tvg-logo="https://logo.itvn.io/Wydarzenia+24.png" timeshift="10" catchup="fs" group-title="Informacje" ,Wydarzenia 24
+http://cdnx1.plusx.tv:4000/10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="WTK" tvg-name="WTK" tvg-logo="https://logo.itvn.io/WTK.png" timeshift="10" catchup="fs" group-title="Informacje" ,WTK
+http://cdnx1.plusx.tv:4000/wtk10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="WATER PLANET" tvg-name="Water Planet" tvg-logo="https://logo.itvn.io/WATER+PLANET.png" timeshift="10" catchup="fs" group-title="Dokument" ,Water Planet
+http://cdnx1.plusx.tv:4000/122/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ZOOM TV" tvg-name="Zoom TV" tvg-logo="https://logo.itvn.io/ZOOM+TV.png" timeshift="10" catchup="fs" group-title="Popularny" ,Zoom TV
+http://cdnx1.plusx.tv:4000/118/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="English Club TV HD" tvg-name="English Club TV HD" tvg-logo="https://logo.itvn.io/English+Club+HD.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,English Club TV HD
+http://live12.itvn.io:4000/6014/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canalplus4K.pl" tvg-name="Canalplus4K.pl" tvg-logo="https://logo.itvn.io/Canal++4K+PL.png" timeshift="10" catchup="fs" group-title="4k" ,CANAL+ 4K Ultra HD
+http://cdnx1.plusx.tv:4000/Filmax/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Love Nature 4K" tvg-name="Love Nature 4K" tvg-logo="https://logo.itvn.io/Love+Nature+4K.png" timeshift="10" catchup="fs" group-title="4k" ,Love Nature 4K
+http://cdnx1.plusx.tv:4000/LoveNature/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Museum UHD" tvg-name="Museum UHD" tvg-logo="https://logo.itvn.io/Museum+UHD.png" timeshift="10" catchup="fs" group-title="4k" ,Museum 4K
+http://cdnx1.plusx.tv:4000/Museum/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="MYZEN.TV" tvg-name="MYZEN.TV" tvg-logo="https://logo.itvn.io/MYZEN.TV.png" timeshift="10" catchup="fs" group-title="4k" ,MyZen 4K
+http://cdnx1.plusx.tv:4000/myZen/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="InUltra" tvg-name="InUltra" tvg-logo="https://logo.itvn.io/InUltra.png" timeshift="10" catchup="fs" group-title="4k" ,Insight UHD
+http://cdnx1.plusx.tv:4000/InsightUHD11/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Travelxp 4K" tvg-name="Travelxp 4K" tvg-logo="https://logo.itvn.io/Travelxp+4K.png" timeshift="10" catchup="fs" group-title="4k" ,Travelxp 4K
+http://cdnx1.plusx.tv:4000/Travelxp/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FILMAX" tvg-name="FILMAX" tvg-logo="https://logo.itvn.io/FILMAX.png" timeshift="10" catchup="fs" group-title="4k" ,FilMax 4k
+http://cdnx1.plusx.tv:4000/filmax4k/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ULTRA TV 4K" tvg-name="ULTRA TV 4K" tvg-logo="https://logo.itvn.io/ULTRA+TV+4K.png" timeshift="10" catchup="fs" group-title="4k" ,Ultra TV 4k
+http://cdnx1.plusx.tv:4000/ultrahd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ViDocTV 4k" tvg-name="ViDoc TV" tvg-logo="https://logo.itvn.io/ViDocTV+4К.png" timeshift="10" catchup="fs" group-title="4k" ,ViDocTV 4k
+http://cdnx1.plusx.tv:4000/ViDocTV-4k/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="wPolsce.pl" tvg-name="wPolsce.pl" tvg-logo="https://logo.itvn.io/wPolsce+24+4K.png" timeshift="10" catchup="fs" group-title="4k" ,wPolsce24
+http://cdnx1.plusx.tv:4000/NASA/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Main Event" tvg-name="Sky Sports Main Event" tvg-logo="https://logo.itvn.io/Sky+Sports+Main+Event+UHD.png" timeshift="10" catchup="fs" group-title="4k" ,Sky Sports Main Event UHD
+http://live12.itvn.io:4000/skyihd1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports F1" tvg-name="Sky Sports F1" tvg-logo="https://logo.itvn.io/Sky+Sports+F1+UHD.png" timeshift="10" catchup="fs" group-title="4k" ,Sky Sports F1 UHD
+http://live12.itvn.io:4000/skyihd2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN 4k" tvg-name="TSN 4k" tvg-logo="https://logo.itvn.io/TSN+4K.png" timeshift="10" catchup="fs" group-title="4k" ,TSN 4k
+http://cdnx1.plusx.tv:4000/pat10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Canal+ Foot" tvg-name="Canal+ Foot" tvg-logo="https://logo.itvn.io/Canal++Foot.png" timeshift="10" catchup="fs" group-title="4k" ,Canal+ Foot UHD
+http://cdnx1.plusx.tv:4000/fruhd4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport 4K" tvg-name="Eurosport 4K" tvg-logo="https://logo.itvn.io/antiktvpy-eurosport4k.png" timeshift="10" catchup="fs" group-title="4k" ,Eurosport 4K
+http://live12.itvn.io:4000/nowsport/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FUN BOX" tvg-name="FUN BOX" tvg-logo="https://logo.itvn.io/FUN+BOX.png" timeshift="10" catchup="fs" group-title="4k" ,FunBox UHD
+http://cdnx1.plusx.tv:4000/funboxuhd/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TNT Sports Ultimate UHD" tvg-name="TNT Sports Ultimate UHD" tvg-logo="https://logo.itvn.io/TNT+Sports+Ultimate.png" timeshift="10" catchup="fs" group-title="4k" ,TNT Sports Ultimate UHD
+http://live12.itvn.io:4000/fruhdtnt/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Quadro 4K" tvg-name="Quadro 4K" tvg-logo="https://logo.itvn.io/Quadro+4K.png" timeshift="10" catchup="fs" group-title="4k" ,Quadro 4K
+http://cdnx1.plusx.tv:4000/316/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FashionTV4K.eu" tvg-name="FashionTV4K.eu" tvg-logo="https://logo.itvn.io/Fashion+TV+HD.png" timeshift="10" catchup="fs" group-title="4k" ,FashionTV 4K
+http://cdnx1.plusx.tv:4000/FashionTV4K/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="home4k" tvg-name="home4k" tvg-logo="https://logo.itvn.io/home4k.png" timeshift="10" catchup="fs" group-title="4k" ,Home 4K
+http://cdnx1.plusx.tv:4000/C4K360/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVC Super" tvg-name="TVC Super" tvg-logo="https://logo.itvn.io/TVC+Super.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,TVC Super
+http://cdnx1.plusx.tv:4000/euro3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dolce Vita" tvg-name="Dolce Vita" tvg-logo="https://logo.itvn.io/toya-dolcevitahd.png" timeshift="10" catchup="fs" group-title="Rozrywka" ,Dolce Vita
+http://live12.itvn.io:4000/6019/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Szlagier TV" tvg-name="Szlagier TV" tvg-logo="https://logo.itvn.io/Szlagier+TV.png" timeshift="10" catchup="fs" group-title="Muzyka" ,Szlagier TV
+http://cdnx1.plusx.tv:4000/euro4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Comedy Universe HD" tvg-name="Comedy Universe HD" tvg-logo="https://logo.itvn.io/2007comedy.png" timeshift="10" catchup="fs" group-title="Film" ,Comedy Universe HD
+http://cdnx1.plusx.tv:4000/euro8/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 1" tvg-name="TVP Sport Extra 1" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 1
+http://cdnx1.plusx.tv:4000/tvps1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 2" tvg-name="TVP Sport Extra 2" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 2
+http://cdnx1.plusx.tv:4000/tvps2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 3" tvg-name="TVP Sport Extra 3" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 3
+http://cdnx1.plusx.tv:4000/tvps3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 4" tvg-name="TVP Sport Extra 4" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 4
+http://cdnx1.plusx.tv:4000/tvps4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 5" tvg-name="TVP Sport Extra 5" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 5
+http://cdnx1.plusx.tv:4000/tvps5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 6" tvg-name="TVP Sport Extra 6" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 6
+http://cdnx1.plusx.tv:4000/tvps6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 7" tvg-name="TVP Sport Extra 7" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 7
+http://cdnx1.plusx.tv:4000/tvps7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 8" tvg-name="TVP Sport Extra 8" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 8
+http://cdnx1.plusx.tv:4000/tvps8/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 9" tvg-name="TVP Sport Extra 9" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 9
+http://cdnx1.plusx.tv:4000/tvps9/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVP Sport Extra 10" tvg-name="TVP Sport Extra 10" tvg-logo="https://logo.itvn.io/TVP+Sport+Extra.png" timeshift="10" catchup="fs" group-title="tvpsport.pl" ,TVP Sport Extra 10
+http://cdnx1.plusx.tv:4000/tvps10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Emocje Extra 1" tvg-name="Emocje Extra 1" tvg-logo="https://logo.itvn.io/ex1emoj.png" timeshift="10" catchup="fs" group-title="emocje.tv" ,Emocje Extra 1
+http://cdnx1.plusx.tv:4000/extremoj1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Emocje Extra 2" tvg-name="Emocje Extra 2" tvg-logo="https://logo.itvn.io/ex2emoj.png" timeshift="10" catchup="fs" group-title="emocje.tv" ,Emocje Extra 2
+http://cdnx1.plusx.tv:4000/extremoj2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Emocje Extra 3" tvg-name="Emocje Extra 3" tvg-logo="https://logo.itvn.io/ex3emoj.png" timeshift="10" catchup="fs" group-title="emocje.tv" ,Emocje Extra 3
+http://cdnx1.plusx.tv:4000/extremoj3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Emocje Extra 4" tvg-name="Emocje Extra 4" tvg-logo="https://logo.itvn.io/ex4emoj.png" timeshift="10" catchup="fs" group-title="emocje.tv" ,Emocje Extra 4
+http://cdnx1.plusx.tv:4000/extremoj4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Emocje Extra 5" tvg-name="Emocje Extra 5" tvg-logo="https://logo.itvn.io/ex5emoj.png" timeshift="10" catchup="fs" group-title="emocje.tv" ,Emocje Extra 5
+http://cdnx1.plusx.tv:4000/extremoj5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 1" tvg-name="Dazn Event 1" tvg-logo="https://logo.itvn.io/Dazn+Event+1.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 1
+http://cdnx1.plusx.tv:4000/daznevent1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 2" tvg-name="Dazn Event 2" tvg-logo="https://logo.itvn.io/Dazn+Event+2.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 2
+http://cdnx1.plusx.tv:4000/daznevent2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 3" tvg-name="Dazn Event 3" tvg-logo="https://logo.itvn.io/Dazn+Event+3.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 3
+http://cdnx1.plusx.tv:4000/daznevent3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 4" tvg-name="Dazn Event 4" tvg-logo="https://logo.itvn.io/Dazn+Event+4.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 4
+http://cdnx1.plusx.tv:4000/daznevent4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 5" tvg-name="Dazn Event 5" tvg-logo="https://logo.itvn.io/Dazn+Event+5.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 5
+http://cdnx1.plusx.tv:4000/daznevent5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 6" tvg-name="Dazn Event 6" tvg-logo="https://logo.itvn.io/Dazn+Event+6.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 6
+http://cdnx1.plusx.tv:4000/daznevent6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 7" tvg-name="Dazn Event 7" tvg-logo="https://logo.itvn.io/Dazn+Event+7.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 7
+http://cdnx1.plusx.tv:4000/daznevent7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 8" tvg-name="Dazn Event 8" tvg-logo="https://logo.itvn.io/Dazn+Event+8.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 8
+http://cdnx1.plusx.tv:4000/daznevent8/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 9" tvg-name="Dazn Event 9" tvg-logo="https://logo.itvn.io/Dazn+Event+9.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 9
+http://cdnx1.plusx.tv:4000/daznevent9/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Dazn Event 10" tvg-name="Dazn Event 10" tvg-logo="https://logo.itvn.io/Dazn+Event+10.png" timeshift="10" catchup="fs" group-title="Dazn Event" ,Dazn Event 10
+http://cdnx1.plusx.tv:4000/daznevent10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 1" tvg-name="Eurosport Extra 1" tvg-logo="https://logo.itvn.io/Eurosport+Extra+1.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 1 HD
+http://cdnx1.plusx.tv:4000/euroex1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 2" tvg-name="Eurosport Extra 2" tvg-logo="https://logo.itvn.io/Eurosport+Extra+2.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 2 HD
+http://cdnx1.plusx.tv:4000/euroex2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 3" tvg-name="Eurosport Extra 3" tvg-logo="https://logo.itvn.io/Eurosport+Extra+3.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 3 HD
+http://cdnx1.plusx.tv:4000/euroex3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 4" tvg-name="Eurosport Extra 4" tvg-logo="https://logo.itvn.io/Eurosport+Extra+4.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 4 HD
+http://cdnx1.plusx.tv:4000/euroex4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 5" tvg-name="Eurosport Extra 5" tvg-logo="https://logo.itvn.io/Eurosport+Extra+5.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 5 HD
+http://cdnx1.plusx.tv:4000/euroex5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 6" tvg-name="Eurosport Extra 6" tvg-logo="https://logo.itvn.io/Eurosport+Extra+6.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 6 HD
+http://cdnx1.plusx.tv:4000/euroex6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 7" tvg-name="Eurosport Extra 7" tvg-logo="https://logo.itvn.io/Eurosport+Extra+7.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 7 HD
+http://cdnx1.plusx.tv:4000/euroex7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 8" tvg-name="Eurosport Extra 8" tvg-logo="https://logo.itvn.io/Eurosport+Extra+8.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 8 HD
+http://cdnx1.plusx.tv:4000/euroex8/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 9" tvg-name="Eurosport Extra 9" tvg-logo="https://logo.itvn.io/Eurosport+Extra+9.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 9 HD
+http://cdnx1.plusx.tv:4000/euroex9/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 10" tvg-name="Eurosport Extra 10" tvg-logo="https://logo.itvn.io/Eurosport+Extra+10.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 10 HD
+http://cdnx1.plusx.tv:4000/euroex10/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 11" tvg-name="Eurosport Extra 11" tvg-logo="https://logo.itvn.io/Eurosport+Extra+11.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 11 HD
+http://cdnx1.plusx.tv:4000/euroex11/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 12" tvg-name="Eurosport Extra 12" tvg-logo="https://logo.itvn.io/Eurosport+Extra+12.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 12 HD
+http://cdnx1.plusx.tv:4000/euroex12/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 13" tvg-name="Eurosport Extra 13" tvg-logo="https://logo.itvn.io/Eurosport+Extra+13.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 13 HD
+http://cdnx1.plusx.tv:4000/euroex13/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 14" tvg-name="Eurosport Extra 14" tvg-logo="https://logo.itvn.io/Eurosport+Extra+14.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 14 HD
+http://cdnx1.plusx.tv:4000/euroex14/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 15" tvg-name="Eurosport Extra 15" tvg-logo="https://logo.itvn.io/Eurosport+Extra+15.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 15 HD
+http://cdnx1.plusx.tv:4000/euroex15/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 16" tvg-name="Eurosport Extra 16" tvg-logo="https://logo.itvn.io/Eurosport+Extra+16.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 16 HD
+http://cdnx1.plusx.tv:4000/16004/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 17" tvg-name="Eurosport Extra 17" tvg-logo="https://logo.itvn.io/Eurosport+Extra+17.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 17 HD
+http://cdnx1.plusx.tv:4000/16005/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 18" tvg-name="Eurosport Extra 18" tvg-logo="https://logo.itvn.io/Eurosport+Extra+18.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 18 HD
+http://cdnx1.plusx.tv:4000/16006/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 19" tvg-name="Eurosport Extra 19" tvg-logo="https://logo.itvn.io/Eurosport+Extra+19.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 19 HD
+http://cdnx1.plusx.tv:4000/16007/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 20" tvg-name="Eurosport Extra 20" tvg-logo="https://logo.itvn.io/Eurosport+Extra+20.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 20 HD
+http://cdnx1.plusx.tv:4000/16008/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 21" tvg-name="Eurosport Extra 21" tvg-logo="https://logo.itvn.io/Eurosport+Extra+21.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 21 HD
+http://cdnx1.plusx.tv:4000/16009/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 22" tvg-name="Eurosport Extra 22" tvg-logo="https://logo.itvn.io/Eurosport+Extra+22.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 22 HD
+http://cdnx1.plusx.tv:4000/16010/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 23" tvg-name="Eurosport Extra 23" tvg-logo="https://logo.itvn.io/Eurosport+Extra+23.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 23 HD
+http://cdnx1.plusx.tv:4000/16011/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 24" tvg-name="Eurosport Extra 24" tvg-logo="https://logo.itvn.io/Eurosport+Extra+24.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 24 HD
+http://cdnx1.plusx.tv:4000/16012/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Eurosport Extra 25" tvg-name="Eurosport Extra 25" tvg-logo="https://logo.itvn.io/Eurosport+Extra+25.png" timeshift="10" catchup="fs" group-title="Eurosport Extra" ,Eurosport Extra 25 HD
+http://cdnx1.plusx.tv:4000/16013/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="BBC World News" tvg-name="BBC World News" tvg-logo="https://logo.itvn.io/BBC+World+News.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,BBC News
+http://cdnx1.plusx.tv:4000/6025/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky News" tvg-name="Sky News" tvg-logo="https://logo.itvn.io/Sky+News.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,Sky News
+http://cdnx1.plusx.tv:4000/6026/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TVN Pora na Show Online" tvg-name="TVN Pora na Show Online" tvg-logo="https://logo.itvn.io/TVN+Pora+na+Show+Online.png" timeshift="10" catchup="fs" group-title="TVN Online" ,TVN Pora na Show
+http://cdnx1.plusx.tv:4000/6031/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="NFL Network" tvg-name="NFL Network" tvg-logo="https://logo.itvn.io/NFL+Network.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,NFL Network
+http://cdnx1.plusx.tv:4000/6032/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ESPN" tvg-name="ESPN" tvg-logo="https://logo.itvn.io/ESPN.png" timeshift="10" catchup="fs" group-title="MIX (US)" ,ESPN
+http://cdnx1.plusx.tv:4000/mls1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ESPN 2" tvg-name="ESPN 2" tvg-logo="https://logo.itvn.io/ESPN2.png" timeshift="10" catchup="fs" group-title="MIX (US)" ,ESPN 2
+http://cdnx1.plusx.tv:4000/mls2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="ESPNU" tvg-name="ESPNU" tvg-logo="https://logo.itvn.io/ESPNU.png" timeshift="10" catchup="fs" group-title="MIX (US)" ,ESPNU
+http://cdnx1.plusx.tv:4000/mls5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FS1" tvg-name="FS1" tvg-logo="https://logo.itvn.io/FS1.png" timeshift="10" catchup="fs" group-title="MIX (US)" ,FS1
+http://cdnx1.plusx.tv:4000/mls3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FS2" tvg-name="FS2" tvg-logo="https://logo.itvn.io/FS2.png" timeshift="10" catchup="fs" group-title="MIX (US)" ,FS2
+http://cdnx1.plusx.tv:4000/mls4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkySportF1.de" tvg-name="SkySportF1.de" tvg-logo="https://logo.itvn.io/Sky+Sport+F1.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport F1
+http://live12.itvn.io:4000/6042/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkySportPremierLeague.de" tvg-name="SkySportPremierLeague.de" tvg-logo="https://logo.itvn.io/Sky+Sport+Premier+League.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport Premier League
+http://live12.itvn.io:4000/6044/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkySportGolf.de" tvg-name="SkySportGolf.de" tvg-logo="https://logo.itvn.io/Sky+Sport+Golf.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport Golf
+http://live12.itvn.io:4000/6045/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sport Bundesliga" tvg-name="Sky Sport Bundesliga" tvg-logo="https://logo.itvn.io/Sky+Sport+Bundesliga.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport Bundesliga
+http://live12.itvn.io:4000/6047/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sport Top Event" tvg-name="Sky Sport Top Event" tvg-logo="https://logo.itvn.io/Sky+Sport+Top+Event.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport Top Event
+http://live12.itvn.io:4000/6048/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sport MIX" tvg-name="Sky Sport MIX" tvg-logo="https://logo.itvn.io/Sky+Sport+MIX.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport MIX
+http://live12.itvn.io:4000/6050/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sport Tennis" tvg-name="Sky Sport Tennis" tvg-logo="https://logo.itvn.io/Sky+Sport+Tennis.png" timeshift="10" catchup="fs" group-title="MIX (DE)" ,Sky Sport Tennis
+http://live12.itvn.io:4000/6035/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CanalPlusSport360.fr" tvg-name="CanalPlusSport360.fr" tvg-logo="https://logo.itvn.io/Canal++360+sport.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Canal+ 360 sport
+http://cdnx1.plusx.tv:4000/fruhd2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="beinSports1.fr" tvg-name="beinSports1.fr" tvg-logo="https://logo.itvn.io/Bein+Sports+1.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Bein Sports 1
+http://cdnx1.plusx.tv:4000/fruhd5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="beinSports2.fr" tvg-name="beinSports2.fr" tvg-logo="https://logo.itvn.io/Bein+Sports+2.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Bein Sports 2
+http://cdnx1.plusx.tv:4000/fruhd6/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="beinSports3.fr" tvg-name="beinSports3.fr" tvg-logo="https://logo.itvn.io/Bein+Sports+3.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Bein Sports 3
+http://cdnx1.plusx.tv:4000/fruhd7/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CanalPlusFoot.fr" tvg-name="CanalPlusFoot.fr" tvg-logo="https://logo.itvn.io/Canal++Foot.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Canal+ Foot
+http://cdnx1.plusx.tv:4000/fruhd8/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CANALplusSPORT.fr" tvg-name="CANALplusSPORT.fr" tvg-logo="https://logo.itvn.io/Canal++Sport+FR.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,Canal+ Sport FR
+http://cdnx1.plusx.tv:4000/fruhd3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="RMC Sport 1" tvg-name="RMC Sport 1" tvg-logo="https://logo.itvn.io/RMC-Sport.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,RMC Sport 1
+http://cdnx1.plusx.tv:4000/6049/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="RMC Sport 2" tvg-name="RMC Sport 2" tvg-logo="https://logo.itvn.io/RMC-Sport-2.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,RMC Sport 2
+http://cdnx1.plusx.tv:4000/6043/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="RMC Sport 3" tvg-name="RMC Sport 3" tvg-logo="https://logo.itvn.io/RMC-Sport-3.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,RMC Sport 3
+http://cdnx1.plusx.tv:4000/6041/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="RMC Sport 4" tvg-name="RMC Sport 4" tvg-logo="https://logo.itvn.io/RMC-Sport-4.png" timeshift="10" catchup="fs" group-title="MIX (FR)" ,RMC Sport 4
+http://cdnx1.plusx.tv:4000/6040/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="PremierSports.uk" tvg-name="PremierSports.uk" tvg-logo="https://logo.itvn.io/Premier+Sports+1.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Premier Sports 1
+http://live12.itvn.io:4000/124/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Premier Sports 2" tvg-name="Premier Sports 2" tvg-logo="https://logo.itvn.io/Premier+Sports+2.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Premier Sports 2
+http://live12.itvn.io:4000/xt123/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Premier League" tvg-name="Sky Sports Premier League" tvg-logo="https://logo.itvn.io/Sky+Sports+Premier+League.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Premier League
+http://live12.itvn.io:4000/Sky-Sports-Premier-League/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports +" tvg-name="Sky Sports +" tvg-logo="https://logo.itvn.io/Sky+Sports++.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports +
+http://live12.itvn.io:4000/Sky-Sports-Arena/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Cricket" tvg-name="Sky Sports Cricket" tvg-logo="https://logo.itvn.io/Sky+Sports+Cricket.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Cricket
+http://live12.itvn.io:4000/Sky-Sports-Cricket/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports F1" tvg-name="Sky Sports F1" tvg-logo="https://logo.itvn.io/Sky+Sports+F1.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports F1
+http://live12.itvn.io:4000/Sky-Sports-F1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Football" tvg-name="Sky Sports Football" tvg-logo="https://logo.itvn.io/Sky+Sports+Football.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Football
+http://live12.itvn.io:4000/Sky-Sports-Football/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Golf" tvg-name="Sky Sports Golf" tvg-logo="https://logo.itvn.io/Sky+Sports+Golf.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Golf
+http://live12.itvn.io:4000/Sky-Sports-Golf/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Main Event" tvg-name="Sky Sports Main Event" tvg-logo="https://logo.itvn.io/Sky+Sports+Main+Event (1).png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Main Event
+http://live12.itvn.io:4000/Sky-Sports-Main-Event/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Mix" tvg-name="Sky Sports Mix" tvg-logo="https://logo.itvn.io/Sky+Sports+Mix.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Mix
+http://live12.itvn.io:4000/Sky-Sports-Mix/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="SkySpNews.uk" tvg-name="SkySpNews.uk" tvg-logo="https://logo.itvn.io/Sky+Sports+News.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports News
+http://live12.itvn.io:4000/Sky-Sports-News/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Action" tvg-name="Sky Sports Action" tvg-logo="https://logo.itvn.io/Sky+Sports+Action.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Action
+http://live12.itvn.io:4000/Sky-Sports-Action/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Racing" tvg-name="Sky Sports Racing" tvg-logo="https://logo.itvn.io/Sky+Sports+Racing.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Racing
+http://live12.itvn.io:4000/Sky-Sports-Racing/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Sky Sports Tennis" tvg-name="Sky Sports Tennis" tvg-logo="https://logo.itvn.io/Sky+Sports+Tennis.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Sky Sports Tennis
+http://live12.itvn.io:4000/Sky-Sports-Tennis/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TNTSport1.uk" tvg-name="TNTSport1.uk" tvg-logo="https://logo.itvn.io/TNT+Sports+1.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,TNT Sports 1
+http://live12.itvn.io:4000/tntsport1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TNTSport2.uk" tvg-name="TNTSport2.uk" tvg-logo="https://logo.itvn.io/TNT+Sports+2.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,TNT Sports 2
+http://live12.itvn.io:4000/tntsport2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TNTSport3.uk" tvg-name="TNTSport3.uk" tvg-logo="https://logo.itvn.io/TNT+Sports+3.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,TNT Sports 3
+http://live12.itvn.io:4000/tntsport3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TNTSport4.uk" tvg-name="TNTSport4.uk" tvg-logo="https://logo.itvn.io/TNT+Sports+4.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,TNT Sports 4
+http://live12.itvn.io:4000/tntsport4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Tennis Channel" tvg-name="Tennis Channel" tvg-logo="https://logo.itvn.io/sling-tennischannel.png" timeshift="10" catchup="fs" group-title="MIX (GB)" ,Tennis Channel
+http://live12.itvn.io:4000/laliga/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN1" tvg-name="TSN1" tvg-logo="https://logo.itvn.io/TSN+1.png" timeshift="10" catchup="fs" group-title="MIX (CA)" ,TSN 1
+http://cdnx1.plusx.tv:4000/TSN1/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN2" tvg-name="TSN2" tvg-logo="https://logo.itvn.io/TSN+2.png" timeshift="10" catchup="fs" group-title="MIX (CA)" ,TSN 2
+http://cdnx1.plusx.tv:4000/TSN2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN3" tvg-name="TSN3" tvg-logo="https://logo.itvn.io/TSN+3.png" timeshift="10" catchup="fs" group-title="MIX (CA)" ,TSN 3
+http://cdnx1.plusx.tv:4000/TSN3/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN4" tvg-name="TSN4" tvg-logo="https://logo.itvn.io/TSN+4.png" timeshift="10" catchup="fs" group-title="MIX (CA)" ,TSN 4
+http://cdnx1.plusx.tv:4000/TSN4/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="TSN5" tvg-name="TSN5" tvg-logo="https://logo.itvn.io/TSN+5.png" timeshift="10" catchup="fs" group-title="MIX (CA)" ,TSN 5
+http://cdnx1.plusx.tv:4000/TSN5/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Super Express" tvg-name="Super Express" tvg-logo="https://logo.itvn.io/Super+Express+TV.png" timeshift="10" catchup="fs" group-title="Informacje" ,Super Express
+http://cdnx1.plusx.tv:4000/1020f/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="E-SPORT" tvg-name="E-SPORT" tvg-logo="https://logo.itvn.io/E-SPORT.png" timeshift="10" catchup="fs" group-title="Sport" ,E-SPORT
+http://cdnx1.plusx.tv:4000/Sky-Sport-Bundesliga-2-HD/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="KSW" tvg-name="KSW" tvg-logo="https://logo.itvn.io/KSW.png" timeshift="10" catchup="fs" group-title="Sport" ,PPV Event Fight 1 HD
+http://live12.itvn.io:4000/325m/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="Fightevent" tvg-name="Fightevent" tvg-logo="https://logo.itvn.io/FAME+MMA+HD.png" timeshift="10" catchup="fs" group-title="Sport" ,PPV Event Fight 2 HD
+http://live12.itvn.io:4000/325m2/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CNN" tvg-name="CNN" tvg-logo="https://logo.itvn.io/CNN.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,CNN HD
+http://cdnx1.plusx.tv:4000/103g/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="CNBC" tvg-name="CNBC" tvg-logo="https://logo.itvn.io/CNBC.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,CNBC HD
+http://cdnx1.plusx.tv:4000/234/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="FOXNewsChannel.us" tvg-name="FOXNewsChannel.us" tvg-logo="https://logo.itvn.io/Fox+News.png" timeshift="10" catchup="fs" group-title="MIX (Network)" ,FOX News Channel HD
+http://cdnx1.plusx.tv:4000/Fox-News-US/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333
+#EXTINF:0 tvg-id="1+1" tvg-name="1+1" tvg-logo="https://logo.itvn.io/1+1+International.png" timeshift="10" catchup="fs" group-title="MIX (UA)" ,1+1 HD
+http://cdnx1.plusx.tv:4000/201p/mono.m3u8?token=f376becefb7ef7f89354deb76eecfab53333

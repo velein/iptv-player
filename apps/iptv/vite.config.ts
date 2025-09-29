@@ -8,6 +8,19 @@ export default defineConfig(() => ({
   server: {
     port: 4200,
     host: 'localhost',
+    proxy: {
+      '/api/epg': {
+        target: 'https://epg.ovh',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/epg/, ''),
+        secure: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
+      }
+    }
   },
   preview: {
     port: 4300,
