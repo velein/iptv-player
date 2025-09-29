@@ -10,7 +10,6 @@ interface AppSettings {
   epgUrl: string;
   epgRefreshInterval: number;
   epgCacheEnabled: boolean;
-  enableHttpsProxy: boolean;
 }
 
 function getSettings(): AppSettings {
@@ -23,7 +22,6 @@ function getSettings(): AppSettings {
         epgUrl: '',
         epgRefreshInterval: 6,
         epgCacheEnabled: true,
-        enableHttpsProxy: false,
       };
     }
   }
@@ -31,7 +29,6 @@ function getSettings(): AppSettings {
     epgUrl: '',
     epgRefreshInterval: 6,
     epgCacheEnabled: true,
-    enableHttpsProxy: false,
   };
 }
 

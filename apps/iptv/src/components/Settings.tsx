@@ -10,14 +10,12 @@ interface AppSettings {
   epgUrl: string;
   epgRefreshInterval: number; // hours
   epgCacheEnabled: boolean;
-  enableHttpsProxy: boolean; // Enable proxy for HTTP streams on HTTPS sites
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
   epgUrl: '',
   epgRefreshInterval: 6,
   epgCacheEnabled: true,
-  enableHttpsProxy: false, // Disabled by default for security
 };
 
 export default function Settings({ onClose }: SettingsProps) {
@@ -152,56 +150,6 @@ export default function Settings({ onClose }: SettingsProps) {
                   Enable EPG caching (recommended)
                 </label>
               </div>
-            </div>
-          </div>
-
-          {/* Stream Proxy Settings */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
-              Stream Proxy Settings
-            </h3>
-
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <input
-                  type="checkbox"
-                  id="httpsProxy"
-                  checked={settings.enableHttpsProxy}
-                  onChange={(e) =>
-                    setSettings({
-                      ...settings,
-                      enableHttpsProxy: e.target.checked,
-                    })
-                  }
-                  className="mr-3 mt-0.5"
-                />
-                <div className="flex-1">
-                  <label
-                    htmlFor="httpsProxy"
-                    className="text-sm text-gray-300 font-medium"
-                  >
-                    Enable HTTPS proxy for HTTP streams
-                  </label>
-                  <p className="text-xs text-gray-400 mt-1">
-                    Uses public CORS proxy services to load HTTP streams on
-                    HTTPS sites. This bypasses Mixed Content security
-                    restrictions but may be slower or less reliable.
-                  </p>
-                </div>
-              </div>
-
-              {settings.enableHttpsProxy && (
-                <div className="ml-6 p-3 bg-orange-900 rounded text-sm">
-                  <p className="text-orange-200 font-medium mb-1">
-                    ⚠️ Security Notice
-                  </p>
-                  <p className="text-orange-300 text-xs">
-                    This feature routes your streams through third-party proxy
-                    services. Only enable if you trust the proxy providers and
-                    understand the privacy implications.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
 

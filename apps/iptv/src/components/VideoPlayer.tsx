@@ -5,18 +5,12 @@ import { useEpg } from '../hooks/useEpg';
 import type { EpgProgram } from '../types/epg';
 import ChannelEpg from './ChannelEpg';
 import CatchupSeekbar from './CatchupSeekbar';
-import HttpsWarning from './HttpsWarning';
 import Hls from 'hls.js';
 import {
   getCatchupInfo,
   generateCatchupUrl,
   isTimeWithinCatchup,
 } from '../utils/catchupUtils';
-import {
-  getSecureStreamUrl,
-  getStreamProxyCount,
-  needsStreamProxy,
-} from '../utils/streamProxy';
 
 export default function VideoPlayer() {
   const { channelId } = useParams({ strict: false });
@@ -30,8 +24,6 @@ export default function VideoPlayer() {
   const [isLive, setIsLive] = useState(true);
   const [isSeekbarVisible, setIsSeekbarVisible] = useState(true); // Show by default
   const [currentStreamUrl, setCurrentStreamUrl] = useState('');
-  const [originalStreamUrl, setOriginalStreamUrl] = useState(''); // Store original URL for proxy retry
-  const [proxyAttempt, setProxyAttempt] = useState(0); // Track proxy attempts
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [selectedProgram, setSelectedProgram] = useState<EpgProgram | null>(
@@ -41,35 +33,6 @@ export default function VideoPlayer() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
-
-  // Retry with next proxy when current stream fails
-  const retryWithNextProxy = () => {
-    if (!originalStreamUrl) return false;
-
-    // Don't retry HLS streams - proxying breaks them
-    if (originalStreamUrl.includes('.m3u8')) {
-      console.log(
-        '🔒 HTTPS: Not retrying HLS stream - proxying breaks segment loading'
-      );
-      return false;
-    }
-
-    const nextAttempt = proxyAttempt + 1;
-    if (nextAttempt >= getStreamProxyCount()) {
-      console.log('🔒 HTTPS: All proxies exhausted');
-      return false;
-    }
-
-    console.log(
-      `🔒 HTTPS: Retrying with proxy ${
-        nextAttempt + 1
-      }/${getStreamProxyCount()}`
-    );
-    setProxyAttempt(nextAttempt);
-    const secureUrl = getSecureStreamUrl(originalStreamUrl, nextAttempt);
-    setCurrentStreamUrl(secureUrl);
-    return true;
-  };
 
   const channel = playlist?.channels.find((c) => c.id === channelIdStr);
   const currentProgram = channel
@@ -149,17 +112,8 @@ export default function VideoPlayer() {
 
     setCurrentTime(targetTime);
     setIsLive(isTargetLive);
-    setOriginalStreamUrl(streamUrl);
-    setProxyAttempt(0); // Reset proxy attempts
-    const secureUrl = getSecureStreamUrl(streamUrl, 0);
-    setCurrentStreamUrl(secureUrl);
+    setCurrentStreamUrl(streamUrl);
     setError(null);
-
-    if (needsStreamProxy(streamUrl)) {
-      console.log(
-        '🔒 HTTPS: Converting HTTP stream to secure proxy for deployment'
-      );
-    }
   };
 
   const handleProgramPlay = (program: EpgProgram) => {
@@ -232,16 +186,9 @@ export default function VideoPlayer() {
   // Initialize with live stream when channel loads
   useEffect(() => {
     if (channel && !currentStreamUrl) {
-      setOriginalStreamUrl(channel.url);
-      setProxyAttempt(0);
-      const secureUrl = getSecureStreamUrl(channel.url, 0);
-      setCurrentStreamUrl(secureUrl);
+      setCurrentStreamUrl(channel.url);
       setCurrentTime(new Date());
       setIsLive(true);
-
-      if (needsStreamProxy(channel.url)) {
-        console.log('🔒 HTTPS: Converting initial HTTP stream to secure proxy');
-      }
     }
   }, [channel, currentStreamUrl]);
 
@@ -289,19 +236,8 @@ export default function VideoPlayer() {
       setError(null);
     };
     const handleError = (e: Event) => {
-      console.log('🔒 HTTPS: Video error event:', e);
-
-      // Try next proxy if this is a proxied stream that failed
-      if (needsStreamProxy(originalStreamUrl) && retryWithNextProxy()) {
-        console.log('🔒 HTTPS: Video error, trying next proxy');
-        return;
-      }
-
-      // Show error if no more proxies available
-      const errorMsg = needsStreamProxy(originalStreamUrl)
-        ? 'HTTP video streams cannot be loaded on HTTPS sites due to Mixed Content security policy. Please use HTTPS video streams instead, or access this site via HTTP.'
-        : 'Failed to load video stream';
-      setError(errorMsg);
+      console.log('🎥 VIDEO: Video error event:', e);
+      setError('Failed to load video stream');
     };
     const handleTimeUpdate = () => {
       setVideoCurrentTime(video.currentTime);
@@ -445,28 +381,17 @@ export default function VideoPlayer() {
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
-        console.log('🔒 HTTPS: HLS Error:', data.type, data.details);
+        console.log('🎥 HLS: Error:', data.type, data.details);
 
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              // Try next proxy if available
-              if (needsStreamProxy(originalStreamUrl) && retryWithNextProxy()) {
-                console.log('🔒 HTTPS: Network error, trying next proxy');
-                return; // Don't continue with HLS recovery, let new URL load
-              }
               hls.startLoad();
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
               hls.recoverMediaError();
               break;
             default:
-              // Try next proxy before falling back to native video
-              if (needsStreamProxy(originalStreamUrl) && retryWithNextProxy()) {
-                console.log('🔒 HTTPS: Fatal error, trying next proxy');
-                return;
-              }
-
               // Try native video as fallback
               hls.destroy();
               hlsRef.current = null;
@@ -579,9 +504,6 @@ export default function VideoPlayer() {
           />
         )}
       </div>
-
-      {/* HTTPS Warning */}
-      {originalStreamUrl && <HttpsWarning streamUrl={originalStreamUrl} />}
 
       {/* Program Info Display */}
       {displayProgram && (

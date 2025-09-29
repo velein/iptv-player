@@ -61,8 +61,21 @@ export default function ProgramCard({
     isCatchupAvailable && (isCurrentlyPlaying || isPastProgram);
 
   const handleClick = () => {
+    // Only allow clicking on past programs and currently playing programs
+    // Future programs cannot be played
+    const now = new Date();
+    const isFutureProgram = program.start > now;
+
+    if (isFutureProgram) {
+      console.log('🚫 FUTURE: Cannot play future program:', program.title);
+      return;
+    }
+
     onClick?.(program);
   };
+
+  const now = new Date();
+  const isFutureProgram = program.start > now;
 
   return (
     <div
@@ -71,10 +84,18 @@ export default function ProgramCard({
           ? 'bg-blue-900 border-blue-500 ring-2 ring-blue-400'
           : isSelected
           ? 'bg-purple-900 border-purple-500 ring-2 ring-purple-400'
+          : isFutureProgram
+          ? 'bg-gray-900 border-gray-600 opacity-75' // Future programs - no hover, dimmed
           : isUpcoming
           ? 'bg-gray-800 border-gray-600 hover:bg-gray-700'
           : 'bg-gray-800 border-gray-700 hover:bg-gray-750'
-      } ${onClick ? 'cursor-pointer' : ''}`}
+      } ${
+        onClick && !isFutureProgram
+          ? 'cursor-pointer'
+          : isFutureProgram
+          ? 'cursor-not-allowed'
+          : ''
+      }`}
       onClick={handleClick}
     >
       <div className="flex items-start justify-between mb-2">
