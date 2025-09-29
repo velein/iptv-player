@@ -175,11 +175,15 @@ export default function Settings({ onClose }: SettingsProps) {
               EPG Configuration Guide
             </h3>
             <div className="bg-gray-700 rounded p-4 text-sm">
-              <p className="text-gray-300 mb-3">Configure your own EPG source:</p>
-              
+              <p className="text-gray-300 mb-3">
+                Configure your own EPG source:
+              </p>
+
               <div className="space-y-3">
                 <div className="p-3 bg-gray-800 rounded">
-                  <p className="text-yellow-200 text-xs font-medium mb-2">📋 EPG URL Requirements:</p>
+                  <p className="text-yellow-200 text-xs font-medium mb-2">
+                    📋 EPG URL Requirements:
+                  </p>
                   <ul className="space-y-1 text-gray-400 text-xs">
                     <li>• Must be a valid XMLTV format EPG file</li>
                     <li>• Supports .xml, .xml.gz, and compressed formats</li>
@@ -188,7 +192,9 @@ export default function Settings({ onClose }: SettingsProps) {
                 </div>
 
                 <div className="p-3 bg-blue-900 rounded">
-                  <p className="text-blue-200 text-xs font-medium mb-2">💡 Deployment Tips:</p>
+                  <p className="text-blue-200 text-xs font-medium mb-2">
+                    💡 Deployment Tips:
+                  </p>
                   <ul className="space-y-1 text-blue-300 text-xs">
                     <li>• HTTPS URLs work directly without proxies</li>
                     <li>• HTTP URLs may need CORS proxies (less reliable)</li>
@@ -197,10 +203,13 @@ export default function Settings({ onClose }: SettingsProps) {
                 </div>
 
                 <div className="p-3 bg-orange-900 rounded">
-                  <p className="text-orange-200 text-xs font-medium mb-2">⚠️ Important:</p>
+                  <p className="text-orange-200 text-xs font-medium mb-2">
+                    ⚠️ Important:
+                  </p>
                   <p className="text-orange-300 text-xs">
-                    No EPG sources are included by default. You must provide your own EPG URL 
-                    that matches your M3U playlist's channel names or IDs.
+                    No EPG sources are included by default. You must provide
+                    your own EPG URL that matches your M3U playlist's channel
+                    names or IDs.
                   </p>
                 </div>
               </div>
