@@ -33,13 +33,56 @@ export function usePlaylist() {
   }
 
   const loadPlaylistFromUrl = async (url: string): Promise<void> => {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch playlist: ${response.statusText}`)
+    try {
+      // Try direct fetch first
+      const response = await fetch(url, {
+        mode: 'cors',
+        headers: {
+          'Accept': 'text/plain, */*'
+        }
+      })
+
+      if (response.ok) {
+        const content = await response.text()
+        const playlistData = parseM3U(content)
+        setPlaylist(playlistData)
+        return
+      }
+    } catch (directError) {
+      // Direct fetch failed, try CORS proxy
     }
-    const content = await response.text()
-    const playlistData = parseM3U(content)
-    setPlaylist(playlistData)
+
+    // CORS proxies for playlist loading
+    const corsProxies = [
+      'https://api.allorigins.win/raw?url=',
+      'https://corsproxy.io/?',
+      'https://thingproxy.freeboard.io/fetch/'
+    ]
+
+    let lastError: Error | null = null
+
+    for (const proxy of corsProxies) {
+      try {
+        const proxyUrl = proxy + encodeURIComponent(url)
+        const response = await fetch(proxyUrl, {
+          mode: 'cors',
+          headers: {
+            'Accept': 'text/plain, */*'
+          }
+        })
+
+        if (response.ok) {
+          const content = await response.text()
+          const playlistData = parseM3U(content)
+          setPlaylist(playlistData)
+          return
+        }
+      } catch (error) {
+        lastError = error as Error
+      }
+    }
+
+    throw lastError || new Error('Failed to fetch playlist from all sources')
   }
 
   const clearPlaylist = () => {

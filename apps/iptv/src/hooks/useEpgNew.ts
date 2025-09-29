@@ -44,38 +44,91 @@ function generateEpgUrls(baseUrl: string): string[] {
 
 export function useEpg() {
   const queryClient = useQueryClient();
+  const [settings, setSettings] = useState<AppSettings>(() => getSettings());
+
+  // Update settings when they change in localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setSettings(getSettings());
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const {
     data: epgData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: [EPG_KEY],
+    queryKey: [EPG_KEY, settings.epgUrl],
     queryFn: async () => {
+      if (!settings.epgUrl) {
+        console.log('📺 EPG: No EPG URL configured, skipping EPG load');
+        return null;
+      }
+
+      const epgUrls = generateEpgUrls(settings.epgUrl);
+      console.log('🔄 EPG: Attempting to load from:', settings.epgUrl);
+
+      // Try cache first if enabled
+      if (settings.epgCacheEnabled) {
+        const cacheKey = `iptv-epg-cache-${btoa(settings.epgUrl)}`;
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          try {
+            const cachedData = JSON.parse(cached);
+            const cacheAge = Date.now() - cachedData.timestamp;
+            const maxAge = settings.epgRefreshInterval * 60 * 60 * 1000;
+            
+            if (cacheAge < maxAge) {
+              console.log('🔄 EPG: Using cached data, age:', Math.round(cacheAge / (1000 * 60)), 'minutes');
+              return cachedData.data;
+            }
+          } catch (error) {
+            console.log('🔄 EPG: Cache corrupted, removing');
+            localStorage.removeItem(cacheKey);
+          }
+        }
+      }
+
       // Try multiple EPG URLs in sequence
-      for (let i = 0; i < EPG_URLS.length; i++) {
+      for (let i = 0; i < epgUrls.length; i++) {
         try {
-          console.log(
-            `🔄 EPG: Trying URL ${i + 1}/${EPG_URLS.length}:`,
-            EPG_URLS[i]
-          );
-          return await fetchAndParseEpg(EPG_URLS[i]);
+          console.log(`🔄 EPG: Trying URL ${i + 1}/${epgUrls.length}:`, epgUrls[i]);
+          const epgData = await fetchAndParseEpg(epgUrls[i]);
+          
+          // Cache the result if enabled
+          if (settings.epgCacheEnabled && epgData) {
+            const cacheKey = `iptv-epg-cache-${btoa(settings.epgUrl)}`;
+            const cacheData = {
+              data: epgData,
+              timestamp: Date.now(),
+            };
+            try {
+              localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+              console.log('🔄 EPG: Data cached successfully');
+            } catch (cacheError) {
+              console.log('🔄 EPG: Failed to cache data:', cacheError);
+            }
+          }
+          
+          return epgData;
         } catch (error) {
           console.log(`🔄 EPG: URL ${i + 1} failed:`, (error as Error).message);
-          if (i === EPG_URLS.length - 1) {
+          if (i === epgUrls.length - 1) {
             throw error; // Last attempt failed
           }
         }
       }
+      return null;
     },
-    staleTime: 1000 * 60 * 60, // 1 hour
+    enabled: !!settings.epgUrl, // Only run query if EPG URL is configured
+    staleTime: settings.epgRefreshInterval * 60 * 60 * 1000, // Use user-configured interval
     gcTime: 1000 * 60 * 60 * 24, // 24 hours
     refetchInterval: false, // Disable auto-refetch to avoid CORS spam
     retry: (failureCount, error) => {
-      console.log(
-        `EPG fetch attempt ${failureCount + 1} failed:`,
-        error.message
-      );
+      console.log(`EPG fetch attempt ${failureCount + 1} failed:`, error.message);
       return failureCount < 2; // Retry up to 2 times
     },
     retryDelay: (attemptIndex) => {
@@ -100,9 +153,7 @@ export function useEpg() {
     const channelIdLower = channelId.toLowerCase();
     for (const [id, channelData] of epgData.channels) {
       if (id.toLowerCase() === channelIdLower) {
-        console.log(
-          `Found case-insensitive match for "${channelId}" -> "${id}"`
-        );
+        console.log(`Found case-insensitive match for "${channelId}" -> "${id}"`);
         return channelData.programs;
       }
     }
@@ -192,5 +243,6 @@ export function useEpg() {
     getProgramsForTimeRange,
     searchPrograms,
     hasData: !!epgData,
+    settings,
   };
 }

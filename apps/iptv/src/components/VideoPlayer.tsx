@@ -1,210 +1,349 @@
-import { useRef, useEffect, useState } from 'react'
-import { useNavigate, useParams } from '@tanstack/react-router'
-import { usePlaylist } from '../hooks/usePlaylist'
-import { useEpg } from '../hooks/useEpg'
-import type { Channel } from '../types/channel'
-import type { EpgProgram } from '../types/epg'
-import ChannelEpg from './ChannelEpg'
-import CatchupSeekbar from './CatchupSeekbar'
-import Hls from 'hls.js'
+import { useRef, useEffect, useState } from 'react';
+import { useNavigate, useParams } from '@tanstack/react-router';
+import { usePlaylist } from '../hooks/usePlaylist';
+import { useEpg } from '../hooks/useEpg';
+import type { Channel } from '../types/channel';
+import type { EpgProgram } from '../types/epg';
+import ChannelEpg from './ChannelEpg';
+import CatchupSeekbar from './CatchupSeekbar';
+import Hls from 'hls.js';
 import {
   getCatchupInfo,
   generateCatchupUrl,
-  isTimeWithinCatchup
-} from '../utils/catchupUtils'
+  isTimeWithinCatchup,
+} from '../utils/catchupUtils';
 
 export default function VideoPlayer() {
-  const { channelId } = useParams({ strict: false })
-  const channelIdStr = channelId as string
-  const navigate = useNavigate()
-  const { playlist } = usePlaylist()
-  const { getCurrentProgram } = useEpg()
-  const [error, setError] = useState<string | null>(null)
-  const [showEpg, setShowEpg] = useState(false)
-  const [currentTime, setCurrentTime] = useState(new Date())
-  const [isLive, setIsLive] = useState(true)
-  const [isSeekbarVisible, setIsSeekbarVisible] = useState(true) // Show by default
-  const [currentStreamUrl, setCurrentStreamUrl] = useState('')
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(0.8)
+  const { channelId } = useParams({ strict: false });
+  const channelIdStr = channelId as string;
+  const navigate = useNavigate();
+  const { playlist } = usePlaylist();
+  const { getCurrentProgram, getChannelPrograms } = useEpg();
+  const [error, setError] = useState<string | null>(null);
+  const [showEpg, setShowEpg] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isLive, setIsLive] = useState(true);
+  const [isSeekbarVisible, setIsSeekbarVisible] = useState(true); // Show by default
+  const [currentStreamUrl, setCurrentStreamUrl] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.8);
+  const [selectedProgram, setSelectedProgram] = useState<EpgProgram | null>(
+    null
+  );
+  const [videoCurrentTime, setVideoCurrentTime] = useState(0); // Video element's current time in seconds
 
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const hlsRef = useRef<Hls | null>(null)
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
 
-  const channel = playlist?.channels.find(c => c.id === channelIdStr)
-  const currentProgram = channel ? getCurrentProgram(channel.epgId || channel.name) : null
-  const catchupInfo = channel ? getCatchupInfo(channel) : null
+  const channel = playlist?.channels.find((c) => c.id === channelIdStr);
+  const currentProgram = channel
+    ? getCurrentProgram(channel.epgId || channel.name)
+    : null;
+  const catchupInfo = channel ? getCatchupInfo(channel) : null;
+
+  // Calculate program progress for display
+  const getProgramProgress = (
+    program: EpgProgram | null,
+    playbackTime: Date
+  ) => {
+    if (!program)
+      return { percent: 0, elapsed: '0:00', total: '0:00', remaining: '0:00' };
+
+    console.log('🎯 PROGRESS DEBUG:', {
+      programTitle: program.title,
+      programStart: program.start.toISOString(),
+      programStartLocal: program.start.toString(),
+      programStop: program.stop.toISOString(),
+      programStopLocal: program.stop.toString(),
+      playbackTime: playbackTime.toISOString(),
+      playbackTimeLocal: playbackTime.toString(),
+    });
+
+    const total = program.stop.getTime() - program.start.getTime();
+    const elapsed = Math.max(
+      0,
+      playbackTime.getTime() - program.start.getTime()
+    );
+    const percent = Math.max(0, Math.min(100, (elapsed / total) * 100));
+
+    const formatDuration = (ms: number) => {
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds
+          .toString()
+          .padStart(2, '0')}`;
+      }
+      return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    console.log('🎯 DURATION DEBUG:', {
+      totalMs: total,
+      elapsedMs: elapsed,
+      totalFormatted: formatDuration(total),
+      elapsedFormatted: formatDuration(elapsed),
+      percent: percent.toFixed(1),
+    });
+
+    return {
+      percent,
+      elapsed: formatDuration(elapsed),
+      total: formatDuration(total),
+      remaining: formatDuration(total - elapsed),
+    };
+  };
+
+  const displayProgram = selectedProgram || currentProgram;
+  const programProgress = getProgramProgress(displayProgram, currentTime);
 
   // Load stream at specific time
   const loadStreamAtTime = (targetTime: Date) => {
-    if (!channel) return
+    if (!channel) return;
 
-    const streamUrl = generateCatchupUrl(channel, targetTime)
-    const isTargetLive = Math.abs(targetTime.getTime() - new Date().getTime()) < 30000 // Within 30 seconds
+    const streamUrl = generateCatchupUrl(channel, targetTime);
+    const isTargetLive =
+      Math.abs(targetTime.getTime() - new Date().getTime()) < 30000; // Within 30 seconds
 
-    console.log('Loading stream at time:', targetTime.toISOString(), 'URL:', streamUrl)
+    console.log('🎯 PLAYER: Loading stream at time:', targetTime.toISOString());
+    console.log('🎯 PLAYER: Generated URL:', streamUrl);
+    console.log('🎯 PLAYER: Is live:', isTargetLive);
 
-    setCurrentTime(targetTime)
-    setIsLive(isTargetLive)
-    setCurrentStreamUrl(streamUrl)
-    setError(null)
-  }
+    setCurrentTime(targetTime);
+    setIsLive(isTargetLive);
+    setCurrentStreamUrl(streamUrl);
+    setError(null);
+  };
 
   const handleProgramPlay = (program: EpgProgram) => {
-    console.log('=== EPG Program Play Attempt ===')
-    console.log('Program:', program.title)
-    console.log('Program start:', program.start.toISOString())
-    console.log('Program start (local):', program.start.toLocaleString('pl-PL'))
-    console.log('Program stop:', program.stop.toISOString())
-    console.log('Program stop (local):', program.stop.toLocaleString('pl-PL'))
-    console.log('Current time:', new Date().toISOString())
-    console.log('Current time (local):', new Date().toLocaleString('pl-PL'))
-    console.log('Channel:', channel?.name)
-    console.log('Channel timeshift:', channel?.timeshift)
-    console.log('Channel catchup:', channel?.catchup)
+    console.log('📺 EPG CLICK: Program selected:', program.title);
+    console.log(
+      '📺 EPG CLICK: Start time:',
+      program.start.toISOString(),
+      '(' + program.start.toLocaleString('pl-PL') + ')'
+    );
+    console.log(
+      '📺 EPG CLICK: Stop time:',
+      program.stop.toISOString(),
+      '(' + program.stop.toLocaleString('pl-PL') + ')'
+    );
 
     if (!channel) {
-      console.log('ERROR: No channel found')
-      alert('Channel not found')
-      return
+      console.log('❌ ERROR: No channel found');
+      alert('Channel not found');
+      return;
     }
 
-    // Add detailed timezone debugging
-    const now = new Date()
-    const programStartTime = program.start
-    const timeDiffHours = (now.getTime() - programStartTime.getTime()) / (1000 * 60 * 60)
+    // Set this program as selected
+    setSelectedProgram(program);
 
-    console.log('Time difference (hours):', timeDiffHours.toFixed(2))
-    console.log('Program start timezone offset:', programStartTime.getTimezoneOffset())
-    console.log('Current time timezone offset:', now.getTimezoneOffset())
+    const now = new Date();
+    const timeDiffHours =
+      (now.getTime() - program.start.getTime()) / (1000 * 60 * 60);
+    console.log(
+      '📺 EPG CLICK: Time difference:',
+      timeDiffHours.toFixed(2),
+      'hours ago'
+    );
 
-    const catchupAvailable = isTimeWithinCatchup(channel, program.start)
-    console.log('Catchup available for this program:', catchupAvailable)
+    const catchupAvailable = isTimeWithinCatchup(channel, program.start);
+    console.log('📺 EPG CLICK: Catchup available:', catchupAvailable);
 
     if (!catchupAvailable) {
-      console.log('ERROR: Program not available for catchup')
-      alert(`This program is not available for catchup.\n\nProgram: ${program.title}\nStart: ${program.start.toLocaleString('pl-PL')}\nTime diff: ${timeDiffHours.toFixed(1)}h ago\nChannel timeshift: ${channel.timeshift}h\nCatchup type: ${channel.catchup}`)
-      return
+      console.log('❌ ERROR: Program not available for catchup');
+      alert(
+        `This program is not available for catchup.\n\nProgram: ${
+          program.title
+        }\nStart: ${program.start.toLocaleString(
+          'pl-PL'
+        )}\nTime diff: ${timeDiffHours.toFixed(1)}h ago\nChannel timeshift: ${
+          channel.timeshift
+        }h\nCatchup type: ${channel.catchup}`
+      );
+      return;
     }
 
-    console.log('SUCCESS: Playing program from start:', program.title, program.start.toISOString())
-    loadStreamAtTime(program.start)
-  }
+    console.log('✅ EPG CLICK: Attempting to play program');
+    loadStreamAtTime(program.start);
+  };
 
   const handleTimeChange = (time: Date) => {
-    loadStreamAtTime(time)
-  }
+    loadStreamAtTime(time);
+
+    // Update selected program based on the time we're seeking to
+    if (channel) {
+      const programs = getChannelPrograms(channel.epgId || channel.name);
+      const programAtTime = programs.find(
+        (program) => program.start <= time && program.stop > time
+      );
+      if (programAtTime) {
+        setSelectedProgram(programAtTime);
+      }
+    }
+  };
 
   // Initialize with live stream when channel loads
   useEffect(() => {
     if (channel && !currentStreamUrl) {
-      console.log('Initializing live stream for channel:', channel.name)
-      setCurrentStreamUrl(channel.url)
-      setCurrentTime(new Date())
-      setIsLive(true)
+      setCurrentStreamUrl(channel.url);
+      setCurrentTime(new Date());
+      setIsLive(true);
     }
-  }, [channel, currentStreamUrl])
+  }, [channel, currentStreamUrl]);
+
+  // Sync selected program with current time and live status
+  useEffect(() => {
+    if (channel && isLive) {
+      // When live, select the current program
+      const current = getCurrentProgram(channel.epgId || channel.name);
+      setSelectedProgram(current);
+    } else if (channel && !isLive) {
+      // When not live, find program for current playback time
+      const programs = getChannelPrograms(channel.epgId || channel.name);
+      const programAtTime = programs.find(
+        (program) => program.start <= currentTime && program.stop > currentTime
+      );
+      if (programAtTime && programAtTime.id !== selectedProgram?.id) {
+        setSelectedProgram(programAtTime);
+      }
+    }
+  }, [
+    channel,
+    isLive,
+    currentTime,
+    getCurrentProgram,
+    getChannelPrograms,
+    selectedProgram?.id,
+  ]);
 
   // Initialize stream when URL changes
   useEffect(() => {
     if (currentStreamUrl) {
-      initializeStream()
+      initializeStream();
     }
-  }, [currentStreamUrl])
+  }, [currentStreamUrl]);
 
   // Video event handlers
   useEffect(() => {
-    if (!videoRef.current) return
+    if (!videoRef.current) return;
 
-    const video = videoRef.current
+    const video = videoRef.current;
 
-    const handlePlay = () => setIsPlaying(true)
-    const handlePause = () => setIsPlaying(false)
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
     const handleLoadStart = () => {
-      console.log('Video load started')
-      setError(null)
-    }
+      setError(null);
+    };
     const handleError = (e: Event) => {
-      console.error('Video error:', e)
-      setError('Failed to load video stream')
-    }
+      setError('Failed to load video stream');
+    };
+    const handleTimeUpdate = () => {
+      setVideoCurrentTime(video.currentTime);
+    };
 
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
-    video.addEventListener('loadstart', handleLoadStart)
-    video.addEventListener('error', handleError)
-    video.volume = volume
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('loadstart', handleLoadStart);
+    video.addEventListener('error', handleError);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.volume = volume;
 
     return () => {
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-      video.removeEventListener('loadstart', handleLoadStart)
-      video.removeEventListener('error', handleError)
-    }
-  }, [])
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('loadstart', handleLoadStart);
+      video.removeEventListener('error', handleError);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (hlsRef.current) {
-        hlsRef.current.destroy()
-        hlsRef.current = null
+        hlsRef.current.destroy();
+        hlsRef.current = null;
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const handlePlayPause = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) return;
 
     if (isPlaying) {
-      videoRef.current.pause()
+      videoRef.current.pause();
     } else {
-      console.log('Attempting to play video')
       videoRef.current.play().catch((error) => {
-        console.error('Play failed:', error)
-        setError(`Failed to play stream: ${error.message || 'Unknown error'}`)
-      })
+        setError(`Failed to play stream: ${error.message || 'Unknown error'}`);
+      });
     }
-  }
+  };
 
   const handleRetry = () => {
-    if (!videoRef.current) return
+    if (!videoRef.current) return;
 
-    console.log('Retrying stream load')
-    setError(null)
+    setError(null);
 
     // Clean up existing HLS instance
     if (hlsRef.current) {
-      hlsRef.current.destroy()
-      hlsRef.current = null
+      hlsRef.current.destroy();
+      hlsRef.current = null;
     }
 
     // Re-initialize the stream
-    initializeStream()
-  }
+    initializeStream();
+  };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value)
-    setVolume(newVolume)
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
     if (videoRef.current) {
-      videoRef.current.volume = newVolume
+      videoRef.current.volume = newVolume;
     }
-  }
+  };
+
+  const handleSeek = (seconds: number) => {
+    if (!videoRef.current) return;
+
+    const video = videoRef.current;
+    const newTime = Math.max(0, video.currentTime + seconds);
+
+    // For live streams and simple seek operations, just use video.currentTime
+    if (isLive || !selectedProgram || !catchupInfo?.available) {
+      video.currentTime = newTime;
+      return;
+    }
+
+    // For catchup streams, we need to reload the stream at a different time
+    // Calculate the target time in the program
+    const programStartTime = selectedProgram.start.getTime();
+    const programDuration = selectedProgram.stop.getTime() - programStartTime;
+    const videoProgress = video.currentTime / video.duration || 0;
+    const currentProgramTime =
+      programStartTime + videoProgress * programDuration;
+    const targetProgramTime = new Date(currentProgramTime + seconds * 1000);
+
+    // Check if target time is within the program bounds
+    if (
+      targetProgramTime >= selectedProgram.start &&
+      targetProgramTime <= selectedProgram.stop
+    ) {
+      handleTimeChange(targetProgramTime);
+    }
+  };
 
   const initializeStream = () => {
-    if (!videoRef.current || !currentStreamUrl) return
+    if (!videoRef.current || !currentStreamUrl) return;
 
-    const video = videoRef.current
-    console.log('Initializing stream:', currentStreamUrl)
-
-    // For some IPTV providers, we might need to handle CORS
-    // Try direct first, fallback to cors proxy if needed
-    let streamUrl = currentStreamUrl
+    const video = videoRef.current;
+    let streamUrl = currentStreamUrl;
 
     // Clean up existing HLS
     if (hlsRef.current) {
-      hlsRef.current.destroy()
-      hlsRef.current = null
+      hlsRef.current.destroy();
+      hlsRef.current = null;
     }
 
     if (currentStreamUrl.includes('.m3u8') && Hls.isSupported()) {
@@ -217,63 +356,58 @@ export default function VideoPlayer() {
         maxMaxBufferLength: 60,
         liveSyncDurationCount: 3,
         liveMaxLatencyDurationCount: 10,
-        xhrSetup: function(xhr, url) {
+        xhrSetup: function (xhr, url) {
           // Handle CORS for IPTV streams
-          xhr.withCredentials = false
+          xhr.withCredentials = false;
         },
-        fetchSetup: function(context, initParams) {
+        fetchSetup: function (context, initParams) {
           // Handle fetch CORS for IPTV streams
-          initParams.mode = 'cors'
-          initParams.credentials = 'omit'
-          return new Request(context.url, initParams)
-        }
-      })
+          initParams.mode = 'cors';
+          initParams.credentials = 'omit';
+          return new Request(context.url, initParams);
+        },
+      });
 
-      hlsRef.current = hls
+      hlsRef.current = hls;
 
       hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-        console.log('HLS: Media attached')
-      })
+        // Media attached
+      });
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('HLS: Manifest parsed, starting playback')
-        video.play().catch(err => {
-          console.error('Auto-play failed:', err)
-        })
-      })
+        video.play().catch((err) => {
+          // Auto-play failed silently
+        });
+      });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('HLS Error:', data)
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              console.log('Trying to recover from network error...')
-              hls.startLoad()
-              break
+              hls.startLoad();
+              break;
             case Hls.ErrorTypes.MEDIA_ERROR:
-              console.log('Trying to recover from media error...')
-              hls.recoverMediaError()
-              break
+              hls.recoverMediaError();
+              break;
             default:
-              console.log('Fatal error, trying native video fallback...')
               // Try native video as fallback
-              hls.destroy()
-              hlsRef.current = null
-              video.src = currentStreamUrl
-              video.load()
-              break
+              hls.destroy();
+              hlsRef.current = null;
+              video.src = currentStreamUrl;
+              video.load();
+              break;
           }
         }
-      })
+      });
 
-      hls.loadSource(streamUrl)
-      hls.attachMedia(video)
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
     } else {
       // Direct video source
-      video.src = streamUrl
-      video.load()
+      video.src = streamUrl;
+      video.load();
     }
-  }
+  };
 
   if (!playlist) {
     return (
@@ -286,7 +420,7 @@ export default function VideoPlayer() {
           Load Playlist
         </button>
       </div>
-    )
+    );
   }
 
   if (!channel) {
@@ -300,7 +434,7 @@ export default function VideoPlayer() {
           Back to Channels
         </button>
       </div>
-    )
+    );
   }
 
   return (
@@ -317,28 +451,25 @@ export default function VideoPlayer() {
           <div className="flex-1">
             <h1 className="text-2xl font-bold">{channel.name}</h1>
             <div className="space-y-1">
-              {currentProgram ? (
-                <div className="text-sm text-gray-300">
-                  <span className={isLive ? 'text-green-400' : 'text-orange-400'}>
-                    {isLive ? '● LIVE:' : '◄ CATCHUP:'}
-                  </span> {currentProgram.title}
-                  {currentProgram.category && (
-                    <span className="ml-2 text-gray-400">• {currentProgram.category}</span>
-                  )}
-                </div>
-              ) : channel.group && (
-                <p className="text-gray-400">{channel.group}</p>
+              {channel.group && (
+                <p className="text-sm text-gray-400">{channel.group}</p>
               )}
               {catchupInfo?.available && !isLive && (
                 <div className="text-xs text-orange-400">
-                  Watching from {currentTime.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}
+                  Watching from{' '}
+                  {currentTime.toLocaleTimeString('pl-PL', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
                 </div>
               )}
               {catchupInfo?.available && (
                 <div className="text-xs text-gray-500">
-                  Catchup: {catchupInfo.timeshiftHours >= 24
+                  Catchup:{' '}
+                  {catchupInfo.timeshiftHours >= 24
                     ? `${Math.floor(catchupInfo.timeshiftHours / 24)} days`
-                    : `${catchupInfo.timeshiftHours}h`} available
+                    : `${catchupInfo.timeshiftHours}h`}{' '}
+                  available
                 </div>
               )}
             </div>
@@ -366,11 +497,95 @@ export default function VideoPlayer() {
             alt={channel.name}
             className="w-16 h-16 rounded object-cover"
             onError={(e) => {
-              e.currentTarget.style.display = 'none'
+              e.currentTarget.style.display = 'none';
             }}
           />
         )}
       </div>
+
+      {/* Program Info Display */}
+      {displayProgram && (
+        <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex-1">
+              <div className="flex items-center space-x-3 mb-2">
+                <h2 className="text-xl font-semibold text-white">
+                  {displayProgram.title}
+                </h2>
+                <div className="flex items-center space-x-2">
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      isLive
+                        ? 'bg-red-600 text-white'
+                        : 'bg-purple-600 text-white'
+                    }`}
+                  >
+                    {isLive ? '🔴 LIVE' : '📺 CATCHUP'}
+                  </span>
+                  {displayProgram.category && (
+                    <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">
+                      {displayProgram.category}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4 text-sm text-gray-400">
+                <span>
+                  {displayProgram.start.toLocaleTimeString('pl-PL', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Europe/Warsaw',
+                  })}{' '}
+                  -
+                  {displayProgram.stop.toLocaleTimeString('pl-PL', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Europe/Warsaw',
+                  })}
+                </span>
+                <span>•</span>
+                <span>
+                  {programProgress.elapsed} / {programProgress.total}
+                </span>
+                <span>•</span>
+                <span className="text-green-400">
+                  {Math.round(programProgress.percent)}% complete
+                </span>
+              </div>
+
+              {displayProgram.description && (
+                <p className="text-sm text-gray-300 mt-2 line-clamp-2">
+                  {displayProgram.description}
+                </p>
+              )}
+            </div>
+
+            {displayProgram.icon && (
+              <img
+                src={displayProgram.icon}
+                alt={displayProgram.title}
+                className="w-16 h-16 rounded object-cover ml-4"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            )}
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-700 rounded-full h-2">
+            <div
+              className={`h-2 rounded-full transition-all duration-1000 ${
+                isLive
+                  ? 'bg-gradient-to-r from-red-500 to-red-600'
+                  : 'bg-gradient-to-r from-purple-500 to-purple-600'
+              }`}
+              style={{ width: `${programProgress.percent}%` }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Main Content Area - Side by Side */}
       <div className="flex gap-4">
@@ -413,12 +628,49 @@ export default function VideoPlayer() {
             <div className="bg-gray-800 p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
+                  {/* Seek Controls */}
+                  <div className="flex items-center space-x-1">
+                    <button
+                      onClick={() => handleSeek(-30)}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                      title="Seek backward 30 seconds"
+                    >
+                      ⏪30s
+                    </button>
+                    <button
+                      onClick={() => handleSeek(-10)}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                      title="Seek backward 10 seconds"
+                    >
+                      ⏪10s
+                    </button>
+                  </div>
+
                   <button
                     onClick={handlePlayPause}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
                   >
                     {isPlaying ? '⏸️ Pause' : '▶️ Play'}
                   </button>
+
+                  {/* Forward Seek Controls */}
+                  <div className="flex items-center space-x-1">
+                    <button
+                      onClick={() => handleSeek(10)}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                      title="Seek forward 10 seconds"
+                    >
+                      10s⏩
+                    </button>
+                    <button
+                      onClick={() => handleSeek(30)}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                      title="Seek forward 30 seconds"
+                    >
+                      30s⏩
+                    </button>
+                  </div>
+
                   <div className="flex items-center space-x-2">
                     <span className="text-sm text-gray-400">🔊</span>
                     <input
@@ -435,8 +687,17 @@ export default function VideoPlayer() {
                     </span>
                   </div>
                 </div>
-                <div className="text-sm text-gray-400">
-                  {isLive ? '🔴 LIVE' : '📺 CATCHUP'} • {isPlaying ? 'Playing' : 'Stopped'}
+                <div className="flex items-center space-x-4">
+                  <div className="text-xs text-gray-500">
+                    {Math.floor(videoCurrentTime / 60)}:
+                    {Math.floor(videoCurrentTime % 60)
+                      .toString()
+                      .padStart(2, '0')}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    {isLive ? '🔴 LIVE' : '📺 CATCHUP'} •{' '}
+                    {isPlaying ? 'Playing' : 'Stopped'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -450,8 +711,8 @@ export default function VideoPlayer() {
                 currentTime={currentTime}
                 isLive={isLive}
                 onTimeChange={handleTimeChange}
-                onSeekStart={() => console.log('Seek started')}
-                onSeekEnd={() => console.log('Seek ended')}
+                onSeekStart={() => {}}
+                onSeekEnd={() => {}}
               />
             </div>
           )}
@@ -472,7 +733,7 @@ export default function VideoPlayer() {
                 <div>
                   <span className="text-gray-400">EPG ID:</span> {channel.epgId}
                 </div>
-                )}
+              )}
               <div className="md:col-span-2">
                 <span className="text-gray-400">Stream URL:</span>
                 <code className="ml-2 text-xs bg-gray-700 px-2 py-1 rounded break-all">
@@ -482,7 +743,10 @@ export default function VideoPlayer() {
               {channel.url.includes('.m3u8') && (
                 <div className="md:col-span-2">
                   <div className="text-green-400 text-xs mb-1">
-                    📡 HLS Stream {Hls.isSupported() ? '(HLS.js enabled)' : '(Native support)'}
+                    📡 HLS Stream{' '}
+                    {Hls.isSupported()
+                      ? '(HLS.js enabled)'
+                      : '(Native support)'}
                   </div>
                   {!Hls.isSupported() && (
                     <div className="text-orange-400 text-xs">
@@ -497,15 +761,16 @@ export default function VideoPlayer() {
 
         {/* Right Side - EPG */}
         {showEpg && channel && (
-          <div className="w-96 flex-shrink-0">
+          <div className="w-[500px] flex-shrink-0 h-screen">
             <ChannelEpg
               channel={channel}
               showCurrentOnly={false}
               onProgramPlay={handleProgramPlay}
+              selectedProgram={selectedProgram}
             />
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -1,13 +1,14 @@
-import type { EpgProgram } from '../types/epg'
-import type { Channel } from '../types/channel'
-import { isTimeWithinCatchup } from '../utils/catchupUtils'
+import type { EpgProgram } from '../types/epg';
+import type { Channel } from '../types/channel';
+import { isTimeWithinCatchup } from '../utils/catchupUtils';
 
 interface ProgramCardProps {
-  program: EpgProgram
-  channel?: Channel
-  isCurrentlyPlaying?: boolean
-  isUpcoming?: boolean
-  onClick?: (program: EpgProgram) => void
+  program: EpgProgram;
+  channel?: Channel;
+  isCurrentlyPlaying?: boolean;
+  isUpcoming?: boolean;
+  isSelected?: boolean;
+  onClick?: (program: EpgProgram) => void;
 }
 
 export default function ProgramCard({
@@ -15,54 +16,61 @@ export default function ProgramCard({
   channel,
   isCurrentlyPlaying = false,
   isUpcoming = false,
-  onClick
+  isSelected = false,
+  onClick,
 }: ProgramCardProps) {
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('pl-PL', {
       hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
+      minute: '2-digit',
+      timeZone: 'Europe/Warsaw',
+    });
+  };
 
   const formatDuration = (start: Date, stop: Date) => {
-    const durationMs = stop.getTime() - start.getTime()
-    const durationMinutes = Math.round(durationMs / (1000 * 60))
+    const durationMs = stop.getTime() - start.getTime();
+    const durationMinutes = Math.round(durationMs / (1000 * 60));
 
     if (durationMinutes < 60) {
-      return `${durationMinutes} min`
+      return `${durationMinutes} min`;
     } else {
-      const hours = Math.floor(durationMinutes / 60)
-      const minutes = durationMinutes % 60
-      return `${hours}h ${minutes}m`
+      const hours = Math.floor(durationMinutes / 60);
+      const minutes = durationMinutes % 60;
+      return `${hours}h ${minutes}m`;
     }
-  }
+  };
 
   const getProgressPercent = (start: Date, stop: Date): number => {
-    if (!isCurrentlyPlaying) return 0
+    if (!isCurrentlyPlaying) return 0;
 
-    const now = new Date()
-    const total = stop.getTime() - start.getTime()
-    const elapsed = now.getTime() - start.getTime()
+    const now = new Date();
+    const total = stop.getTime() - start.getTime();
+    const elapsed = now.getTime() - start.getTime();
 
-    return Math.max(0, Math.min(100, (elapsed / total) * 100))
-  }
+    return Math.max(0, Math.min(100, (elapsed / total) * 100));
+  };
 
-  const progressPercent = getProgressPercent(program.start, program.stop)
+  const progressPercent = getProgressPercent(program.start, program.stop);
 
   // Check if program is available for catchup
-  const isPastProgram = program.stop <= new Date()
-  const isCatchupAvailable = channel ? isTimeWithinCatchup(channel, program.start) : false
-  const canPlayFromStart = isCatchupAvailable && (isCurrentlyPlaying || isPastProgram)
+  const isPastProgram = program.stop <= new Date();
+  const isCatchupAvailable = channel
+    ? isTimeWithinCatchup(channel, program.start)
+    : false;
+  const canPlayFromStart =
+    isCatchupAvailable && (isCurrentlyPlaying || isPastProgram);
 
   const handleClick = () => {
-    onClick?.(program)
-  }
+    onClick?.(program);
+  };
 
   return (
     <div
       className={`p-4 rounded-lg border transition-all duration-200 ${
         isCurrentlyPlaying
           ? 'bg-blue-900 border-blue-500 ring-2 ring-blue-400'
+          : isSelected
+          ? 'bg-purple-900 border-purple-500 ring-2 ring-purple-400'
           : isUpcoming
           ? 'bg-gray-800 border-gray-600 hover:bg-gray-700'
           : 'bg-gray-800 border-gray-700 hover:bg-gray-750'
@@ -71,9 +79,15 @@ export default function ProgramCard({
     >
       <div className="flex items-start justify-between mb-2">
         <div className="flex items-center space-x-2">
-          <span className={`text-sm font-medium ${
-            isCurrentlyPlaying ? 'text-blue-300' : 'text-gray-400'
-          }`}>
+          <span
+            className={`text-sm font-medium ${
+              isCurrentlyPlaying
+                ? 'text-blue-300'
+                : isSelected
+                ? 'text-purple-300'
+                : 'text-gray-400'
+            }`}
+          >
             {formatTime(program.start)}
           </span>
           <span className="text-gray-500">-</span>
@@ -94,12 +108,17 @@ export default function ProgramCard({
             UPCOMING
           </span>
         )}
+        {isSelected && !isCurrentlyPlaying && (
+          <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">
+            SELECTED
+          </span>
+        )}
         {canPlayFromStart && (
           <button
             className="text-xs bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 rounded-full transition-colors flex items-center space-x-1"
             onClick={(e) => {
-              e.stopPropagation()
-              onClick?.(program)
+              e.stopPropagation();
+              onClick?.(program);
             }}
           >
             <span>▶</span>
@@ -108,9 +127,15 @@ export default function ProgramCard({
         )}
       </div>
 
-      <h3 className={`font-semibold mb-1 line-clamp-2 ${
-        isCurrentlyPlaying ? 'text-white' : 'text-gray-100'
-      }`}>
+      <h3
+        className={`font-semibold mb-1 line-clamp-2 ${
+          isCurrentlyPlaying
+            ? 'text-white'
+            : isSelected
+            ? 'text-purple-100'
+            : 'text-gray-100'
+        }`}
+      >
         {program.title}
       </h3>
 
@@ -144,7 +169,9 @@ export default function ProgramCard({
             src={program.icon}
             alt={program.title}
             className="w-8 h-8 rounded object-cover"
-            onError={(e) => { e.currentTarget.style.display = 'none' }}
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
           />
         )}
       </div>
@@ -163,5 +190,5 @@ export default function ProgramCard({
         </div>
       )}
     </div>
-  )
+  );
 }

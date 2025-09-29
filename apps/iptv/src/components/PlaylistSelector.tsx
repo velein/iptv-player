@@ -13,8 +13,9 @@ export default function PlaylistSelector() {
     const file = event.target.files?.[0]
     if (!file) return
 
-    if (!file.name.toLowerCase().endsWith('.m3u')) {
-      alert('Please select a valid M3U file')
+    const fileName = file.name.toLowerCase()
+    if (!fileName.endsWith('.m3u') && !fileName.endsWith('.m3u8')) {
+      alert('Please select a valid M3U or M3U8 file')
       return
     }
 
@@ -58,18 +59,6 @@ export default function PlaylistSelector() {
     }
   }
 
-  const handleQuickLoad = async (url: string) => {
-    setLoading(true)
-    try {
-      await loadPlaylistFromUrl(url)
-      navigate({ to: '/channels' })
-    } catch (error) {
-      console.error('Error loading playlist from URL:', error)
-      alert('Error loading playlist from URL')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -135,25 +124,6 @@ export default function PlaylistSelector() {
               </div>
             </div>
 
-            <div className="border-t border-gray-600 pt-4">
-              <p className="text-gray-300 text-sm mb-2">Quick Load:</p>
-              <div className="space-y-2">
-                <button
-                  onClick={() => handleQuickLoad('http://itvn.io/play2device.php?access_key=f376becefb7ef7f89354deb76eecfab5')}
-                  className="w-full text-left bg-gray-700 hover:bg-gray-600 text-white text-sm py-2 px-3 rounded transition-colors"
-                  disabled={loading}
-                >
-                  📺 HLS CDN1 (PL) - Primary
-                </button>
-                <button
-                  onClick={() => handleQuickLoad('http://itvn.io/play2device16.php?access_key=f376becefb7ef7f89354deb76eecfab5')}
-                  className="w-full text-left bg-gray-700 hover:bg-gray-600 text-white text-sm py-2 px-3 rounded transition-colors"
-                  disabled={loading}
-                >
-                  📺 HLS CDN2 (UK/DE/NL) - Alternative
-                </button>
-              </div>
-            </div>
           </div>
         )}
 
