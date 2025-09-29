@@ -10,6 +10,7 @@ interface AppSettings {
   epgUrl: string;
   epgRefreshInterval: number;
   epgCacheEnabled: boolean;
+  enableHttpsProxy: boolean;
 }
 
 function getSettings(): AppSettings {
@@ -18,10 +19,20 @@ function getSettings(): AppSettings {
     try {
       return JSON.parse(stored);
     } catch {
-      return { epgUrl: '', epgRefreshInterval: 6, epgCacheEnabled: true };
+      return {
+        epgUrl: '',
+        epgRefreshInterval: 6,
+        epgCacheEnabled: true,
+        enableHttpsProxy: false,
+      };
     }
   }
-  return { epgUrl: '', epgRefreshInterval: 6, epgCacheEnabled: true };
+  return {
+    epgUrl: '',
+    epgRefreshInterval: 6,
+    epgCacheEnabled: true,
+    enableHttpsProxy: false,
+  };
 }
 
 function generateEpgUrls(baseUrl: string): string[] {

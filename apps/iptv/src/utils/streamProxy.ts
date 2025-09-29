@@ -10,6 +10,22 @@ function isHttpsEnvironment(): boolean {
 }
 
 /**
+ * Checks if HTTPS proxy is enabled in user settings
+ */
+function isHttpsProxyEnabled(): boolean {
+  try {
+    const settings = localStorage.getItem('iptv-settings');
+    if (settings) {
+      const parsed = JSON.parse(settings);
+      return parsed.enableHttpsProxy === true;
+    }
+  } catch {
+    // Ignore parsing errors
+  }
+  return false;
+}
+
+/**
  * Checks if a URL is HTTP (insecure)
  */
 function isHttpUrl(url: string): boolean {
@@ -18,17 +34,21 @@ function isHttpUrl(url: string): boolean {
 
 /**
  * Available HTTPS proxy services for streaming
- * Note: Some proxies don't work well with HLS segments due to URL rewriting
+ * These are popular public CORS proxy services that help bypass Mixed Content restrictions
  */
 const STREAM_PROXIES = [
-  // CORS Anywhere style proxy (works better with HLS)
+  // cors-anywhere style proxies (work well for simple HTTP->HTTPS conversion)
   (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
 
-  // Simple proxy that just prepends the URL (good for HLS)
+  // Simple URL prepending proxy (good for direct streaming)
   (url: string) => `https://proxy.cors.sh/${url}`,
 
-  // This one tends to rewrite URLs which breaks HLS segments - disabled
-  // (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  // GitHub-based CORS proxy (https://github.com/Rob--W/cors-anywhere)
+  (url: string) => `https://cors-anywhere.herokuapp.com/${url}`,
+
+  // Additional backup proxies
+  (url: string) =>
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
 ];
 
 /**
@@ -51,29 +71,35 @@ export function getSecureStreamUrl(
     return streamUrl;
   }
 
-  // For HLS streams (.m3u8), proxying often breaks segment loading
-  // Return original URL and let error handling deal with it
-  if (streamUrl.includes('.m3u8')) {
-    console.warn(
-      '🔒 HTTPS: HLS stream detected. HTTP HLS streams may not work in HTTPS deployment.'
+  // Check if user has enabled HTTPS proxy in settings
+  if (!isHttpsProxyEnabled()) {
+    console.log(
+      '🔒 HTTPS: Proxy disabled in settings, returning original HTTP URL'
     );
     return streamUrl;
   }
 
-  // For non-HLS streams, try proxying
+  // For HLS streams (.m3u8), warn but try proxying if user enabled it
+  if (streamUrl.includes('.m3u8')) {
+    console.warn(
+      '🔒 HTTPS: HLS stream detected. Proxying may break segment loading, but user enabled proxy.'
+    );
+  }
+
+  // Try proxying with user's permission
   if (proxyIndex < STREAM_PROXIES.length) {
     const proxiedUrl = STREAM_PROXIES[proxyIndex](streamUrl);
     console.log(
-      `🔒 HTTPS: Proxying HTTP stream via proxy ${proxyIndex + 1}:`,
+      `🔒 HTTPS: User enabled proxy - using proxy ${proxyIndex + 1}/${
+        STREAM_PROXIES.length
+      }:`,
       proxiedUrl
     );
     return proxiedUrl;
   }
 
   // Fallback: return original URL (will likely fail but user will see error)
-  console.warn(
-    '🔒 HTTPS: No more proxies available, returning original HTTP URL'
-  );
+  console.warn('🔒 HTTPS: All proxies exhausted, returning original HTTP URL');
   return streamUrl;
 }
 
@@ -88,5 +114,5 @@ export function getStreamProxyCount(): number {
  * Checks if a stream URL needs proxying in current environment
  */
 export function needsStreamProxy(streamUrl: string): boolean {
-  return isHttpsEnvironment() && isHttpUrl(streamUrl);
+  return isHttpsEnvironment() && isHttpUrl(streamUrl) && isHttpsProxyEnabled();
 }

@@ -43,6 +43,10 @@ export default function HttpsWarning({ streamUrl }: HttpsWarningProps) {
               <p className="font-medium">Possible solutions:</p>
               <ul className="space-y-1 ml-4">
                 <li>
+                  • <strong>Quick Fix:</strong> Enable "HTTPS proxy" in Settings
+                  → Stream Proxy Settings
+                </li>
+                <li>
                   • <strong>Best:</strong> Use HTTPS streams instead of HTTP
                 </li>
                 <li>

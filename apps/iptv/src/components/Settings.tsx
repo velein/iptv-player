@@ -10,12 +10,14 @@ interface AppSettings {
   epgUrl: string;
   epgRefreshInterval: number; // hours
   epgCacheEnabled: boolean;
+  enableHttpsProxy: boolean; // Enable proxy for HTTP streams on HTTPS sites
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
   epgUrl: '',
   epgRefreshInterval: 6,
   epgCacheEnabled: true,
+  enableHttpsProxy: false, // Disabled by default for security
 };
 
 export default function Settings({ onClose }: SettingsProps) {
@@ -153,6 +155,56 @@ export default function Settings({ onClose }: SettingsProps) {
             </div>
           </div>
 
+          {/* Stream Proxy Settings */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Stream Proxy Settings
+            </h3>
+
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  id="httpsProxy"
+                  checked={settings.enableHttpsProxy}
+                  onChange={(e) =>
+                    setSettings({
+                      ...settings,
+                      enableHttpsProxy: e.target.checked,
+                    })
+                  }
+                  className="mr-3 mt-0.5"
+                />
+                <div className="flex-1">
+                  <label
+                    htmlFor="httpsProxy"
+                    className="text-sm text-gray-300 font-medium"
+                  >
+                    Enable HTTPS proxy for HTTP streams
+                  </label>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Uses public CORS proxy services to load HTTP streams on
+                    HTTPS sites. This bypasses Mixed Content security
+                    restrictions but may be slower or less reliable.
+                  </p>
+                </div>
+              </div>
+
+              {settings.enableHttpsProxy && (
+                <div className="ml-6 p-3 bg-orange-900 rounded text-sm">
+                  <p className="text-orange-200 font-medium mb-1">
+                    ⚠️ Security Notice
+                  </p>
+                  <p className="text-orange-300 text-xs">
+                    This feature routes your streams through third-party proxy
+                    services. Only enable if you trust the proxy providers and
+                    understand the privacy implications.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Cache Management */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">
@@ -167,53 +219,6 @@ export default function Settings({ onClose }: SettingsProps) {
             <p className="text-xs text-gray-400 mt-1">
               Clear all cached EPG data. Useful if you're experiencing issues.
             </p>
-          </div>
-
-          {/* EPG Information */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
-              EPG Configuration Guide
-            </h3>
-            <div className="bg-gray-700 rounded p-4 text-sm">
-              <p className="text-gray-300 mb-3">
-                Configure your own EPG source:
-              </p>
-
-              <div className="space-y-3">
-                <div className="p-3 bg-gray-800 rounded">
-                  <p className="text-yellow-200 text-xs font-medium mb-2">
-                    📋 EPG URL Requirements:
-                  </p>
-                  <ul className="space-y-1 text-gray-400 text-xs">
-                    <li>• Must be a valid XMLTV format EPG file</li>
-                    <li>• Supports .xml, .xml.gz, and compressed formats</li>
-                    <li>• Channel IDs should match your M3U playlist</li>
-                  </ul>
-                </div>
-
-                <div className="p-3 bg-blue-900 rounded">
-                  <p className="text-blue-200 text-xs font-medium mb-2">
-                    💡 Deployment Tips:
-                  </p>
-                  <ul className="space-y-1 text-blue-300 text-xs">
-                    <li>• HTTPS URLs work directly without proxies</li>
-                    <li>• HTTP URLs may need CORS proxies (less reliable)</li>
-                    <li>• Test your EPG URL in browser first</li>
-                  </ul>
-                </div>
-
-                <div className="p-3 bg-orange-900 rounded">
-                  <p className="text-orange-200 text-xs font-medium mb-2">
-                    ⚠️ Important:
-                  </p>
-                  <p className="text-orange-300 text-xs">
-                    No EPG sources are included by default. You must provide
-                    your own EPG URL that matches your M3U playlist's channel
-                    names or IDs.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
