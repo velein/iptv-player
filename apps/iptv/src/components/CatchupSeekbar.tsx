@@ -30,15 +30,24 @@ export default function CatchupSeekbar({
 }: CatchupSeekbarProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [dragPosition, setDragPosition] = useState(0)
+  const [hoverPosition, setHoverPosition] = useState<number | null>(null)
+  const [showHoverTooltip, setShowHoverTooltip] = useState(false)
   const seekbarRef = useRef<HTMLDivElement>(null)
 
-  // Calculate position within current program (0 = program start, 1 = program end/now)
+  // Calculate position within current program
   const now = new Date()
   const programStart = currentProgram?.start.getTime() || now.getTime()
-  const programEnd = currentProgram ? Math.min(currentProgram.stop.getTime(), now.getTime()) : now.getTime()
-  const programDuration = programEnd - programStart
+  const programEnd = currentProgram?.stop.getTime() || now.getTime() // Full program end time
+  const programDuration = programEnd - programStart // Full program duration
+  const livePoint = Math.min(programEnd, now.getTime()) // How far we can actually seek (up to now or program end)
+  
+  // Position calculation based on full program duration for proper visual representation
   const currentPosition = Math.max(0, Math.min(1, (currentTime.getTime() - programStart) / programDuration))
-  const displayPosition = isDragging ? dragPosition : currentPosition
+  const livePosition = Math.max(0, Math.min(1, (livePoint - programStart) / programDuration)) // Where "live" is on the bar
+  
+  // When watching live, the current position should match the live position
+  const adjustedCurrentPosition = isLive ? livePosition : currentPosition
+  const displayPosition = isDragging ? dragPosition : adjustedCurrentPosition
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!seekbarRef.current || !currentProgram) return
@@ -52,14 +61,12 @@ export default function CatchupSeekbar({
 
     setDragPosition(clampedPosition)
 
-    // Calculate target time within program bounds
-    const programStart = currentProgram.start.getTime()
-    const programEnd = Math.min(currentProgram.stop.getTime(), now.getTime())
-    const targetTime = new Date(programStart + clampedPosition * (programEnd - programStart))
+    // Calculate target time based on full program duration
+    const targetTime = new Date(programStart + clampedPosition * programDuration)
 
-    // If user tries to seek beyond now, go to live
-    if (targetTime >= now) {
-      onTimeChange(now)
+    // If user tries to seek beyond live point, go to live
+    if (targetTime >= livePoint) {
+      onTimeChange(new Date(livePoint))
     } else {
       onTimeChange(targetTime)
     }
@@ -74,14 +81,12 @@ export default function CatchupSeekbar({
 
     setDragPosition(clampedPosition)
 
-    // Calculate target time within program bounds
-    const programStart = currentProgram.start.getTime()
-    const programEnd = Math.min(currentProgram.stop.getTime(), now.getTime())
-    const targetTime = new Date(programStart + clampedPosition * (programEnd - programStart))
+    // Calculate target time based on full program duration
+    const targetTime = new Date(programStart + clampedPosition * programDuration)
 
-    // If user tries to seek beyond now, go to live
-    if (targetTime >= now) {
-      onTimeChange(now)
+    // If user tries to seek beyond live point, go to live
+    if (targetTime >= livePoint) {
+      onTimeChange(new Date(livePoint))
     } else {
       onTimeChange(targetTime)
     }
@@ -92,6 +97,24 @@ export default function CatchupSeekbar({
       setIsDragging(false)
       onSeekEnd?.()
     }
+  }
+
+  const handleMouseEnter = () => {
+    setShowHoverTooltip(true)
+  }
+
+  const handleMouseLeave = () => {
+    setShowHoverTooltip(false)
+    setHoverPosition(null)
+  }
+
+  const handleMouseHover = (e: React.MouseEvent) => {
+    if (!seekbarRef.current || !currentProgram || isDragging) return
+
+    const rect = seekbarRef.current.getBoundingClientRect()
+    const position = (e.clientX - rect.left) / rect.width
+    const clampedPosition = Math.max(0, Math.min(1, position))
+    setHoverPosition(clampedPosition)
   }
 
   useEffect(() => {
@@ -121,7 +144,7 @@ export default function CatchupSeekbar({
   const getProgramProgress = () => {
     if (!currentProgram) return { elapsed: '0:00', total: '0:00' }
 
-    const total = programEnd - programStart
+    const total = programDuration
     const elapsed = Math.max(0, currentTime.getTime() - programStart)
 
     const formatDuration = (ms: number) => {
@@ -143,6 +166,24 @@ export default function CatchupSeekbar({
   }
 
   const programProgress = getProgramProgress()
+
+  // Helper to get program minute from position
+  const getProgramMinuteFromPosition = (position: number) => {
+    if (!currentProgram) return { minute: 0, timeDisplay: '0:00' }
+
+    const targetTime = new Date(programStart + position * programDuration)
+    
+    // Calculate minutes from program start
+    const minutesFromStart = Math.floor((targetTime.getTime() - programStart) / (1000 * 60))
+    
+    // Format time display
+    const timeDisplay = targetTime.toLocaleTimeString('pl-PL', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+    return { minute: minutesFromStart + 1, timeDisplay } // +1 for 1-based minute counting
+  }
 
   // If no program, just show live indicator
   if (!currentProgram) {
@@ -182,6 +223,16 @@ export default function CatchupSeekbar({
           }`}>
             {isLive ? 'LIVE' : 'CATCHUP'}
           </span>
+
+          {/* Go Live Button - only show when watching catchup */}
+          {!isLive && (
+            <button
+              onClick={handleGoLive}
+              className="px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap bg-red-600 text-white hover:bg-red-700 transition-colors"
+            >
+              Go Live
+            </button>
+          )}
         </div>
 
         {/* Current Time Display */}
@@ -199,9 +250,21 @@ export default function CatchupSeekbar({
       <div className="relative">
         <div
           ref={seekbarRef}
-          className="relative h-2 bg-gray-700 rounded-full cursor-pointer hover:h-3 transition-all"
+          className="relative h-2 bg-gray-700 rounded-full cursor-pointer"
           onMouseDown={handleMouseDown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseHover}
         >
+          {/* Background for full program duration */}
+          <div className="absolute top-0 h-full w-full bg-gray-600 rounded-full opacity-30" />
+          
+          {/* Available/seekable portion */}
+          <div
+            className="absolute top-0 h-full bg-gray-500 rounded-full opacity-50"
+            style={{ width: `${livePosition * 100}%` }}
+          />
+          
           {/* Progress fill */}
           <div
             className={`absolute top-0 h-full rounded-full transition-all ${
@@ -209,6 +272,15 @@ export default function CatchupSeekbar({
             }`}
             style={{ width: `${displayPosition * 100}%` }}
           />
+
+          {/* Live point indicator - show where live/current time is */}
+          {livePosition < 1 && (
+            <div
+              className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-red-400 border border-white shadow-sm"
+              style={{ left: `calc(${livePosition * 100}% - 4px)` }}
+              title="Live point"
+            />
+          )}
 
           {/* Seek handle - only show on hover */}
           {isDragging && (
@@ -224,8 +296,20 @@ export default function CatchupSeekbar({
           <div className="absolute -top-12 bg-gray-900 border border-gray-600 rounded px-2 py-1 text-xs whitespace-nowrap z-10"
             style={{ left: `calc(${dragPosition * 100}% - 40px)` }}>
             <div className="text-white font-medium">
-              {formatTimeDisplay(new Date(programStart + dragPosition * (programEnd - programStart)))}
+              {formatTimeDisplay(new Date(programStart + dragPosition * programDuration))}
             </div>
+          </div>
+        )}
+
+        {/* Hover tooltip showing time */}
+        {showHoverTooltip && hoverPosition !== null && currentProgram && !isDragging && (
+          <div className="absolute -top-12 bg-gray-900 border border-gray-600 rounded px-2 py-1 text-xs whitespace-nowrap z-10 shadow-lg"
+            style={{ left: `calc(${hoverPosition * 100}% - 30px)` }}>
+            <div className="text-white font-medium">
+              {getProgramMinuteFromPosition(hoverPosition).timeDisplay}
+            </div>
+            {/* Tooltip arrow */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-600"></div>
           </div>
         )}
       </div>

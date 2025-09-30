@@ -12,10 +12,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet } from '@tanstack/react-router';
 
 import PlaylistSelector from './components/PlaylistSelector';
-import ChannelList from './components/ChannelList';
+import ChannelBrowserPage from './components/ChannelBrowserPage';
 import VideoPlayer from './components/VideoPlayer';
 import Settings from './components/Settings';
 import ChannelEpg from './components/ChannelEpg';
+import EpgSearch from './components/EpgSearch';
 import { useEpg } from './hooks/useEpg';
 import { usePlaylist } from './hooks/usePlaylist';
 
@@ -40,6 +41,7 @@ const APP_VERSION = 'v1.0.0';
 // Define root component
 function RootComponent() {
   const [showSettings, setShowSettings] = useState(false);
+  const [showEpgSearch, setShowEpgSearch] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState<any>(null);
   const { hasData: hasEpgData } = useEpg();
   const { playlist } = usePlaylist();
@@ -66,15 +68,18 @@ function RootComponent() {
   // Listen for program selection changes from VideoPlayer
   useEffect(() => {
     const handleProgramSelected = (event: CustomEvent) => {
+      console.log('🎯 Main: Received program-selected event:', event.detail.program?.title);
       setSelectedProgram(event.detail.program);
     };
 
+    console.log('🎯 Main: Setting up program-selected event listener');
     window.addEventListener(
       'program-selected',
       handleProgramSelected as EventListener
     );
 
     return () => {
+      console.log('🎯 Main: Removing program-selected event listener');
       window.removeEventListener(
         'program-selected',
         handleProgramSelected as EventListener
@@ -83,9 +88,9 @@ function RootComponent() {
   }, []);
 
   return (
-    <div className="h-screen bg-gray-900 text-white flex gap-4 p-4 overflow-hidden">
+    <div className="bg-gray-900 text-white flex gap-4 p-4 min-h-screen h-screen overflow-hidden">
       {/* Left side - Header + Main content */}
-      <div className="flex-1 flex flex-col gap-4 overflow-hidden">
+      <div className="flex-1 flex flex-col gap-4">
         <header className="bg-gray-800 border-b border-gray-700 p-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -96,6 +101,15 @@ function RootComponent() {
             </div>
             <div className="flex items-center space-x-4">
               <BackToChannelsButton />
+              {hasEpgData && (
+                <button
+                  onClick={() => setShowEpgSearch(true)}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded transition-colors text-sm"
+                  title="Search EPG Programs"
+                >
+                  🔍 EPG Search
+                </button>
+              )}
               <button
                 onClick={() => setShowSettings(true)}
                 className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded transition-colors text-sm"
@@ -113,7 +127,7 @@ function RootComponent() {
 
       {/* EPG Sidebar */}
       {hasEpgData && channel && (
-        <div className="w-[500px] flex-shrink-0 h-full">
+        <div className="w-[500px] flex-shrink-0 h-screen">
           <ChannelEpg
             channel={channel}
             showCurrentOnly={false}
@@ -125,6 +139,15 @@ function RootComponent() {
       )}
 
       {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+      {showEpgSearch && (
+        <EpgSearch 
+          onClose={() => setShowEpgSearch(false)}
+          onProgramSelect={(program, channelId) => {
+            // Update selected program for EPG sidebar
+            setSelectedProgram(program);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -260,12 +283,7 @@ function HomeComponent() {
 }
 
 function ChannelsComponent() {
-  return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6">Channels</h2>
-      <ChannelList />
-    </div>
-  );
+  return <ChannelBrowserPage />;
 }
 
 function PlayerComponent() {

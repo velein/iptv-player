@@ -35,6 +35,20 @@ export default function ChannelEpg({
   today.setHours(0, 0, 0, 0);
   const [selectedDate, setSelectedDate] = useState<Date>(today);
 
+  // Auto-update selected date when a program is selected from a different day
+  useEffect(() => {
+    if (selectedProgram) {
+      const programDate = new Date(selectedProgram.start);
+      programDate.setHours(0, 0, 0, 0);
+      
+      // Only update if the program is from a different day
+      if (programDate.getTime() !== selectedDate.getTime()) {
+        console.log('🗓️ ChannelEpg: Auto-switching to program date:', programDate.toDateString());
+        setSelectedDate(programDate);
+      }
+    }
+  }, [selectedProgram, selectedDate]);
+
   const currentProgram = getCurrentProgram(channel.epgId || channel.name);
   const upcomingPrograms = getNextPrograms(
     channel.epgId || channel.name,

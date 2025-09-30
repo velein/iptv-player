@@ -6,6 +6,7 @@ import {
   loadParsedEpgCache,
   clearParsedEpgCache,
 } from '../utils/epgParser';
+import type { EpgLoadingState } from './useEpgState';
 
 const EPG_KEY = 'iptv-epg';
 const SETTINGS_KEY = 'iptv-settings';
@@ -57,6 +58,7 @@ function generateEpgUrls(baseUrl: string): string[] {
 export function useEpg() {
   const queryClient = useQueryClient();
   const [settings, setSettings] = useState<AppSettings>(() => getSettings());
+  const [epgLoadingState, setEpgLoadingState] = useState<EpgLoadingState>('idle');
 
   // Update settings when they change in localStorage
   useEffect(() => {
@@ -64,6 +66,7 @@ export function useEpg() {
       if (e.key === SETTINGS_KEY) {
         const newSettings = getSettings();
         setSettings(newSettings);
+        setIsFirstTimeSetup(!newSettings.epgUrl);
         // Invalidate EPG cache when URL changes
         if (newSettings.epgUrl) {
           queryClient.invalidateQueries({ queryKey: [EPG_KEY] });
@@ -75,6 +78,7 @@ export function useEpg() {
     const handleCustomEvent = () => {
       const newSettings = getSettings();
       setSettings(newSettings);
+      setIsFirstTimeSetup(!newSettings.epgUrl);
       if (newSettings.epgUrl) {
         queryClient.invalidateQueries({ queryKey: [EPG_KEY] });
       }
@@ -88,8 +92,14 @@ export function useEpg() {
     };
   }, [queryClient]);
 
+  // Initialize first time setup state
+  useEffect(() => {
+    setIsFirstTimeSetup(!settings.epgUrl);
+  }, [settings.epgUrl]);
+
   // State for cache status and loaded timestamp
   const [epgLoadedAt, setEpgLoadedAt] = useState<Date | null>(null);
+  const [isFirstTimeSetup, setIsFirstTimeSetup] = useState<boolean>(true);
 
   const {
     data: epgData,
@@ -138,51 +148,60 @@ export function useEpg() {
   // Track if we've attempted auto-load to prevent loops
   const autoLoadAttempted = useRef(false);
 
-  const loadEpg = useCallback(
-    async (forceFresh: boolean = false) => {
+  const loadEpgWithProgress = useCallback(
+    async (
+      forceFresh: boolean = false,
+      onStateChange?: (state: EpgLoadingState) => void,
+      customEpgUrl?: string
+    ) => {
+      const epgUrl = customEpgUrl || settings.epgUrl;
       console.log(
-        '🔄 loadEpg called, epgUrl:',
-        settings.epgUrl,
+        '🔄 loadEpgWithProgress called, epgUrl:',
+        epgUrl,
         'forceFresh:',
         forceFresh
       );
 
-      if (!settings.epgUrl) {
+      if (!epgUrl) {
         console.log('⚠️ No EPG URL configured, aborting');
         return;
       }
 
-      // Only clear cache if forcing a fresh reload
-      if (forceFresh) {
-        await clearParsedEpgCache(settings.epgUrl);
-        console.log('🗑️ Cleared parsed EPG cache (force refresh)');
-      }
-
-      // Reset timestamp so it gets updated when new data loads
-      setEpgLoadedAt(null);
-
-      console.log('🚀 Starting EPG fetch...');
-
       try {
+        // Set loading state
+        setEpgLoadingState('loading');
+        onStateChange?.('loading');
+
+        // Only clear cache if forcing a fresh reload
+        if (forceFresh) {
+          await clearParsedEpgCache(epgUrl);
+          console.log('🗑️ Cleared parsed EPG cache (force refresh)');
+        }
+
+        // Reset timestamp so it gets updated when new data loads
+        setEpgLoadedAt(null);
+
+        console.log('🚀 Starting EPG fetch...');
+
         // Invalidate and remove the query first to ensure fresh fetch
         await queryClient.invalidateQueries({
-          queryKey: [EPG_KEY, settings.epgUrl],
+          queryKey: [EPG_KEY, epgUrl],
         });
-        queryClient.removeQueries({ queryKey: [EPG_KEY, settings.epgUrl] });
+        queryClient.removeQueries({ queryKey: [EPG_KEY, epgUrl] });
 
         console.log('🗑️ Cleared React Query cache');
 
         // Manually fetch new EPG data
         const result = await queryClient.fetchQuery({
-          queryKey: [EPG_KEY, settings.epgUrl],
+          queryKey: [EPG_KEY, epgUrl],
           queryFn: async () => {
-            console.log('📡 queryFn executing for URL:', settings.epgUrl);
+            console.log('📡 queryFn executing for URL:', epgUrl);
 
-            if (!settings.epgUrl) {
+            if (!epgUrl) {
               return null;
             }
 
-            const epgUrls = generateEpgUrls(settings.epgUrl);
+            const epgUrls = generateEpgUrls(epgUrl);
             console.log('🔗 Generated URLs:', epgUrls);
 
             // Try multiple EPG URLs in sequence
@@ -192,19 +211,29 @@ export function useEpg() {
                   `⏳ Attempting URL ${i + 1}/${epgUrls.length}:`,
                   epgUrls[i]
                 );
+                
+                // Set parsing state when we start processing the data
+                setEpgLoadingState('parsing');
+                onStateChange?.('parsing');
+                
                 const data = await fetchAndParseEpg(
                   epgUrls[i],
-                  settings.epgUrl
+                  epgUrl
                 );
                 console.log('✅ EPG fetch successful!');
                 setEpgLoadedAt(new Date());
+                
+                // Set complete state
+                setEpgLoadingState('complete');
+                onStateChange?.('complete');
+                
                 return data;
               } catch (error) {
                 const errorMsg = (error as Error).message;
                 console.log(`❌ URL ${i + 1} failed:`, errorMsg);
 
                 if (i === epgUrls.length - 1) {
-                  const isHttpUrl = settings.epgUrl.startsWith('http://');
+                  const isHttpUrl = epgUrl.startsWith('http://');
                   const errorDetails = isHttpUrl
                     ? 'HTTP URLs may require CORS proxies which can be unreliable. Consider using an HTTPS EPG source if available.'
                     : 'All EPG loading attempts failed (including CORS proxy fallbacks).';
@@ -223,16 +252,53 @@ export function useEpg() {
           result ? 'has data' : 'null'
         );
       } catch (error) {
-        console.error('💥 loadEpg error:', error);
+        console.error('💥 loadEpgWithProgress error:', error);
+        setEpgLoadingState('error');
+        onStateChange?.('error');
         throw error;
       }
     },
     [settings.epgUrl, queryClient, setEpgLoadedAt]
   );
 
+  const loadEpg = useCallback(
+    async (forceFresh: boolean = false) => {
+      return loadEpgWithProgress(forceFresh);
+    },
+    [loadEpgWithProgress]
+  );
+
   const refreshEpg = useCallback(async () => {
-    await loadEpg(true); // Force fresh reload
-  }, [loadEpg]);
+    await loadEpgWithProgress(true); // Force fresh reload
+  }, [loadEpgWithProgress]);
+
+  // Auto-refresh EPG data if older than 6 hours
+  useEffect(() => {
+    if (!settings.epgUrl || !epgData || !epgLoadedAt) return;
+
+    const checkAndRefresh = async () => {
+      const now = new Date();
+      const ageInHours = (now.getTime() - epgLoadedAt.getTime()) / (1000 * 60 * 60);
+      
+      if (ageInHours >= 6) {
+        console.log(`🔄 EPG data is ${ageInHours.toFixed(1)} hours old, refreshing in background...`);
+        try {
+          await loadEpgWithProgress(true);
+          console.log('✅ Background EPG refresh completed');
+        } catch (error) {
+          console.error('❌ Background EPG refresh failed:', error);
+        }
+      }
+    };
+
+    // Check immediately
+    checkAndRefresh();
+
+    // Set up interval to check every hour
+    const interval = setInterval(checkAndRefresh, 60 * 60 * 1000); // 1 hour
+
+    return () => clearInterval(interval);
+  }, [settings.epgUrl, epgData, epgLoadedAt, loadEpgWithProgress]);
 
   // Don't auto-load EPG - let user manually load it
   // (Disabled because localStorage cache often fails due to size limits)
@@ -330,6 +396,7 @@ export function useEpg() {
     isFetching,
     error,
     refreshEpg,
+    loadEpgWithProgress,
     getChannelPrograms,
     getCurrentProgram,
     getNextPrograms,
@@ -337,8 +404,10 @@ export function useEpg() {
     searchPrograms,
     hasData: !!epgData,
     hasCachedData: !!epgData, // If we have data, it came from cache or fresh load
-    canReload: !!settings.epgUrl && !isLoading && !isFetching,
+    canReload: !!settings.epgUrl && !isLoading && !isFetching && epgLoadingState !== 'loading' && epgLoadingState !== 'parsing',
     epgLoadedAt,
     settings,
+    epgLoadingState,
+    isFirstTimeSetup,
   };
 }

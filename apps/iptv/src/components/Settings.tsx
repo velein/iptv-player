@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import localforage from 'localforage';
 import { useEpg } from '../hooks/useEpg';
+import type { EpgLoadingState } from '../hooks/useEpgState';
+import { usePlaylist } from '../hooks/usePlaylist';
 
 // Configure localforage for EPG storage
 const epgStore = localforage.createInstance({
@@ -8,6 +11,79 @@ const epgStore = localforage.createInstance({
   storeName: 'parsed-epg',
   description: 'Parsed EPG data cache',
 });
+
+function LoadingIndicator({ 
+  state, 
+  message, 
+  onRetry 
+}: { 
+  state: EpgLoadingState; 
+  message?: string;
+  onRetry?: () => void;
+}) {
+  if (state === 'idle' || state === 'complete') return null;
+
+  const getDisplayMessage = () => {
+    if (message) return message;
+    switch (state) {
+      case 'loading':
+        return 'Loading EPG...';
+      case 'parsing':
+        return 'Parsing EPG...';
+      case 'error':
+        return 'EPG loading failed';
+      default:
+        return '';
+    }
+  };
+
+  const getProgressWidth = () => {
+    switch (state) {
+      case 'loading':
+        return '25%';
+      case 'parsing':
+        return '75%';
+      case 'error':
+        return '100%';
+      default:
+        return '0%';
+    }
+  };
+
+  return (
+    <div className="mt-2 p-3 bg-gray-700 rounded">
+      <div className="flex items-center space-x-3">
+        {state !== 'error' && (
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+        )}
+        {state === 'error' && (
+          <div className="text-red-400">⚠</div>
+        )}
+        <div className="flex-1">
+          <p className={`text-sm ${state === 'error' ? 'text-red-400' : 'text-gray-300'}`}>
+            {getDisplayMessage()}
+          </p>
+          {state !== 'error' && (
+            <div className="mt-1 w-full bg-gray-600 rounded-full h-1">
+              <div 
+                className="bg-blue-500 h-1 rounded-full transition-all duration-300"
+                style={{ width: getProgressWidth() }}
+              ></div>
+            </div>
+          )}
+        </div>
+        {state === 'error' && onRetry && (
+          <button
+            onClick={onRetry}
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+          >
+            Retry
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function CacheStatus() {
   const [cacheInfo, setCacheInfo] = useState<{
@@ -66,11 +142,19 @@ function CacheStatus() {
       }
     };
 
+    // Listen for custom EPG cache update events
+    const handleEpgCacheUpdate = () => {
+      console.log('🔵 EPG cache updated, refreshing cache status');
+      checkCache();
+    };
+
     window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('epg-cache-updated', handleEpgCacheUpdate);
 
     return () => {
       clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('epg-cache-updated', handleEpgCacheUpdate);
     };
   }, []);
 
@@ -101,20 +185,31 @@ const SETTINGS_KEY = 'iptv-settings';
 
 interface AppSettings {
   epgUrl: string;
-  epgRefreshInterval: number; // hours
-  epgCacheEnabled: boolean;
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
   epgUrl: '',
-  epgRefreshInterval: 6,
-  epgCacheEnabled: true,
 };
+
+interface EpgFormData {
+  epgUrl: string;
+}
 
 export default function Settings({ onClose }: SettingsProps) {
   const [settings, setSettings] = useState<AppSettings>(DEFAULT_SETTINGS);
-  const [saving, setSaving] = useState(false);
-  const { refreshEpg, canReload } = useEpg();
+
+  const { refreshEpg, canReload, loadEpgWithProgress, epgLoadingState, isFirstTimeSetup } = useEpg();
+  const [epgError, setEpgError] = useState<string | null>(null);
+  const { clearPlaylist } = usePlaylist();
+
+  // React Hook Form setup for EPG URL
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<EpgFormData>({
+    defaultValues: {
+      epgUrl: ''
+    }
+  });
+
+  const currentEpgUrl = watch('epgUrl');
 
   useEffect(() => {
     // Load settings from localStorage
@@ -122,43 +217,170 @@ export default function Settings({ onClose }: SettingsProps) {
     if (stored) {
       try {
         const parsedSettings = JSON.parse(stored);
-        setSettings({ ...DEFAULT_SETTINGS, ...parsedSettings });
+        const loadedSettings = { ...DEFAULT_SETTINGS, ...parsedSettings };
+        setSettings(loadedSettings);
+        setValue('epgUrl', loadedSettings.epgUrl);
       } catch (error) {
         console.error('Error loading settings:', error);
       }
     }
-  }, []);
+  }, [setValue]);
 
-  const handleSave = async () => {
-    setSaving(true);
+  // Helper method to determine save button state
+  const getEpgButtonState = () => {
+    const isUrlEmpty = !currentEpgUrl.trim();
+    const isUrlUnchanged = currentEpgUrl === settings.epgUrl;
+    const isLoading = epgLoadingState === 'loading' || epgLoadingState === 'parsing';
+    const hasValidationError = validateEpgUrl(currentEpgUrl) !== null;
+    
+    return {
+      disabled: isUrlEmpty || isUrlUnchanged || isLoading || hasValidationError,
+      loading: isLoading,
+      validationError: hasValidationError ? validateEpgUrl(currentEpgUrl) : null,
+    };
+  };
+
+  // URL validation helper
+  const validateEpgUrl = (url: string): string | null => {
+    if (!url.trim()) return null;
+    
     try {
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+      const urlObj = new URL(url);
+      if (!['http:', 'https:'].includes(urlObj.protocol)) {
+        return 'URL must use HTTP or HTTPS protocol';
+      }
+      return null;
+    } catch {
+      return 'Please enter a valid URL';
+    }
+  };
 
-      // Clear EPG cache if URL changed
+  // Handle saving EPG URL and initiating load
+  const onSubmitEpg = async (data: EpgFormData) => {
+    console.log('🔵 handleSaveEpg called with URL:', data.epgUrl);
+    
+    const buttonState = getEpgButtonState();
+    if (buttonState.disabled) {
+      console.log('🔴 Save EPG button is disabled, aborting');
+      return;
+    }
+
+    // Validate URL before proceeding
+    const validationError = validateEpgUrl(data.epgUrl);
+    if (validationError) {
+      console.log('🔴 Validation error:', validationError);
+      setEpgError(validationError);
+      return;
+    }
+
+    try {
+      // Clear any existing errors
+      setEpgError(null);
+
+      // Update settings with new EPG URL
+      const newSettings = { ...settings, epgUrl: data.epgUrl.trim() };
+      console.log('🔵 Updating settings:', newSettings);
+      setSettings(newSettings);
+      
+      // Save to localStorage
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+      console.log('🔵 Settings saved to localStorage');
+      
+      // Clear EPG cache for the new URL
+      if (newSettings.epgUrl) {
+        const epgCacheKey = `iptv-epg-parsed-${btoa(newSettings.epgUrl)}`;
+        await epgStore.removeItem(epgCacheKey);
+        console.log('🔵 Cleared EPG cache for new URL');
+      }
+
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('settings-updated'));
+      console.log('🔵 Dispatched settings-updated event');
+
+      // Load EPG with progress tracking - pass the new EPG URL directly
+      console.log('🔵 Starting EPG load with URL:', newSettings.epgUrl);
+      await loadEpgWithProgress(true, undefined, newSettings.epgUrl);
+      console.log('🔵 EPG load completed successfully');
+
+    } catch (error) {
+      console.error('🔴 Error saving EPG settings:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to save EPG settings';
+      setEpgError(errorMessage);
+    }
+  };
+
+  // Clear errors when user starts typing
+  useEffect(() => {
+    if (epgError) {
+      setEpgError(null);
+    }
+  }, [currentEpgUrl, epgError]);
+
+  // Handle retrying EPG load after error
+  const handleRetryEpg = async () => {
+    if (!settings.epgUrl) return;
+    
+    try {
+      setEpgError(null);
+      await loadEpgWithProgress(true);
+    } catch (error) {
+      console.error('Error retrying EPG load:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to retry EPG loading';
+      setEpgError(errorMessage);
+    }
+  };
+
+  // Handle resetting everything to default state
+  const handleResetEverything = async () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to reset everything? This will:\n\n' +
+      '• Remove all M3U playlist data\n' +
+      '• Clear all EPG cache data\n' +
+      '• Reset EPG URL to empty\n\n' +
+      'This action cannot be undone.'
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Clear M3U playlist data
+      clearPlaylist();
+
+      // Clear EPG cache data
       if (settings.epgUrl) {
         const epgCacheKey = `iptv-epg-parsed-${btoa(settings.epgUrl)}`;
         await epgStore.removeItem(epgCacheKey);
       }
 
+      // Reset settings to default
+      const resetSettings = { ...DEFAULT_SETTINGS };
+      setSettings(resetSettings);
+      setUnsavedEpgUrl('');
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(resetSettings));
+
+      // Clear EPG error state
+      setEpgError(null);
+
       // Dispatch custom event to notify other components
       window.dispatchEvent(new CustomEvent('settings-updated'));
 
-      alert('Settings saved! EPG will reload automatically.');
-      onClose();
+      alert('Everything has been reset to default settings.');
     } catch (error) {
-      console.error('Error saving settings:', error);
-      alert('Error saving settings');
-    } finally {
-      setSaving(false);
+      console.error('Error resetting everything:', error);
+      alert('Error occurred while resetting. Some data may not have been cleared.');
     }
   };
 
-  const handleReloadEpg = () => {
-    if (canReload) {
-      refreshEpg();
-      alert('EPG reload initiated!');
-    } else {
-      alert('EPG reload is not available at this time.');
+
+
+  const handleReloadEpg = async () => {
+    if (!canReload) return;
+
+    try {
+      await refreshEpg();
+    } catch (error) {
+      console.error('Error reloading EPG:', error);
+      setEpgError('EPG reload failed. Please try again.');
     }
   };
 
@@ -187,102 +409,88 @@ export default function Settings({ onClose }: SettingsProps) {
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   EPG URL
                 </label>
-                <input
-                  type="url"
-                  value={settings.epgUrl}
-                  onChange={(e) =>
-                    setSettings({ ...settings, epgUrl: e.target.value })
-                  }
-                  placeholder="Enter your EPG URL (e.g., http://example.com/epg.xml.gz)"
-                  className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <form onSubmit={handleSubmit(onSubmitEpg)} className="flex gap-2">
+                  <input
+                    {...register('epgUrl', {
+                      validate: (value) => {
+                        if (!value.trim()) return 'EPG URL is required';
+                        const error = validateEpgUrl(value);
+                        return error || true;
+                      }
+                    })}
+                    type="url"
+                    disabled={epgLoadingState === 'loading' || epgLoadingState === 'parsing'}
+                    placeholder="Enter your EPG URL (e.g., http://example.com/epg.xml.gz)"
+                    className="flex-1 bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  <button
+                    type="submit"
+                    disabled={getEpgButtonState().disabled}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {getEpgButtonState().loading ? 'Saving...' : 'Save EPG'}
+                  </button>
+                  {settings.epgUrl && (
+                    <button
+                      type="button"
+                      onClick={handleReloadEpg}
+                      disabled={!canReload || epgLoadingState === 'loading' || epgLoadingState === 'parsing'}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                    >
+                      Refresh EPG
+                    </button>
+                  )}
+                </form>
+                {errors.epgUrl ? (
+                  <p className="text-xs text-red-400 mt-1">
+                    {errors.epgUrl.message}
+                  </p>
+                ) : epgError ? (
+                  <p className="text-xs text-red-400 mt-1">
+                    Error: {epgError}
+                  </p>
+                ) : (
+                  <p className="text-xs text-gray-400 mt-1">
+                    Leave empty to disable EPG. Supports XML, XMLTV, and compressed (.gz) formats. EPG data is automatically refreshed every 6 hours.
+                  </p>
+                )}
+                <LoadingIndicator 
+                  state={epgLoadingState} 
+                  message={epgError || undefined}
+                  onRetry={settings.epgUrl ? handleRetryEpg : undefined}
                 />
-                <p className="text-xs text-gray-400 mt-1">
-                  Leave empty to disable EPG. Supports XML, XMLTV, and
-                  compressed (.gz) formats.
-                </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Refresh Interval (hours)
-                </label>
-                <select
-                  value={settings.epgRefreshInterval}
-                  onChange={(e) =>
-                    setSettings({
-                      ...settings,
-                      epgRefreshInterval: parseInt(e.target.value),
-                    })
-                  }
-                  className="bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value={1}>1 hour</option>
-                  <option value={3}>3 hours</option>
-                  <option value={6}>6 hours</option>
-                  <option value={12}>12 hours</option>
-                  <option value={24}>24 hours</option>
-                </select>
-              </div>
 
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="epgCache"
-                  checked={settings.epgCacheEnabled}
-                  onChange={(e) =>
-                    setSettings({
-                      ...settings,
-                      epgCacheEnabled: e.target.checked,
-                    })
-                  }
-                  className="mr-2"
-                />
-                <label htmlFor="epgCache" className="text-sm text-gray-300">
-                  Enable EPG caching (recommended)
-                </label>
-              </div>
             </div>
           </div>
 
-          {/* EPG Management */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
-              EPG Management
-            </h3>
-
-            <div className="space-y-4">
+          {/* EPG Cache Status - Only show when EPG URL is saved */}
+          {settings.epgUrl && (
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-4">
+                EPG Cache Status
+              </h3>
               <div className="bg-gray-700 rounded p-3 text-sm">
-                <p className="text-gray-300 font-medium mb-2">Cache Status</p>
                 <CacheStatus />
               </div>
-
-              <button
-                onClick={handleReloadEpg}
-                disabled={!canReload}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Reload EPG
-              </button>
-              <p className="text-xs text-gray-400 mt-1">
-                Manually reload EPG data from the configured URL.
-              </p>
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="flex justify-end space-x-4 mt-8">
+        <div className="flex justify-between items-center mt-8">
           <button
-            onClick={onClose}
-            className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded transition-colors"
+            onClick={handleResetEverything}
+            disabled={epgLoadingState === 'loading' || epgLoadingState === 'parsing'}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Cancel
+            Reset Everything
           </button>
           <button
-            onClick={handleSave}
-            disabled={saving}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors disabled:opacity-50"
+            onClick={onClose}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors"
           >
-            {saving ? 'Saving...' : 'Save Settings'}
+            Confirm
           </button>
         </div>
       </div>

@@ -82,6 +82,11 @@ export async function saveParsedEpgCache(
 
     await epgStore.setItem(cacheKey, cacheData);
     console.log(`✅ Saved EPG cache (${sizeInMB} MB) to IndexedDB`);
+    
+    // Dispatch custom event to notify components that cache was updated
+    window.dispatchEvent(new CustomEvent('epg-cache-updated', {
+      detail: { url, cacheKey, size: sizeInMB }
+    }));
   } catch (error) {
     console.error('Failed to save parsed EPG cache:', error);
   }
